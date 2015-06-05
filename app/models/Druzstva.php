@@ -19,7 +19,7 @@ class Druzstva extends Object
 		$this->connection = dibi::getConnection();
 	}
 
-
+  //pouziti pro seznam druzstev v Druzstva:default
 	public function findAll($rocnik, $order = array('t.skupina' => 'asc', 't.cislo' => 'asc'))
 	{
         return $this->connection->dataSource('
@@ -30,6 +30,23 @@ class Druzstva extends Object
           LEFT JOIN tabulky as t on (t.skupina=s.id)
           RIGHT JOIN druzstva as d on (t.druzstvo=d.id)
           WHERE r.rocnik=%s AND r.aktualni=1 AND d.nazev <> "foo"
+          ORDER BY %by
+        ', $rocnik, $order);
+	}
+
+  //pouziti pro seznam druzstev v selectboxu u rozlosovani a vysledku
+  //kazde druzstvo se zobrazi pouze jednou - i kdyz bude zarazeno do vice skupin
+	public function findAllUnique($rocnik, $order = array('t.skupina' => 'asc', 't.cislo' => 'asc'))
+	{
+        return $this->connection->dataSource('
+          SELECT d.*
+          FROM
+          rocniky as r
+          LEFT JOIN skupiny as s on (s.rocnik=r.id)
+          LEFT JOIN tabulky as t on (t.skupina=s.id)
+          RIGHT JOIN druzstva as d on (t.druzstvo=d.id)
+          WHERE r.rocnik=%s AND r.aktualni=1 AND d.nazev <> "foo"
+          GROUP BY d.nazev
           ORDER BY %by
         ', $rocnik, $order);
 	}
@@ -55,7 +72,7 @@ class Druzstva extends Object
           FROM hraci as h, soupisky as s
           WHERE s.druzstvo = %i
           AND h.id = s.hrac
-          ORDER BY h.prijmeni ASC, h.jmeno ASC
+          ORDER BY s.id ASC
         ', $id);
 	}
 

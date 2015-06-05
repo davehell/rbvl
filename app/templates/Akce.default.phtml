@@ -13,13 +13,13 @@
   {foreach $rows as $row}
     {if isset($user)}
       <div class="btn-group pull-right">
-        <a class="btn" href="{link edit, $row->id}" title="upravit příspěvek"><i class="icon-pencil"></i></a>
-        <a class="btn" href="{link delete, $row->id}" title="smazat příspěvek"><i class="icon-remove"></i></a>
+        <a class="btn btn-default" href="{link edit, $row->id}" title="upravit příspěvek"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a class="btn btn-default" href="{link delete, $row->id}" title="smazat příspěvek"><span class="glyphicon glyphicon-remove"></span></a>
       </div>
     {/if}
     <h4 class="clearfix">{$row->nazev}</h4>
     <p>
-    <i class="icon-calendar"></i>
+    <span class="glyphicon glyphicon-calendar"></span>
     {if $row->int_datum_do}
       {$row->int_datum_od|date:'%d.%m.'} - {$row->int_datum_do|date:'%d.%m.%Y'}
     {else}

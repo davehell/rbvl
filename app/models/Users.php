@@ -23,11 +23,11 @@ class Users extends Object implements IAuthenticator
       $row = dibi::fetch('SELECT id, username, password, role FROM uzivatele WHERE username=%s', $username);
 
       if (!$row) { // uživatel nenalezen?
-          throw new AuthenticationException("User '$username' not found.", self::IDENTITY_NOT_FOUND);
+          throw new AuthenticationException("Chybně zadané přihlašovací jméno nebo heslo.", self::IDENTITY_NOT_FOUND);
       }
 
       if ($row->password !== $password) { // hesla se neshodují?
-          throw new AuthenticationException("Invalid password.", self::INVALID_CREDENTIAL);
+          throw new AuthenticationException("Chybně zadané přihlašovací jméno nebo heslo.", self::INVALID_CREDENTIAL);
       }
 
   		unset($row->password);

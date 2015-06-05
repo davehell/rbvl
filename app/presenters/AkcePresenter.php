@@ -54,7 +54,7 @@ class AkcePresenter extends BasePresenter
       $row = $akce->find($id)->fetch();
       if (!$row) {
         //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
         $this->redirect('default');
       }
       $form->setDefaults($row);
@@ -76,7 +76,7 @@ class AkcePresenter extends BasePresenter
           $this->flashMessage('Příspěvek byl úspěšně upraven.', 'success');
           $this->redirect('default');
          } catch (DibiException $e) {
-          $this->flashMessage('Nastala chyba. Příspěvek nebyl upraven.', 'error');
+          $this->flashMessage('Nastala chyba. Příspěvek nebyl upraven.', 'danger');
           $form->addError($e->getMessage());
         }
       }
@@ -86,7 +86,7 @@ class AkcePresenter extends BasePresenter
           $this->flashMessage('Akce byla úspěšně přidána.', 'success');
           $this->redirect('default');
         } catch (DibiException $e) {
-          $this->flashMessage('Nastala chyba. Příspěvek nebyl vložen.', 'error');
+          $this->flashMessage('Nastala chyba. Příspěvek nebyl vložen.', 'danger');
           $form->addError($e->getMessage());
         }
       }
@@ -110,7 +110,7 @@ class AkcePresenter extends BasePresenter
     $this->template->prispevek = $akce->find($id)->fetch();
     if (!$this->template->prispevek) {
       //throw new BadRequestException('Požadovaný záznam nenalezen.');
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
       $this->redirect('default');
     }
   }
@@ -141,53 +141,50 @@ class AkcePresenter extends BasePresenter
       $form->getElementPrototype()->class('form-horizontal');
 
       $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('control-group');
+      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
       $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('controls');
-      $renderer->wrappers['label']['container'] = NULL;
+      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
       $renderer->wrappers['label']['requiredsuffix'] = " *";
+
 
       $form->addText('nazev', 'Název:', 40)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka názvu akce může být %d znaků', 200)
-        ->addRule(Form::FILLED, 'Zadejte název akce.')
-        ->getLabelPrototype()->class('control-label');
-      $form['nazev']->getControlPrototype()->class('span4');
+        ->addRule(Form::FILLED, 'Zadejte název akce.');
+      $form['nazev']->getControlPrototype()->class('form-control');
 
       $form->addDatePicker('datum_od', 'Datum začátku:', 10)
-        ->addRule(Form::FILLED, 'Zadejte datum začátku akce.')
-        ->getLabelPrototype()->class('control-label');
-      $form['datum_od']->getControlPrototype()->class('span2');
+        ->addRule(Form::FILLED, 'Zadejte datum začátku akce.');
+      $form['datum_od']->getControlPrototype()->class('form-control');
 
-      $form->addDatePicker('datum_do', 'Datum konce:', 10)
-        ->getLabelPrototype()->class('control-label');
-      $form['datum_do']->getControlPrototype()->class('span2');
+      $form->addDatePicker('datum_do', 'Datum konce:', 10);
+      $form['datum_do']->getControlPrototype()->class('form-control');
 
       $form->addTextArea('popis', 'Popis:', 0, 20)
-        ->addRule(Form::FILLED, 'Zadejte popis akce')
-        ->getLabelPrototype()->class('control-label');
-      $form['popis']->getControlPrototype()->class('span7');
+        ->addRule(Form::FILLED, 'Zadejte popis akce');
+      $form['popis']->getControlPrototype()->class('form-control');
 
       $form->addText('startovne', 'Startovné:', 20)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka popisu startovného může být %d znaků', 100)
-        ->addRule(Form::FILLED, 'Zadejte startovné na akci')
-        ->getLabelPrototype()->class('control-label');
-        
+        ->addRule(Form::FILLED, 'Zadejte startovné na akci');
+      $form['startovne']->getControlPrototype()->class('form-control');
+
       $form->addText('jmeno', 'Kontakní osoba:', 20)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka jména kontaktní osoby může být %d znaků', 50)
-        ->addRule(Form::FILLED, 'Zadejte jméno kontaktní osoby')
-        ->getLabelPrototype()->class('control-label');
+        ->addRule(Form::FILLED, 'Zadejte jméno kontaktní osoby');
+      $form['jmeno']->getControlPrototype()->class('form-control');
 
       $form->addText('telefon', 'Telefon:', 20)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka telefonního čísla může být %d znaků', 15)
-        ->addRule(Form::FILLED, 'Zadejte kontaktní telefon')
-        ->getLabelPrototype()->class('control-label');
+        ->addRule(Form::FILLED, 'Zadejte kontaktní telefon');
+      $form['telefon']->getControlPrototype()->class('form-control');
 
       $form->addText('email', 'E-mail:', 20)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 100)
-        ->setEmptyValue('@') 
+        ->setEmptyValue('@')
         ->addCondition(Form::FILLED)
                 ->addRule(Form::EMAIL, 'E-mailová adresa není platná');
-      $form['email']->getLabelPrototype()->class('control-label');
+      $form['email']->getControlPrototype()->class('form-control');
 
       $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)', 10)
         ->addRule(Form::FILLED, 'Vyplňte ochranu proti spamu')
@@ -195,7 +192,7 @@ class AkcePresenter extends BasePresenter
         ->addRule(Form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6));
       $form['antiSpam']->getControlPrototype()->class('antispam');
       $form['antiSpam']->getLabelPrototype()->class('antispam');
-        
+
       $form->addSubmit('save', 'Odeslat')->getControlPrototype()->class('btn btn-primary');
       $form->onSubmit[] = array($this, 'akceFormSubmitted');
 
@@ -205,7 +202,7 @@ class AkcePresenter extends BasePresenter
     case 'deleteForm':
       $form = new AppForm($this, $name);
       $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Zrušit')->getControlPrototype()->class('btn');
+      $form->addSubmit('cancel', 'Zrušit')->getControlPrototype()->class('btn btn-default');
       $form->onSubmit[] = array($this, 'deleteFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');

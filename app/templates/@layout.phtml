@@ -83,7 +83,7 @@
       <h1>{!$pageHeading}</h1>
 
       {foreach $flashes as $flash}
-      <p class="flash {$flash->type}">{$flash->message}</p>
+      <p class="alert alert-{$flash->type}">{$flash->message}</p>
       {/foreach}
 
       {include $content}
@@ -101,7 +101,7 @@
 <hr class="noDisplay" />
 
 <div id="footer"><div class="column-in">
-  <a href="http://www.regionbeskydy.cz/" title="Region Beskydy"><img src="{$baseUri}images/logos/rb_logo.jpg" width="80px" height="100px" alt="Region Beskydy" /></a>
+  <a href="http://www.regionbeskydy.cz/" title="Region Beskydy"><img src="{$baseUri}img/logos/rb_logo.jpg" width="80px" height="100px" alt="Region Beskydy" /></a>
 
   <p class="clearLeft">
     <a href="{link Auth:login}" title="">administrace</a><br />
@@ -110,8 +110,27 @@
 
 </div> <!-- .container -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+{if isset($scripts)}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  {if in_array('datepicker', $scripts)}
+  <link rel="stylesheet" href="{$baseUri}css/datepicker.css" type="text/css" />
+  <script type="text/javascript" src="{$baseUri}js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript" src="{$baseUri}js/bootstrap-datepicker.cs.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker').datepicker( { autoclose: true, language: 'cs' } );
+    $('.datepicker').addClass('form-control');
+  });
+  </script>
+  {/if}
+  {if in_array('antispam', $scripts)}
+  <script type="text/javascript" src="{$baseUri}js/antispam.js"></script>
+  {/if}
+{/if}
+
 
 <!-- google analytics START -->
 <script>

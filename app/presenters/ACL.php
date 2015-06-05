@@ -6,7 +6,7 @@ class ACL extends Permission
         $this->addResources(); // add all resources
 
         $this->allow('admin'); // admin muze vse
-        
+
         $this->allow('member');
         $this->deny('member', 'Uzivatele', array('add', 'edit', 'delete'));
 
@@ -18,11 +18,10 @@ class ACL extends Permission
         $this->allow('guest', 'Foto', 'album');
         $this->allow('guest', 'Foto', 'download');
         $this->allow('guest', 'Druzstva', 'soupiska');
-        
+
         $this->deny('guest', 'Uzivatele', Permission::ALL);
         $this->deny('guest', 'Hraci', Permission::ALL);
-        
-        
+        $this->deny('guest', 'Stranky', Permission::ALL);
     }
 
     /**
@@ -46,6 +45,7 @@ class ACL extends Permission
         $this->addResource('Foto');
         $this->addResource('Alba');
         $this->addResource('Hraci');
+        $this->addResource('Stranky');
     }
 
     /**
