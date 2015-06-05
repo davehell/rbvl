@@ -1,0 +1,11 @@
+app/log
+app/temp
+libs
+photos
+
+.DS_Store
+!.gitignore
+!.htaccess
+!web.config
+
+rbvl.sublime*

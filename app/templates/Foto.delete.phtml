@@ -1,0 +1,10 @@
+{if $fotka}
+<p>Opravdu chcete smazat fotku ‘{$fotka->popis}’?</p>
+<p>
+ <img src="{$baseUri}photos/thumb_{$fotka->soubor}" alt="{$fotka->popis}"  />
+</p>
+{!$form}
+
+{else}
+<p>Požadovaná fotka neexistuje.</p>
+{/if}

@@ -1,0 +1,54 @@
+<p>{$vysledek->termin_popis} - <a href="{link Vysledky:termin, $vysledek->termin}">zpět na výsledky</a></p>
+
+  <h3>{$vysledek->domaci_nazev} - {$vysledek->hoste_nazev}</h3>
+  <p>
+   <strong>{$vysledek->datum|czechDate} v {$vysledek->cas|czechTime}</strong>
+  </p>
+
+
+{$form->render('begin')}
+  <div class="control-group">
+    {$form['sety_domaci']->getLabel()->class('control-label')}
+    <div class="controls">
+      {$form['sety_domaci']->control->class('span1')}
+      <span>:</span>
+      {$form['sety_hoste']->control->class('span1')}
+    </div>
+  </div>
+
+  <div class="control-group">
+    {$form['mice1_domaci']->getLabel()->class('control-label')}
+    <div class="controls">
+      {$form['mice1_domaci']->control->class('span1')}
+      <span>:</span>
+      {$form['mice1_hoste']->control->class('span1')}
+      <span> , </span>
+      {$form['mice2_domaci']->control->class('span1')}
+      <span>:</span>
+      {$form['mice2_hoste']->control->class('span1')}
+      <span> , </span>
+      {$form['mice3_domaci']->control->class('span1')}
+      <span>:</span>
+      {$form['mice3_hoste']->control->class('span1')}
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="checkbox">
+      {$form['kontumace_domaci']->control}
+      Kontumační prohra domácích
+    </label>
+  </div>
+
+  <div class="control-group">
+    <label class="checkbox">
+      {$form['kontumace_hoste']->control}
+      Kontumační prohra hostů
+    </label>
+  </div>
+
+  <div class="controls">
+    {$form['saveAndNext']->control->class('btn btn-primary')}
+    {$form['save']->control->class('btn')}
+  </div>
+{$form->render('end')}

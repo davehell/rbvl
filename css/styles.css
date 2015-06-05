@@ -1,0 +1,61 @@
+body {
+  background-color: #f7f7f7;  /*#f7f9f8*/
+}
+
+.content {
+  border: 1px solid #f2f2f2;
+  background: white;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#footer {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 3px solid #2d91d9;
+}
+
+
+.sidebar-nav {
+  padding: 0;
+}
+
+.sidebar-nav .icon-chevron-right {
+  float: right;
+  margin-top: 2px;
+  margin-right: -6px;
+  opacity: .25;
+}
+
+.sidebar-nav a:hover .icon-chevron-right {
+  opacity: .5;
+}
+
+.sidebar-nav .active .icon-chevron-right, .sidebar-nav .active a:hover .icon-chevron-right {
+  background-image: url(img/glyphicons-halflings-white.png);
+  opacity: 1;
+}
+
+.nav-list .nav-list {
+  padding-left: 5px;
+  padding-right: 0;
+}
+
+.nav-list>.active>a {
+  background-color: #2d91d9;
+}
+
+.page-header {
+  padding-bottom: 0;
+  border-bottom: 3px solid #2d91d9;
+  margin-bottom: 20px;
+}
+
+
+.highlight {
+  background-color: #FFFF99 !important;
+}
+
+table.rozlosovani tr.even {
+  background-color: #EAF2FF;
+}

@@ -1,0 +1,6 @@
+<ul>
+{foreach $files as $file => $desc}
+  {? $size = filesize($file); }
+  <li><a href="{$baseUri}{$file}" title="{$desc}">{$desc}</a> ({= substr($file, -3)}, {$size|bytes})</li>
+{/foreach}
+</ul>

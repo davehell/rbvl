@@ -1,0 +1,33 @@
+{if !count($druzstva)}
+<p>
+  Nejsou uložena žádná družstva.
+</p>
+{else}
+  {foreach $druzstva as $druzstvo}
+    {if $skupina != $druzstvo->skupina_popis}
+      {if $skupina !=  ""}
+        </ol>
+      {/if}
+      <h3>{$druzstvo->skupina_popis}</h3>
+      <ol>
+    {/if}
+    <li>
+      <p>
+        {if isset($user)}
+          <a class="btn btn-mini" href="{link edit, $druzstvo->id}" title="upravit"><i class="icon-pencil"></i></a>
+        {/if}
+        <a href="{link soupiska, $druzstvo->id}" title="Soupiska druzstva {$druzstvo->nazev}">{$druzstvo->nazev}</a>
+
+      </p>
+
+    </li>
+    {assign $skupina $druzstvo->skupina_popis}
+    {if $iterator->isLast()}</ol>{/if}
+  {/foreach}
+{/if}
+
+
+
+
+
+

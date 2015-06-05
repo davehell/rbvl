@@ -1,0 +1,19 @@
+{$form->render('begin')}
+  <div class="control-group">
+    {$form['username']->getLabel()->class('control-label')}
+    <div class="controls">
+      {$form['username']->control}
+    </div>
+  </div>
+
+  <div class="control-group">
+    {$form['password']->getLabel()->class('control-label')}
+    <div class="controls">
+      {$form['password']->control}
+    </div>
+  </div>
+
+  <div class="controls">
+    {$form['login']->control->class('btn btn-primary')}
+  </div>
+{$form->render('end')}

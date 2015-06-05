@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{$pageTitle}</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="{$baseUri}css/styles.css" type="text/css" />
+  <link rel="stylesheet" media="print" href="{$baseUri}css/print.css" type="text/css" />
+</head>
+
+<body>
+
+<div id="header"><div class="column-in">
+  <h1><a href="{plink Default:}" title="Úvodní strana „Region Beskydy“ volejbalové ligy"><span>„Region Beskydy“ volejbalová liga</span></a></h1>
+</div></div><!-- end of "#header" -->
+
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-3">
+      <ul id="menu">
+        <li {ifCurrent Default:*}class="current"{/if}><a href="{plink Default:}" title="Informace o „Region Beskydy“ volejbalové lize">Úvodní strana</a></li>
+        <li {ifCurrent Aktuality:*}class="current"{/if}><a href="{plink Aktuality:}" title="Aktuality z „Region Beskydy“ volejbalové ligy">Aktuality</a></li>
+
+        <li {ifCurrent Vysledky:*}class="current"{/if}><a href="{plink Vysledky:}" title="Výsledky zápasů „Region Beskydy“ volejbalové ligy">Výsledky</a>
+        {ifCurrent Vysledky:*}
+
+        {foreach $terminy as $termin}
+          {if $menuRocnikPopis != $termin->rocnik}
+            {if $menuRocnikPopis !=  ""}
+              </ul>
+            {/if}
+            <strong>{$termin->rocnik}</strong>
+            <ul>
+              {if $termin->rocnik != "Finále"}
+              <li><a href="{plink Vysledky:tabulky, $termin->id_rocnik}" title="Zobrazit celkové tabulky soutěže {$termin->rocnik}">Tabulky</a></li>
+              {/if}
+          {/if}
+          <li><a href="{plink Vysledky:termin, $termin->id}" title="Zobrazit výsledky zápasů ze dne {$termin->datum|czechDate}">{$termin->datum|czechDate}</a></li>
+          {assign $menuRocnikPopis $termin->rocnik}
+          {if $iterator->isLast()}</ul>{/if}
+        {/foreach}
+
+        {/if}
+        </li>
+
+        {if isset($user)}
+        <li {ifCurrent Druzstva:*}class="current"{/if}><a href="{plink Druzstva:}" title="Družstva hrající „Region Beskydy“ volejbalovou ligu">Družstva</a></li>
+        <li {ifCurrent Hraci:*}class="current"{/if}><a href="{plink Hraci:}" title="Hráči">Hráči</a></li>
+        {/if}
+
+        <li {ifCurrent Rozlosovani:*}class="current"{/if}><a href="{plink Rozlosovani:}" title="Rozlosování zápasů „Region Beskydy“ volejbalové ligy">Rozlosování</a></li>
+        <li {ifCurrent Propozice:*}class="current"{/if}><a href="{plink Propozice:}" title="Propozice pro přihlášení družstva">Propozice</a></li>
+        <li {ifCurrent Pravidla:*}class="current"{/if}><a href="{plink Pravidla:}" title="Pravidla soutěže">Pravidla</a></li>
+        <li {ifCurrent Download:*}class="current"{/if}><a href="{plink Download:}" title="Dokumenty ke stažení">Ke stažení</a></li>
+        <li {ifCurrent Kontakty:*}class="current"{/if}><a href="{plink Kontakty:}" title="Kontakty na vedení „Region Beskydy“ volejbalové ligy">Kontakty</a></li>
+    <!--
+        <li {ifCurrent Partneri:*}class="current"{/if}><a href="{plink Partneri:}" title="Partneři „Region Beskydy“ volejbalové ligy">Partneři</a></li>
+    -->
+        <li {ifCurrent Foto:*}class="current"{/if}><a href="{plink Foto:}" title="Fotografie z průběhu „Region Beskydy“ volejbalové ligy">Fotogalerie</a></li>
+        <li {ifCurrent Diskuze:*}class="current"{/if}><a href="{plink Diskuze:}" title="Diskuze návštěvníků">Diskuze</a></li>
+        <li {ifCurrent Akce:*}class="current"{/if}><a href="{plink Akce:}" title="Volejbalové turnaje a akce v Regionu Beskydy">Turnaje, akce</a></li>
+      </ul>
+
+
+    	{if isset($user)}
+    	<p id="logged-in">Uživatel: <strong>{$user->username}</strong></p>
+      <ul>
+        <li><a href="{link Uzivatele:}" title="Správa uživatelů">Uživatelé</a></li>
+        <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li>
+        <li><a href="{link Auth:logout}" title="Odhlášení z administrace">Odhlášení</a></li>
+      </ul>
+    	{/if}
+
+    </div>
+    <div class="col-md-9">
+      <h1>{!$pageHeading}</h1>
+
+      {foreach $flashes as $flash}
+      <p class="flash {$flash->type}">{$flash->message}</p>
+      {/foreach}
+
+      {include $content}
+    </div>
+  </div> <!-- .row -->
+
+
+
+<div id="sidebar"><div class="column-in">
+  
+
+	
+</div></div><!-- end of id="sidebar" -->
+
+<hr class="noDisplay" />
+
+<div id="footer"><div class="column-in">
+  <a href="http://www.regionbeskydy.cz/" title="Region Beskydy"><img src="{$baseUri}images/logos/rb_logo.jpg" width="80px" height="100px" alt="Region Beskydy" /></a>
+
+  <p class="clearLeft">
+    <a href="{link Auth:login}" title="">administrace</a><br />
+  </p>
+</div></div><!-- end of id="footer" -->
+
+</div> <!-- .container -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<!-- google analytics START -->
+<script>
+//   (function(i,s,o,g,r,a,m) { i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+//   (i[r].q=i[r].q||[]).push(arguments) } ,i[r].l=1*new Date();a=s.createElement(o),
+//   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+//   } )(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+//   ga('create', 'UA-1224661-6', 'auto');
+//   ga('send', 'pageview');
+</script>
+</body>
+</html>

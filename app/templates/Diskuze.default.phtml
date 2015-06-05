@@ -1,0 +1,33 @@
+<p>
+  <a class="btn btn-success" href="{link add}" title="Přidat příspěvek do diskuze"><i class="icon-plus icon-white"></i> Nový příspěvek</a>
+</p>
+
+{if !count($rows)}
+<p>
+  Nejsou uloženy žádné příspěvky
+</p>
+{else}
+
+  {?$dataGrid->renderPaginator()}
+
+  {foreach $rows as $row}
+    {if isset($user)}
+      <div class="btn-group pull-right">
+        <a class="btn" href="{link edit, $row->id}" title="upravit příspěvek"><i class="icon-pencil"></i></a>
+        <a class="btn" href="{link delete, $row->id}" title="smazat příspěvek"><i class="icon-remove"></i></a>
+      </div>
+    {/if}
+    <h4 class="clearfix">{$row->jmeno} <small>{$row->vlozeno|date:'%d.%m.%Y %H:%M'}</small></h4>
+
+    {!$row->text |texy}
+
+    {if !$iterator->last}
+      <hr>
+    {/if}
+  {/foreach}
+
+  {?$dataGrid->renderPaginator()}
+
+{/if}
+
+

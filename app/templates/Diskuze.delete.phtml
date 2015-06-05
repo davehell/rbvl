@@ -1,0 +1,7 @@
+{if $prispevek}
+<p>Opravdu chcete smazat příspěvek uživatele ‘{$prispevek->jmeno}’ ze dne ‘{$prispevek->vlozeno|date:'%d.%m.%Y %H:%M'}’?</p>
+{!$form}
+
+{else}
+<p>Požadovaný příspěvek neexistuje.</p>
+{/if}

@@ -1,0 +1,22 @@
+<h3>{$druzstvo->nazev}</h3>
+
+<dl class="dl-horizontal">
+  <dt class="text-left">Vedoucí:</dt>
+  <dd>{$druzstvo->vedouci}</dd>
+  <dt>Kontakt:</dt>
+  <dd>telefon:&nbsp;{$druzstvo->telefon} <br /> e-mail:&nbsp;{$druzstvo->email}</dd>
+  <dt>Soupiska:</dt>
+  <dd>
+    {if !count($soupiska)}
+    <p>
+      Družstvo nemá na soupisce žádné hráče.
+    </p>
+    {else}
+    <ul>
+      {foreach $soupiska as $row}
+      <li>{$row->jmeno} {$row->prijmeni}</li>
+      {/foreach}
+    </ul>
+    {/if}
+  </dd>
+</dl>

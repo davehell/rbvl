@@ -1,0 +1,70 @@
+<div class=noPrint>
+<select id="druzstva" onchange="zvyrazneniTymu()">
+  <option value=" "> - - zvýraznit družstvo - - </option>
+  {foreach $druzstva as $druzstvo}
+  <option value="{$druzstvo->nazev}">{$druzstvo->nazev}</option>
+  {/foreach}
+</select>
+
+
+  <h3>Liga A - playoff</h3>
+  <ul>
+    <li>Hrací den č. 6 - 16.3.2014</li>
+<!--
+    <ul>
+     <li><a href="/download/rozlosovani_playoff2013.pdf">pořadí zápasů</a></li>
+     <li><a href="/download/playoff_2013.pdf">pavouk playoff</a></li>
+    </ul>
+-->
+  </ul>
+
+  {foreach $terminy as $termin}
+    {if $rocnikPopis != $termin->rocnik}
+      {if $rocnikPopis !=  ""}
+        </ul>
+      {/if}
+      <h3>{$termin->rocnik}</h3>
+      <ul>
+    {/if}
+    <li><a href="{plink Rozlosovani:default, $termin->id}" title="Zobrazit rozlosování zápasů dne {$termin->datum|czechDate}">{$termin->termin}</a> - {$termin->datum|czechDate}</li>
+    {assign $rocnikPopis $termin->rocnik}
+    {if $iterator->isLast()}</ul>{/if}
+  {/foreach}
+
+<hr />
+</div><!-- noPrint -->
+
+
+{if count($rozlosovani)}
+  {foreach $rozlosovani as $zapas}
+    {if $terminPopis != $zapas->termin}
+      {if $terminPopis !=  ""}
+        </table>
+      {/if}
+      {assign $barva 1}
+      <a name="{$zapas->datum}"></a>
+      <h2>{$zapas->rocnik} - {$zapas->termin}: {$zapas->datum|czechDate}</h2>
+      <table class="datagrid rozlosovani">
+        <tr>
+          <th>začátek</th>
+          <th class="druzstvo">domácí</th>
+          <th>&nbsp;</th>
+          <th class="druzstvo">hosté</th>
+          <th class="poznamka">poznámka</th>
+        </tr>
+    {/if}
+    {if $cas != $zapas->cas}
+      {assign $barva !$barva}
+    {/if}
+        <tr{if $barva} class="even"{/if}>
+          <td>{$zapas->cas|czechTime}</td>
+          <td class="druzstvo">{if $zapas->domaci!=''}{$zapas->domaci}{else}{$zapas->skupina_popis}{$zapas->cislo_domaci}{/if}</td>
+          <td>-</td>
+          <td class="druzstvo">{if $zapas->hoste!=''}{$zapas->hoste}{else}{$zapas->skupina_popis}{$zapas->cislo_hoste}{/if}</td>
+          <td>{!$zapas->poznamka |texy}</td>
+        </tr>
+    {assign $terminPopis $zapas->termin}
+    {assign $cas $zapas->cas}
+    {if $iterator->isLast()}</table>{/if}
+  {/foreach}
+{/if}

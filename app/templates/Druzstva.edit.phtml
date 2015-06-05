@@ -1,0 +1,69 @@
+{!$form}
+
+<h3>soupiska</h3>
+{!$formSoupiska}
+
+
+{if !count($soupiska)}
+<p>
+  Družstvo nemá na soupisce žádné hráče.
+</p>
+{else}
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>příjmení</th>
+      <th>jméno</th>
+      <th>datum narození</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    {foreach $soupiska as $row}
+      <tr>
+        <td>{$row->prijmeni}</td>
+        <td>{$row->jmeno}</td>
+        <td>{$row->narozen|date:'%d.%m.%Y'}</td>
+        <td>
+          <div class="pull-right">
+            <a class="btn btn-mini" href="{link soupiskadelete, $row->idHrac, $druzstvo}" title="odebrat hráče {$row->prijmeni} {$row->jmeno} ze soupisky"><i class="icon-remove"></i></a>
+          </div>
+        </td>
+      </tr>
+    {/foreach}
+  </tbody>
+</table>
+{/if}
+
+
+<script type="text/javascript">
+  $(function() {
+    var hraci = [
+      {foreach $hraci as $row}
+        { id: {$row->id}, value: {$row->prijmeni}, jmeno: {$row->jmeno}, narozen: {if $row->narozen} {$row->narozen|date:'%d.%m.%Y'} {else} "" {/if}},
+      {/foreach}
+    ];
+
+    $( "#frmhracForm-prijmeni" ).autocomplete({
+      minLength: 0,
+      source: hraci,
+      focus: function( event, ui ) {
+        $( "#frmhracForm-prijmeni" ).val( ui.item.value );
+        return false;
+      },
+      select: function( event, ui ) {
+        $( "#frmhracForm-hrac" ).val( ui.item.id );
+        $( "#frmhracForm-jmeno" ).val( ui.item.jmeno );
+        $( "#frmhracForm-prijmeni" ).val( ui.item.value );
+        $( "#frmhracForm-narozen" ).val( ui.item.narozen  );
+        return false;
+      }
+    })
+    .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<a>" + item.value + " " + item.jmeno + ", " + item.narozen + "</a>" )
+        .appendTo( ul );
+    };
+  });
+</script>
+

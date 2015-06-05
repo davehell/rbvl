@@ -1,0 +1,44 @@
+<p>
+  <a class="btn btn-success" href="{link add}" title="Přidat novou akci"><i class="icon-plus icon-white"></i> Nová akce</a>
+</p>
+
+{if !count($rows)}
+<p>
+  Nejsou uloženy žádné turnaje a akce.
+</p>
+{else}
+
+  {?$dataGrid->renderPaginator()}
+
+  {foreach $rows as $row}
+    {if isset($user)}
+      <div class="btn-group pull-right">
+        <a class="btn" href="{link edit, $row->id}" title="upravit příspěvek"><i class="icon-pencil"></i></a>
+        <a class="btn" href="{link delete, $row->id}" title="smazat příspěvek"><i class="icon-remove"></i></a>
+      </div>
+    {/if}
+    <h4 class="clearfix">{$row->nazev}</h4>
+    <p>
+    <i class="icon-calendar"></i>
+    {if $row->int_datum_do}
+      {$row->int_datum_od|date:'%d.%m.'} - {$row->int_datum_do|date:'%d.%m.%Y'}
+    {else}
+      {$row->int_datum_od|date:'%d.%m.%Y'}
+    {/if}
+    </p>
+
+    {!$row->popis |texy}
+    <ul>
+      <li>Startovné: {$row->startovne}</li>
+      <li>Kontakt: {$row->jmeno} ({$row->telefon}{if $row->email}, <a href="mailto:{$row->email}">{$row->email}</a>{/if})</li>
+    </ul>
+
+    {if !$iterator->last}
+      <hr>
+    {/if}
+  {/foreach}
+
+  {?$dataGrid->renderPaginator()}
+{/if}
+
+

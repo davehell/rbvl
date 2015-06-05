@@ -1,0 +1,50 @@
+<h2>Table „{$table}“</h2>
+
+<p><a href="{plink Default:}">Return to home</a></p>
+
+{if $numOfPages > 1}
+<div class="paginator">
+    {if $currentPage > 0}
+    <a href="{link this, $table, 'page' => $currentPage - 1}">« Previous</a>
+    {else}
+    <span class="button">« Previous</span>
+    {/if}
+
+    {foreach $steps as $num}
+    {if isset($lastNum) && $num - $lastNum > 1}<span>…</span>{/if}
+    {if $num == $currentPage}
+        <span class="current">{$num + 1}</span>
+    {else}
+        <a href="{link this, $table, 'page' => $num}">{$num + 1}</a>
+    {/if}
+    {? $lastNum = $num }
+    {/foreach}
+
+    {if $currentPage < $numOfPages - 1}
+    <a href="{link this, $table, 'page' => $currentPage + 1}">Next »</a>
+    {else}
+    <span class="button">Next »</span>
+    {/if}
+</div>
+{/if}
+
+
+<table class="grid" border="1">
+<tr>
+    {foreach $columns as $column}
+    <th><a href="{link this, $table, $column}"
+    {if isset($order[$column])} class="{$order[$column][0] === 'a' ? 'asc' : 'desc'}"{/if}
+    >{$column}{if count($order) > 1 && isset($order[$column])}&nbsp;<span>{$order[$column][1]}</span>{/if}</a></th>
+    {/foreach}
+</tr>
+
+{foreach $rows as $num => $row}
+<tr{if $iterator->isOdd()} class="alt"{/if}>
+
+    {foreach $row as $value}
+    <td>{=substr($value, 0, 100)}</td>
+    {/foreach}
+
+</tr>
+{/foreach}
+</table>
