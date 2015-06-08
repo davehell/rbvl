@@ -202,7 +202,7 @@ class AkcePresenter extends BasePresenter
     case 'deleteForm':
       $form = new AppForm($this, $name);
       $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Zrušit')->getControlPrototype()->class('btn btn-default');
+      $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
       $form->onSubmit[] = array($this, 'deleteFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');

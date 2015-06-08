@@ -43,7 +43,7 @@ class FotoPresenter extends BasePresenter
     $this->template->album = $alba->find($id)->fetch();
     if (!$this->template->album) {
       //throw new BadRequestException('Požadovaný záznam nenalezen.');
-      $this->flashMessage('Požadované album neexistuje.', 'error');
+      $this->flashMessage('Požadované album neexistuje.', 'danger');
       $this->redirect('default');
     }
   }
@@ -63,7 +63,7 @@ class FotoPresenter extends BasePresenter
       $this->template->fotka = $fotky->find($id)->fetch();
       if (!$this->template->fotka) {
         //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
         $this->redirect('Foto:default');
       }
       $form->setDefaults($this->template->fotka);
@@ -75,7 +75,7 @@ class FotoPresenter extends BasePresenter
     $fotky = new Fotky;
     $fotka = $fotky->find($id)->fetch();
     if(!$fotka) {
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
         $this->redirect('Foto:default');
     }
 
@@ -86,19 +86,19 @@ class FotoPresenter extends BasePresenter
       //$filedownload->contentDisposition = FileDownload::CONTENT_DISPOSITION_INLINE;
       $filedownload->download();
     } catch (Exception $e) {
-      $this->flashMessage($e->getMessage(), 'error');
+      $this->flashMessage($e->getMessage(), 'danger');
     }
 
 
     $this->redirect('Foto:album', $fotka->album);
 	}
-  
+
   public function fotoFormSubmitted(AppForm $form)
   {
     $newWidth = "";
     $newHeight = "";
     $newName = "";
-    
+
     if ($form['save']->isSubmittedBy()) {
       $id = (int) $this->getParam('id');
       $fotky = new Fotky;
@@ -127,7 +127,7 @@ class FotoPresenter extends BasePresenter
         else {
           $form->addError("Nahrání souboru se nepodařilo.");
         }
-        
+
         try {
           $values = $form->getValues();
           $values["sirka"] = $newWidth;
@@ -140,7 +140,7 @@ class FotoPresenter extends BasePresenter
           $this->flashMessage('Fotka byla úspěšně přidána.', 'success');
           //$this->redirect('default');
         } catch (DibiException $e) {
-          $this->flashMessage('Nastala chyba. Fotka nebyla přidána.', 'error');
+          $this->flashMessage('Nastala chyba. Fotka nebyla přidána.', 'danger');
           $form->addError($e->getMessage());
 //Debug::dump($e);
         }
@@ -159,7 +159,7 @@ class FotoPresenter extends BasePresenter
           $this->flashMessage('Fotka byla úspěšně upravena.', 'success');
           $this->redirect('Foto:album', array($fotka->album));
          } catch (DibiException $e) {
-          $this->flashMessage('Nastala chyba. Fotka nebyla upravena.', 'error');
+          $this->flashMessage('Nastala chyba. Fotka nebyla upravena.', 'danger');
           $form->addError($e->getMessage());
         }
     }
@@ -181,7 +181,7 @@ class FotoPresenter extends BasePresenter
     $this->template->fotka = $fotky->find($id)->fetch();
     if (!$this->template->fotka) {
       //throw new BadRequestException('Požadovaný záznam nenalezen.');
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
       $this->redirect('default');
     }
   }
@@ -219,20 +219,18 @@ class FotoPresenter extends BasePresenter
       $form->getElementPrototype()->class('form-horizontal');
 
       $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('control-group');
+      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
       $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('controls');
-      $renderer->wrappers['label']['container'] = NULL;
+      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
       $renderer->wrappers['label']['requiredsuffix'] = " *";
 
       $form->addText('popis', 'Popis fotky:', 40)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka názvu alba může být %d znaků', 200)
-        ->getControlPrototype()->class('span3');
-      $form['popis']->getLabelPrototype()->class('control-label');
+        ->getControlPrototype()->class('form-control');
 
       $form->addFile('file', 'Cesta k souboru:')
-        ->addRule(Form::FILLED, "Vyberte soubor")
-        ->getLabelPrototype()->class('control-label');
+        ->addRule(Form::FILLED, "Vyberte soubor");
 
       $form->addHidden('album')
         ->setValue($id);
@@ -245,15 +243,20 @@ class FotoPresenter extends BasePresenter
 
     case 'fotoEditForm':
       $form = new AppForm($this, $name);
+      $form->getElementPrototype()->class('form-horizontal');
 
       $renderer = $form->getRenderer();
+      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
+      $renderer->wrappers['controls']['container'] = NULL;
+      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
       $renderer->wrappers['label']['requiredsuffix'] = " *";
 
       $form->addText('popis', 'Popis fotky:', 40)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka názvu alba může být %d znaků', 200);
+        ->addRule(Form::MAX_LENGTH, 'Maximální délka názvu alba může být %d znaků', 200)
+        ->getControlPrototype()->class('form-control');
 
-
-      $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn');
+      $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
       $form->onSubmit[] = array($this, 'fotoEditFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
@@ -262,7 +265,7 @@ class FotoPresenter extends BasePresenter
     case 'deleteForm':
       $form = new AppForm($this, $name);
       $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Zrušit')->getControlPrototype()->class('btn');
+      $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
       $form->onSubmit[] = array($this, 'deleteFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');

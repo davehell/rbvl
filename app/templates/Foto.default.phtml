@@ -1,6 +1,6 @@
 {if isset($user)}
 <p>
-  <a class="btn btn-success" href="{plink Alba:add}" title="Přidat nové album"><i class="icon-plus icon-white"></i> Nové album</a>
+  <a class="btn btn-success" href="{plink Alba:add}" title="Přidat nové album"><span class="glyphicon glyphicon-plus"></span> Nové album</a>
 </p>
 {/if}
 
@@ -9,11 +9,9 @@
     Fotogalerie neobsahuje žádná alba.
   </p>
 {else}
-  <ul class="thumbnails">
-    {assign $i 0}
+  <div class="row">
     {foreach $alba as $album}
-      {assign $i $i+1}
-      <li class="span2" {if ($i-1) % 4 == 0}style="clear: left"{/if}>
+      <div class="col-md-3">
         <div class="thumbnail text-center">
           <a href="{plink Foto:album, $album->id}" title="{$album->popis}">
             <p>
@@ -25,12 +23,12 @@
           </a>
           {if isset($user)}
             <div class="btn-group">
-              <a class="btn btn-mini" href="{link Alba:edit, $album->id}" title="upravit"><i class="icon-pencil"></i></a>
-              <a class="btn btn-mini" href="{link Alba:delete, $album->id}" title="smazat"><i class="icon-remove"></i></a>
+              <a class="btn btn-xs btn-default" href="{link Alba:edit, $album->id}" title="upravit"><span class="glyphicon glyphicon-pencil"></span></a>
+              <a class="btn btn-xs btn-default" href="{link Alba:delete, $album->id}" title="smazat"><span class="glyphicon glyphicon-remove"></span></a>
             </div>
           {/if}
         </div>
-      </li>
+      </div>
     {/foreach}
-  </ul>
+  </div>
 {/if}

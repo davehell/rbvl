@@ -64,3 +64,9 @@ table.rozlosovani tr.even {
 .error {
   color: #a94442;
 }
+
+/* fotogalerie */
+.thumbnail {
+  height: 250px;
+  padding-top: 10px;
+}

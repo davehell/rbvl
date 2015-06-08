@@ -129,6 +129,10 @@
   {if in_array('antispam', $scripts)}
   <script type="text/javascript" src="{$baseUri}js/antispam.js"></script>
   {/if}
+  {if in_array('lightbox', $scripts)}
+  <link rel="stylesheet" href="{$baseUri}css/lightbox.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="{$baseUri}js/lightbox.min.js"></script>
+  {/if}
 {/if}
 
 

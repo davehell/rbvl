@@ -121,17 +121,16 @@ class AlbaPresenter extends BasePresenter
       $form->getElementPrototype()->class('form-horizontal');
 
       $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('control-group');
+      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
       $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('controls');
-      $renderer->wrappers['label']['container'] = NULL;
+      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
       $renderer->wrappers['label']['requiredsuffix'] = " *";
 
       $form->addText('popis', 'Název alba:', 20)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka názvu alba může být %d znaků', 100)
         ->addRule(Form::FILLED, 'Zadejte název alba')
-        ->getControlPrototype()->class('span3');
-      $form['popis']->getLabelPrototype()->class('control-label');
+        ->getControlPrototype()->class('form-control');
 
       $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
       $form->onSubmit[] = array($this, 'albumFormSubmitted');
@@ -142,7 +141,7 @@ class AlbaPresenter extends BasePresenter
     case 'deleteForm':
       $form = new AppForm($this, $name);
       $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Zrušit')->getControlPrototype()->class('btn');
+      $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn');
       $form->onSubmit[] = array($this, 'deleteFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
@@ -152,5 +151,4 @@ class AlbaPresenter extends BasePresenter
       parent::createComponent($name);
     }
   }
-    
 }

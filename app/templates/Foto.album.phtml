@@ -1,10 +1,10 @@
 <h3>{$album->popis}</h3>
 <p>
-  <i class="icon-arrow-left"></i> <a href="{link Foto:default}">Zpět do fotogalerie</a>
+  <span class="glyphicon glyphicon-arrow-left"></span> <a href="{link Foto:default}">Zpět do fotogalerie</a>
 </p>
 {if isset($user)}
-<p class="flash">
-  <a class="btn btn-success" href="{plink Foto:add, $album->id}" title="Přidat novou fotku do alba"><i class="icon-plus icon-white"></i> Nová fotka</a>
+<p>
+  <a class="btn btn-success" href="{plink Foto:add, $album->id}" title="Přidat novou fotku do alba"><span class="glyphicon glyphicon-plus"></span> Nová fotka</a>
 </p>
 {/if}
 
@@ -17,11 +17,9 @@
     Po kliknutí na náhled se fotografie otevře v plné velikosti.
   </p>
 
-  <ul class="thumbnails">
-    {assign $i 0}
+  <div class="row">
     {foreach $fotky as $fotka}
-      {assign $i $i+1}
-      <li class="span2" {if ($i-1) % 4 == 0}style="clear: left"{/if}>
+      <div class="col-md-3">
         <div class="thumbnail text-center">
           <p>
             <a href="{$baseUri}photos/{$fotka->soubor}" rel="lightbox[1]" title="{$fotka->popis}">
@@ -31,13 +29,13 @@
           <p>{$fotka->popis}</p>
           <div class="btn-group">
             {if isset($user)}
-              <a class="btn btn-mini" href="{link Foto:edit, $fotka->id}" title="upravit"><i class="icon-pencil"></i></a>
-              <a class="btn btn-mini" href="{link Foto:delete, $fotka->id}" title="smazat"><i class="icon-remove"></i></a>
+              <a class="btn btn-xs btn-default" href="{link Foto:edit, $fotka->id}" title="upravit"><span class="glyphicon glyphicon-pencil"></span></a>
+              <a class="btn btn-xs btn-default" href="{link Foto:delete, $fotka->id}" title="smazat"><span class="glyphicon glyphicon-remove"></span></a>
             {/if}
-            <a class="btn btn-mini" href="{link download, $fotka->id}" title="uložit"><i class="icon-download"></i> {if !isset($user)}uložit{/if}</a>
+            <a class="btn btn-xs btn-default" href="{link download, $fotka->id}" title="uložit"><span class="glyphicon glyphicon-floppy-disk"></span></a>
           </div>
         </div>
-      </li>
+      </div>
     {/foreach}
-  </ul>
+  </div>
 {/if}
