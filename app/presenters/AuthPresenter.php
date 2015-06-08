@@ -31,17 +31,26 @@ class AuthPresenter extends BasePresenter
     $this->template->pageHeading = 'Přihlášení';
     $this->template->pageDesc = '';
     $this->template->robots = 'noindex,noarchive';
-    
+
 		$form = new AppForm($this, 'form');
     $form->getElementPrototype()->class('form-horizontal');
 
+    $renderer = $form->getRenderer();
+    $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
+    $renderer->wrappers['controls']['container'] = NULL;
+    $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+    $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
+    $renderer->wrappers['label']['requiredsuffix'] = " *";
+
 		$form->addText('username', 'Uživatelské jméno:')
-			->addRule(Form::FILLED, 'Zadejte uživatelské jméno.');
+			->addRule(Form::FILLED, 'Zadejte uživatelské jméno.')
+			->getControlPrototype()->class('form-control');
 
 		$form->addPassword('password', 'Heslo:')
-			->addRule(Form::FILLED, 'Zadejte heslo.');
+			->addRule(Form::FILLED, 'Zadejte heslo.')
+		  ->getControlPrototype()->class('form-control');
 
-		$form->addSubmit('login', 'Přihlásit se');
+		$form->addSubmit('login', 'Přihlásit se')->getControlPrototype()->class('btn btn-primary');
 		$form->onSubmit[] = array($this, 'loginFormSubmitted');
 
 		$form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
