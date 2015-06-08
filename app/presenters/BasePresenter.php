@@ -18,9 +18,6 @@ abstract class BasePresenter extends Presenter
       $this->template->registerHelper('czechTime', 'Helpers::czechTime');
       $this->template->registerHelper('round3', 'Helpers::round3');
 
-      //filters
-      //LatteMacros::$defaultMacros["icon"] = '<img src="' .$this->template->baseUri. 'images/icons/%%.png" width="16" height="16" alt="%%">';
-      
       //identita prihlaseneho uzivatele
   		$user = Environment::getUser();
   		$this->template->user = $user->isLoggedIn() ? $user->getIdentity() : NULL;

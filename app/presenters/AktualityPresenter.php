@@ -53,7 +53,7 @@ class AktualityPresenter extends BasePresenter
       $row = $aktuality->find($id)->fetch();
       if (!$row) {
         //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
         $this->redirect('default');
       }
       $form->setDefaults($row);
@@ -63,7 +63,6 @@ class AktualityPresenter extends BasePresenter
   public function aktualityFormSubmitted(AppForm $form)
   {
     if ($form['save']->isSubmittedBy()) {
-    //if ($form->isSubmitted()) {
       $id = (int) $this->getParam('id');
       $aktuality = new Aktuality;
       $values = $form->getValues();
@@ -74,24 +73,24 @@ class AktualityPresenter extends BasePresenter
           $this->flashMessage('Příspěvek byl úspěšně upraven.', 'success');
           $this->redirect('default');
          } catch (DibiException $e) {
-          $this->flashMessage('Nastala chyba. Příspěvek nebyl upraven.', 'error');
+          $this->flashMessage('Nastala chyba. Příspěvek nebyl upraven.', 'danger');
           $form->addError($e->getMessage());
         }
       }
       else { //add
-        $mail = new Mail;
-        $mail->setFrom('aktuality@rbvl.cz', 'Aktuality na RBVL');
-        $mail->setSubject('Aktuality na RBVL - nový příspěvek');
-        $mail->addTo('david.hellebrand@seznam.cz', 'David Hellebrand');
-        $mail->setBody($values['text']);
-        $mail->send();
+        // $mail = new Mail;
+        // $mail->setFrom('aktuality@rbvl.cz', 'Aktuality na RBVL');
+        // $mail->setSubject('Aktuality na RBVL - nový příspěvek');
+        // $mail->addTo('david.hellebrand@seznam.cz', 'David Hellebrand');
+        // $mail->setBody($values['text']);
+        // $mail->send();
        try {
           $values['vlozeno'] = time();
           $aktuality->insert($values);
           $this->flashMessage('Aktualita byla úspěšně přidána.', 'success');
           $this->redirect('default');
         } catch (DibiException $e) {
-          $this->flashMessage('Nastala chyba. Příspěvek nebyl vložen.', 'error');
+          $this->flashMessage('Nastala chyba. Příspěvek nebyl vložen.', 'danger');
           //$form->addError('');
         }
       }
@@ -115,7 +114,7 @@ class AktualityPresenter extends BasePresenter
     $this->template->prispevek = $aktuality->find($id)->fetch();
     if (!$this->template->prispevek) {
       //throw new BadRequestException('Požadovaný záznam nenalezen.');
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
       $this->redirect('default');
     }
   }
@@ -143,21 +142,21 @@ class AktualityPresenter extends BasePresenter
     case 'aktualityForm':
       $id = $this->getParam('id');
       $form = new AppForm($this, $name);
-      //$form->getElementPrototype()->class('form-horizontal');
+      $form->getElementPrototype()->class('form-horizontal');
 
       $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('control-group');
+      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
       $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('controls');
-      $renderer->wrappers['label']['container'] = NULL;
+      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
       $renderer->wrappers['label']['requiredsuffix'] = " *";
 
       $form->addTextArea('text', 'Text:', 0, 20)
         ->addRule(Form::FILLED, 'Zadejte text příspěvku.')
-        ->getControlPrototype()->class('span9');
+        ->getControlPrototype()->class('form-control');
 
 
-      $form->addSubmit('save', 'Odeslat');
+      $form->addSubmit('save', 'Odeslat')->getControlPrototype()->class('btn btn-primary');
       $form->onSubmit[] = array($this, 'aktualityFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
@@ -166,7 +165,7 @@ class AktualityPresenter extends BasePresenter
     case 'deleteForm':
       $form = new AppForm($this, $name);
       $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Zrušit')->getControlPrototype()->class('btn');;
+      $form->addSubmit('cancel', 'Zrušit')->getControlPrototype()->class('btn btn-default');;
       $form->onSubmit[] = array($this, 'deleteFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
