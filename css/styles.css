@@ -65,6 +65,12 @@ table.rozlosovani tr.even {
   color: #a94442;
 }
 
+/* novinky v pravidlech */
+.novinka {
+  background-color: #FFFF99;
+  color: #333;
+}
+
 /* fotogalerie */
 .thumbnail {
   height: 250px;
