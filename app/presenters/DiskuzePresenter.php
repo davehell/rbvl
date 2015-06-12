@@ -9,13 +9,11 @@ class DiskuzePresenter extends BasePresenter
       $this->template->pageTitle = '„RB“VL - Diskuze';
       $this->template->pageHeading = 'Diskuze';
       $this->template->pageDesc = '„RB“VL - Diskuze';
-      
-
 
       $diskuze = new Diskuze;
       $articles = $diskuze->findAll(array('vlozeno' => 'desc'));
       $this->template->rows = $articles;
-      
+
       $dataGrid = new DataGrid;
       $dataGrid->bindDataTable($articles);
       $this->addComponent($dataGrid, 'dg');
@@ -36,8 +34,8 @@ class DiskuzePresenter extends BasePresenter
     $form = $this->getComponent('diskuzeForm');
     $this->template->form = $form;
   }
-  
-    
+
+
   public function renderEdit($id = 0)
   {
     $this->template->pageTitle = '„RB“VL - Diskuze - Úprava příspěvku';
@@ -54,7 +52,7 @@ class DiskuzePresenter extends BasePresenter
       $row = $diskuze->find($id)->fetch();
       if (!$row) {
         //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
         $this->redirect('default');
       }
       $form->setDefaults($row);
@@ -75,24 +73,24 @@ class DiskuzePresenter extends BasePresenter
           $this->flashMessage('Příspěvek byl úspěšně upraven.', 'success');
           $this->redirect('default');
          } catch (DibiException $e) {
-          $this->flashMessage('Nastala chyba. Příspěvek nebyl upraven.', 'error');
+          $this->flashMessage('Nastala chyba. Příspěvek nebyl upraven.', 'danger');
           $form->addError($e->getMessage());
         }
       }
       else { //add
-        $mail = new Mail;
-        $mail->setFrom('diskuze@rbvl.cz', 'Diskuze na RBVL');
-        $mail->setSubject('Diskuze na RBVL - nový příspěvek');
-        $mail->addTo('david.hellebrand@seznam.cz', 'David Hellebrand');
-        $mail->setBody($values['text']);
-        $mail->send();
+        // $mail = new Mail;
+        // $mail->setFrom('diskuze@rbvl.cz', 'Diskuze na RBVL');
+        // $mail->setSubject('Diskuze na RBVL - nový příspěvek');
+        // $mail->addTo('david.hellebrand@seznam.cz', 'David Hellebrand');
+        // $mail->setBody($values['text']);
+        // $mail->send();
        try {
           $values['vlozeno'] = time();
           $diskuze->insert($values);
           $this->flashMessage('Příspěvek byl úspěšně přidán.', 'success');
           $this->redirect('default');
         } catch (DibiException $e) {
-          $this->flashMessage('Nastala chyba. Příspěvek nebyl vložen.', 'error');
+          $this->flashMessage('Nastala chyba. Příspěvek nebyl vložen.', 'danger');
           //$form->addError('');
         }
       }
@@ -116,7 +114,7 @@ class DiskuzePresenter extends BasePresenter
     $this->template->prispevek = $diskuze->find($id)->fetch();
     if (!$this->template->prispevek) {
       //throw new BadRequestException('Požadovaný záznam nenalezen.');
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
       $this->redirect('default');
     }
   }
@@ -133,8 +131,8 @@ class DiskuzePresenter extends BasePresenter
 
     $this->redirect('default');
   }
-  
-  
+
+
     /********************* facilities *********************/
 
 
@@ -144,34 +142,30 @@ class DiskuzePresenter extends BasePresenter
     case 'diskuzeForm':
       $id = $this->getParam('id');
       $form = new AppForm($this, $name);
-      //$form->getElementPrototype()->class('form-horizontal');
+      $form->getElementPrototype()->class('form-horizontal');
 
       $renderer = $form->getRenderer();
-      $renderer->wrappers['label']['requiredsuffix'] = " *";
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('control-group');
+      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
       $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('controls');
-      $renderer->wrappers['label']['container'] = NULL;
+      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
+      $renderer->wrappers['label']['requiredsuffix'] = " *";
 
 
       $form->addText('jmeno', 'Jméno:', 30)
         ->addRule(Form::FILLED, 'Zadejte uživatelské jméno')
-        ->getLabelPrototype()->class('control-label');
+        ->getControlPrototype()->class('form-control');
 
       $form->addTextArea('text', 'Text:', 0, 20)
         ->addRule(Form::FILLED, 'Zadejte text příspěvku.')
-        ->getControlPrototype()->class('span9');
-      $form['text']->getLabelPrototype()->class('control-label');
-        
+        ->getControlPrototype()->class('form-control');
 
-      $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)', 30)
+      $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)', 10)
         ->addRule(Form::FILLED, 'Vyplňte ochranu proti spamu')
         ->addRule(Form::NUMERIC, 'Špatně vyplněná ochrana proti spamu')
-        ->addRule(Form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6));
-      $form['antiSpam']->getControlPrototype()->class('antispam');
+        ->addRule(Form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6))
+        ->getControlPrototype()->class('antispam');
       $form['antiSpam']->getLabelPrototype()->class('antispam');
-
-
 
       $form->addSubmit('save', 'Odeslat')->getControlPrototype()->class('btn btn-primary');
       $form->onSubmit[] = array($this, 'diskuzeFormSubmitted');
@@ -182,15 +176,15 @@ class DiskuzePresenter extends BasePresenter
     case 'deleteForm':
       $form = new AppForm($this, $name);
       $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Zrušit');
+      $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
       $form->onSubmit[] = array($this, 'deleteFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
       return;
-      
+
     default:
       parent::createComponent($name);
     }
   }
-  
+
 }

@@ -1,5 +1,5 @@
 <p>
-  <a class="btn btn-success" href="{link add}" title="Přidat příspěvek do diskuze"><i class="icon-plus icon-white"></i> Nový příspěvek</a>
+  <a class="btn btn-success" href="{link add}" title="Přidat příspěvek do diskuze"><span class="glyphicon glyphicon-plus"></span> Nový příspěvek</a>
 </p>
 
 {if !count($rows)}
@@ -8,13 +8,15 @@
 </p>
 {else}
 
-  {?$dataGrid->renderPaginator()}
+  <div class="row">
+    {?$dataGrid->renderPaginator()}
+  </div>
 
   {foreach $rows as $row}
     {if isset($user)}
       <div class="btn-group pull-right">
-        <a class="btn" href="{link edit, $row->id}" title="upravit příspěvek"><i class="icon-pencil"></i></a>
-        <a class="btn" href="{link delete, $row->id}" title="smazat příspěvek"><i class="icon-remove"></i></a>
+        <a class="btn btn-default" href="{link edit, $row->id}" title="upravit příspěvek"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a class="btn btn-default" href="{link delete, $row->id}" title="smazat příspěvek"><span class="glyphicon glyphicon-remove"></span></a>
       </div>
     {/if}
     <h4 class="clearfix">{$row->jmeno} <small>{$row->vlozeno|date:'%d.%m.%Y %H:%M'}</small></h4>
@@ -26,7 +28,9 @@
     {/if}
   {/foreach}
 
-  {?$dataGrid->renderPaginator()}
+  <div class="row">
+    {?$dataGrid->renderPaginator()}
+  </div>
 
 {/if}
 
