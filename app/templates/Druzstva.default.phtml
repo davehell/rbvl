@@ -8,26 +8,18 @@
       {if $skupina !=  ""}
         </ol>
       {/if}
-      <h3>{$druzstvo->skupina_popis}</h3>
+      <h2>{$druzstvo->skupina_popis}</h2>
       <ol>
     {/if}
     <li>
       <p>
         {if isset($user)}
-          <a class="btn btn-mini" href="{link edit, $druzstvo->id}" title="upravit"><i class="icon-pencil"></i></a>
+          <a class="btn btn-default " href="{link edit, $druzstvo->id}" title="upravit"><span class="glyphicon glyphicon-pencil"></span></a>
         {/if}
         <a href="{link soupiska, $druzstvo->id}" title="Soupiska druzstva {$druzstvo->nazev}">{$druzstvo->nazev}</a>
-
       </p>
-
     </li>
     {assign $skupina $druzstvo->skupina_popis}
     {if $iterator->isLast()}</ol>{/if}
   {/foreach}
 {/if}
-
-
-
-
-
-

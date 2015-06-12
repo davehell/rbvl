@@ -65,7 +65,7 @@ class DruzstvaPresenter extends BasePresenter
       $row = $druzstva->find($id)->fetch();
       if (!$row) {
         //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
         $this->redirect('default');
       }
       $soupiska = $druzstva->soupiska($id)->fetchAll();
@@ -91,13 +91,13 @@ class DruzstvaPresenter extends BasePresenter
     $this->template->druzstvo = $row;
     if (!$row) {
       //throw new BadRequestException('Požadovaný záznam nenalezen.');
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
       $this->redirect('default');
     }
 
     $soupisky = new Soupisky;
     $this->template->soupiska = $soupisky->findAllPlayersInTeam($id);
-    
+
     $this->template->pageTitle .= " " . $row->nazev;
   }
 
@@ -114,7 +114,7 @@ class DruzstvaPresenter extends BasePresenter
           $this->flashMessage('Družstvo bylo úspěšně upraveno.', 'success');
           $this->redirect('edit', $id);
          } catch (DibiException $e) {
-          $this->flashMessage('Nastala chyba. Družstvo nebylo vloženo.', 'error');
+          $this->flashMessage('Nastala chyba. Družstvo nebylo vloženo.', 'danger');
           $form->addError($e->getMessage());
         }
       }
@@ -124,7 +124,7 @@ class DruzstvaPresenter extends BasePresenter
           $this->flashMessage('Družstvo bylo úspěšně přidáno.', 'success');
           $this->redirect('edit', $id);
         } catch (DibiException $e) {
-          $this->flashMessage('Nastala chyba. Družstvo nebylo vloženo.', 'error');
+          $this->flashMessage('Nastala chyba. Družstvo nebylo vloženo.', 'danger');
           //$form->addError($e->getMessage());
         }
       }
@@ -149,7 +149,7 @@ class DruzstvaPresenter extends BasePresenter
   			$tmp = explode('.', $tmp);
         if(count($tmp) == 3) $values["narozen"] = $tmp[2] . '-' . $tmp[1] . '-' . $tmp[0]; // database format Y-m-d
         else {
-          $this->flashMessage('Chybně zadáno datum narození hráče. Hráč nebyl vytvořen.', 'error');
+          $this->flashMessage('Chybně zadáno datum narození hráče. Hráč nebyl vytvořen.', 'danger');
           return;
         }
   		}
@@ -163,11 +163,21 @@ class DruzstvaPresenter extends BasePresenter
           $this->flashMessage('Nový hráč byl úspěšně vytvořen.', 'success');
         } catch (DibiException $e) {
           if($e->getCode() == "1062") {
-            $this->flashMessage('Tento hráč už v databázi existuje.', 'error');
+            $this->flashMessage('Tento hráč už v databázi existuje.', 'danger');
           }
           else {
-            $this->flashMessage('Nastala chyba. Hráč nebyl vytvořen.', 'error');
+            $this->flashMessage('Nastala chyba. Hráč nebyl vytvořen.', 'danger');
           }
+          //$form->addError($e->getMessage());
+          return;
+        }
+      }
+      else { //ulozeni pripadnych zmen u jiz existujiciho hrace
+        try {
+          unset($values["hrac"]);
+          $hraci->update($idHrac, $values);
+        } catch (DibiException $e) {
+          $this->flashMessage('Nastala chyba. Hráč nebyl upraven.', 'danger');
           //$form->addError($e->getMessage());
           return;
         }
@@ -181,10 +191,10 @@ class DruzstvaPresenter extends BasePresenter
       } catch (DibiException $e) {
          if($e->getCode() == "1062") {
            $dupl = $soupisky->findPlayer($idHrac)->fetch();
-           $this->flashMessage('Hráč už je zapsán na soupisce družstva ' . $dupl["druzstvo"], 'error');
+           $this->flashMessage('Hráč už je zapsán na soupisce družstva ' . $dupl["druzstvo"], 'danger');
          }
          else {
-           $this->flashMessage('Nastala chyba. Hráč nebyl přidán na soupisku.', 'error');
+           $this->flashMessage('Nastala chyba. Hráč nebyl přidán na soupisku.', 'danger');
          }
          //$form->addError($e->getMessage());
       }
@@ -210,7 +220,7 @@ class DruzstvaPresenter extends BasePresenter
     $this->template->druzstvo = $druzstva->find($id)->fetch();
     if (!$this->template->druzstvo) {
       //throw new BadRequestException('Požadovaný záznam nenalezen.');
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
       $this->redirect('default');
     }
   }
@@ -241,28 +251,28 @@ class DruzstvaPresenter extends BasePresenter
       $form->getElementPrototype()->class('form-horizontal');
 
       $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('control-group');
+      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
       $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('controls');
-      $renderer->wrappers['label']['container'] = NULL;
+      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
       $renderer->wrappers['label']['requiredsuffix'] = " *";
 
       $form->addText('nazev', 'Název:', 40)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka názvu družstva může být %d znaků', 100)
         ->addRule(Form::FILLED, 'Zadejte název družstva.')
-        ->getLabelPrototype()->class('control-label');
+        ->getControlPrototype()->class('form-control');
 
       $form->addText('vedouci', 'Vedoucí:', 40)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka jména vedoucího může být %d znaků', 100)
-        ->getLabelPrototype()->class('control-label');
+        ->getControlPrototype()->class('form-control');
 
       $form->addText('telefon', 'Telefon:', 20)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka telefonního čísla může být %d znaků', 15)
-        ->getLabelPrototype()->class('control-label');
+        ->getControlPrototype()->class('form-control');
 
       $form->addText('email', 'E-mail:', 40)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 100)
-        ->getLabelPrototype()->class('control-label')
+        ->getControlPrototype()->class('form-control')
         ->setEmptyValue('@')
         //->addRule(Form::FILLED, 'Zadejte kontaktní e-mail.')
         ->addCondition(Form::FILLED)
@@ -279,7 +289,7 @@ class DruzstvaPresenter extends BasePresenter
     case 'deleteForm':
       $form = new AppForm($this, $name);
       $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Zrušit');
+      $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
       $form->onSubmit[] = array($this, 'deleteFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
@@ -291,10 +301,10 @@ class DruzstvaPresenter extends BasePresenter
       $form->getElementPrototype()->class('form-horizontal');
 
       $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('control-group');
+      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
       $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('controls');
-      $renderer->wrappers['label']['container'] = NULL;
+      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
       $renderer->wrappers['label']['requiredsuffix'] = " *";
 
       $druzstvo = $this->getParam('id');
@@ -302,16 +312,15 @@ class DruzstvaPresenter extends BasePresenter
       $form->addText('prijmeni', 'Příjmení:', 50)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka příjmení může být %d znaků', 100)
         ->addRule(Form::FILLED, 'Zadejte příjmení hráče.')
-        ->getLabelPrototype()->class('control-label');
+        ->getControlPrototype()->class('form-control');
 
       $form->addText('jmeno', 'Jméno:', 30)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka jména může být %d znaků', 100)
         ->addRule(Form::FILLED, 'Zadejte jméno hráče.')
-        ->getLabelPrototype()->class('control-label');
+        ->getControlPrototype()->class('form-control');
 
       $form->addText('narozen', 'Datum narození:', 10)
-            ->getLabelPrototype()->class('control-label');
-        //->addRule(Form::FILLED, 'Zadejte datum narození hráče hráče.');
+            ->getControlPrototype()->class('form-control');
 
       $form->addHidden('hrac');
 
