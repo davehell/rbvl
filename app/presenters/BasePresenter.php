@@ -38,24 +38,12 @@ abstract class BasePresenter extends Presenter
         $backlink = $this->getApplication()->storeRequest();
         $this->redirect('Auth:login', $backlink);
       }
-      
-      Form::extensionMethod('Form::addDatePicker', 'Form_addDatePicker'); // v PHP 5.2
-      
-      parent::startup();
-      
-    }
-/*
-    protected function getR()
-    {
-    	return "r1112";
-    }
 
-    protected function getRocnik()
-    {
-    	return "2011 - 2012";
+      Form::extensionMethod('Form::addDatePicker', 'Form_addDatePicker'); // v PHP 5.2
+
+      parent::startup();
+
     }
-*/
-    
 }
 
 function Form_addDatePicker(Form $_this, $name, $label, $cols = NULL, $maxLength = NULL)
