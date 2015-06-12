@@ -70,3 +70,8 @@ table.rozlosovani tr.even {
   height: 250px;
   padding-top: 10px;
 }
+.thumbnail .btn-group {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+}
