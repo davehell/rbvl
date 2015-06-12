@@ -5,7 +5,7 @@ require_once dirname(__FILE__) . '/BasePresenter.php';
 class UzivatelePresenter extends BasePresenter
 {
   /********************* view default *********************/
-  
+
   public function renderDefault()
   {
     $this->template->pageTitle = '„RB“VL - Uživatelé';
@@ -19,7 +19,7 @@ class UzivatelePresenter extends BasePresenter
 
     /********************* views add & edit *********************/
 
-    
+
   public function renderAdd()
   {
     $this->template->pageTitle = '„RB“VL - Uživatelé - Nový uživatel';
@@ -49,7 +49,7 @@ class UzivatelePresenter extends BasePresenter
       $row = $uzivatel->find($id)->fetch();
       if (!$row) {
         //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
         $this->redirect('default');
       }
       unset($row['password']);
@@ -68,7 +68,7 @@ class UzivatelePresenter extends BasePresenter
       $values = $form->getValues();
       $values['password'] = sha1($values['password'].$values['username']);
       unset($values['password2']);
-                
+
       if ($id > 0) { //edit
         try {
           $uzivatel->update($id, $values);
@@ -76,10 +76,10 @@ class UzivatelePresenter extends BasePresenter
           $this->redirect('default');
         } catch (DibiException $e) {
           if($e->getCode() === 1062) {
-            $this->flashMessage('Uživatel se stejným jménem už existuje. Zadejte jiné uživatelské jméno.', 'error');
+            $this->flashMessage('Uživatel se stejným jménem už existuje. Zadejte jiné uživatelské jméno.', 'danger');
           }
           else {
-            $this->flashMessage('Nastala chyba. Uživatel nebyl upraven.', 'error');
+            $this->flashMessage('Nastala chyba. Uživatel nebyl upraven.', 'danger');
             //$form->addError($e->getMessage());
           }
         }
@@ -90,10 +90,10 @@ class UzivatelePresenter extends BasePresenter
           $this->redirect('default');
         } catch (DibiException $e) {
           if($e->getCode() === 1062) {
-            $this->flashMessage('Uživatel se stejným jménem už existuje. Zadejte jiné uživatelské jméno.', 'error');
+            $this->flashMessage('Uživatel se stejným jménem už existuje. Zadejte jiné uživatelské jméno.', 'danger');
           }
           else {
-            $this->flashMessage('Nastala chyba. Uživatel nebyl přidán.', 'error');
+            $this->flashMessage('Nastala chyba. Uživatel nebyl přidán.', 'danger');
             //$form->addError('');
           }
         }
@@ -125,7 +125,7 @@ class UzivatelePresenter extends BasePresenter
       $row = $uzivatel->find($id)->fetch();
       if (!$row) {
         //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
         $this->redirect('default');
       }
       unset($row['password']);
@@ -151,10 +151,10 @@ class UzivatelePresenter extends BasePresenter
         $this->redirect('default');
       } catch (DibiException $e) {
         if($e->getCode() === 1062) {
-          $this->flashMessage('Uživatel se stejným jménem už existuje. Zadejte jiné uživatelské jméno.', 'error');
+          $this->flashMessage('Uživatel se stejným jménem už existuje. Zadejte jiné uživatelské jméno.', 'danger');
         }
         else {
-          $this->flashMessage('Nastala chyba. Uživatel nebyl upraven.', 'error');
+          $this->flashMessage('Nastala chyba. Uživatel nebyl upraven.', 'danger');
           $form->addError($e->getMessage());
         }
       }
@@ -165,20 +165,20 @@ class UzivatelePresenter extends BasePresenter
   }
 
     /********************* view delete *********************/
-    
+
 
   public function renderDelete($id = 0)
   {
     $this->template->pageTitle = '„RB“VL - Uživatelé - Odebrat uživatele';
     $this->template->pageHeading = 'Odebrat uživatele';
     $this->template->pageDesc = '';
-        
+
     $this->template->form = $this->getComponent('deleteForm');
     $uzivatel = new Uzivatele;
     $this->template->uzivatel = $uzivatel->find($id)->fetch();
     if (!$this->template->uzivatel) {
       //throw new BadRequestException('Požadovaný záznam nenalezen.');
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
+      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
       $this->redirect('default');
     }
   }
@@ -198,8 +198,8 @@ class UzivatelePresenter extends BasePresenter
 
 
     /********************* facilities *********************/
-    
-    
+
+
   protected function createComponent($name)
   {
     switch ($name) {
@@ -209,31 +209,32 @@ class UzivatelePresenter extends BasePresenter
       $form->getElementPrototype()->class('form-horizontal');
 
       $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('control-group');
+      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
       $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('controls');
-      $renderer->wrappers['label']['container'] = NULL;
+      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
+      $renderer->wrappers['label']['requiredsuffix'] = " *";
 
       $form->addText('username', 'Uživatelské jméno:', 30)
         ->addRule(Form::FILLED, 'Zadejte uživatelské jméno')
-        ->getLabelPrototype()->class('control-label');
+        ->getControlPrototype()->class('form-control');
 
       $form->addPassword('password', 'Heslo:', 30)
-          ->addRule(Form::FILLED, 'Zvolte si heslo')
-          ->addRule(Form::MIN_LENGTH, 'Zadané heslo je příliš krátké, zvolte si heslo alespoň o %d znacích', 3)
-          ->getLabelPrototype()->class('control-label');
+        ->addRule(Form::FILLED, 'Zvolte si heslo')
+        ->addRule(Form::MIN_LENGTH, 'Zadané heslo je příliš krátké, zvolte si heslo alespoň o %d znacích', 3)
+        ->getControlPrototype()->class('form-control');
 
       $form->addPassword('password2', 'Heslo pro kontrolu:', 30)
-          ->addRule(Form::FILLED, 'Zadejte heslo ještě jednou pro kontrolu')
-          ->addRule(Form::EQUAL, 'Zadané hesla se neshodují', $form['password'])
-          ->getLabelPrototype()->class('control-label');
+        ->addRule(Form::FILLED, 'Zadejte heslo ještě jednou pro kontrolu')
+        ->addRule(Form::EQUAL, 'Zadané hesla se neshodují', $form['password'])
+        ->getControlPrototype()->class('form-control');
 
       $roles = array('--- Vyberte oprávnění ---', 'admin'=>'Administrátor', 'member'=>'Uživatel');
-      $form->addSelect('role', 'Oprávnění:', $roles)->skipFirst()->getLabelPrototype()->class('control-label');
+      $form->addSelect('role', 'Oprávnění:', $roles)->skipFirst()->getControlPrototype()->class('form-control');
       $form['role']->addRule(Form::FILLED, 'Vyberte oprávnění');
 
       $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Zrušit')->setValidationScope(NULL)->getControlPrototype()->class('btn');
+      $form->addSubmit('cancel', 'Storno')->setValidationScope(NULL)->getControlPrototype()->class('btn btn-default');
       $form->onSubmit[] = array($this, 'userFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
@@ -244,27 +245,28 @@ class UzivatelePresenter extends BasePresenter
       $form->getElementPrototype()->class('form-horizontal');
 
       $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('control-group');
+      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
       $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('controls');
-      $renderer->wrappers['label']['container'] = NULL;
+      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
+      $renderer->wrappers['label']['requiredsuffix'] = " *";
 
       $form->addText('username', 'Uživatelské jméno:', 30)
           ->addRule(Form::FILLED, 'Zadejte uživatelské jméno')
-          ->getLabelPrototype()->class('control-label');
+          ->getControlPrototype()->class('form-control');
 
       $form->addPassword('password', 'Heslo:', 30)
           ->addRule(Form::FILLED, 'Zvolte si heslo')
           ->addRule(Form::MIN_LENGTH, 'Zadané heslo je příliš krátké, zvolte si heslo alespoň o %d znacích', 3)
-          ->getLabelPrototype()->class('control-label');
+          ->getControlPrototype()->class('form-control');
 
       $form->addPassword('password2', 'Heslo pro kontrolu:', 30)
           ->addRule(Form::FILLED, 'Zadejte heslo ještě jednou pro kontrolu')
           ->addRule(Form::EQUAL, 'Zadané hesla se neshodují', $form['password'])
-          ->getLabelPrototype()->class('control-label');
+          ->getControlPrototype()->class('form-control');
 
       $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Zrušit')->setValidationScope(NULL)->getControlPrototype()->class('btn');
+      $form->addSubmit('cancel', 'Storno')->setValidationScope(NULL)->getControlPrototype()->class('btn btn-default');
       $form->onSubmit[] = array($this, 'changeFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
@@ -273,7 +275,7 @@ class UzivatelePresenter extends BasePresenter
     case 'deleteForm':
       $form = new AppForm($this, $name);
       $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Zrušit')->getControlPrototype()->class('btn');
+      $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
       $form->onSubmit[] = array($this, 'deleteFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
