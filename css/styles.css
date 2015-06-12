@@ -51,15 +51,6 @@ body {
   margin-bottom: 20px;
 }
 
-
-.highlight {
-  background-color: #FFFF99 !important;
-}
-
-table.rozlosovani tr.even {
-  background-color: #EAF2FF;
-}
-
 /* chybové hlášky ve formuláři */
 .error {
   color: #a94442;

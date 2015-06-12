@@ -17,26 +17,19 @@ class RozlosovaniPresenter extends BasePresenter
       $terminy = new Terminy;
       $druzstva = new Druzstva;
 
-      $this->template->druzstva = $druzstva->findAll($this->R, array('nazev' => 'asc'));
+      $this->template->druzstva = $druzstva->findAllUnique($this->R, array('nazev' => 'asc'));
       $this->template->terminy = $terminy->findAll($this->R)->fetchAll();
       if($id) {
         $this->template->rozlosovani = $rozlosovani->findAllInTermin($id)->fetchAll();
       }
       else {
-        //$this->template->rozlosovani = $rozlosovani->findAll($this->R)->fetchAll();
         $this->template->rozlosovani = null;
       }
 
-      
-      
       $this->template->rocnikPopis = '';
       $this->template->terminPopis = '';
       $this->template->cas = '';
       $this->template->barva = 1;
-      
-  
-  
-  /*echo  dibi::$sql;*/
   }
 
 
