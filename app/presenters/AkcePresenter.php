@@ -150,24 +150,24 @@ class AkcePresenter extends BasePresenter
 
       $form->addText('nazev', 'Název:', 40)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka názvu akce může být %d znaků', 200)
-        ->addRule(Form::FILLED, 'Zadejte název akce.');
-      $form['nazev']->getControlPrototype()->class('form-control');
+        ->addRule(Form::FILLED, 'Zadejte název akce.')
+        ->getControlPrototype()->class('form-control');
 
       $form->addDatePicker('datum_od', 'Datum začátku:', 10)
-        ->addRule(Form::FILLED, 'Zadejte datum začátku akce.');
-      $form['datum_od']->getControlPrototype()->class('form-control');
+        ->addRule(Form::FILLED, 'Zadejte datum začátku akce.')
+        ->getControlPrototype()->class('form-control');
 
-      $form->addDatePicker('datum_do', 'Datum konce:', 10);
-      $form['datum_do']->getControlPrototype()->class('form-control');
+      $form->addDatePicker('datum_do', 'Datum konce:', 10)
+        ->getControlPrototype()->class('form-control');
 
       $form->addTextArea('popis', 'Popis:', 0, 20)
-        ->addRule(Form::FILLED, 'Zadejte popis akce');
-      $form['popis']->getControlPrototype()->class('form-control');
+        ->addRule(Form::FILLED, 'Zadejte popis akce')
+        ->getControlPrototype()->class('form-control');
 
       $form->addText('startovne', 'Startovné:', 20)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka popisu startovného může být %d znaků', 100)
-        ->addRule(Form::FILLED, 'Zadejte startovné na akci');
-      $form['startovne']->getControlPrototype()->class('form-control');
+        ->addRule(Form::FILLED, 'Zadejte startovné na akci')
+        ->getControlPrototype()->class('form-control');
 
       $form->addText('jmeno', 'Kontakní osoba:', 20)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka jména kontaktní osoby může být %d znaků', 50)
@@ -176,21 +176,21 @@ class AkcePresenter extends BasePresenter
 
       $form->addText('telefon', 'Telefon:', 20)
         ->addRule(Form::MAX_LENGTH, 'Maximální délka telefonního čísla může být %d znaků', 15)
-        ->addRule(Form::FILLED, 'Zadejte kontaktní telefon');
-      $form['telefon']->getControlPrototype()->class('form-control');
+        ->addRule(Form::FILLED, 'Zadejte kontaktní telefon')
+        ->getControlPrototype()->class('form-control');
 
       $form->addText('email', 'E-mail:', 20)
+        ->getControlPrototype()->class('form-control')
         ->addRule(Form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 100)
         ->setEmptyValue('@')
         ->addCondition(Form::FILLED)
-                ->addRule(Form::EMAIL, 'E-mailová adresa není platná');
-      $form['email']->getControlPrototype()->class('form-control');
+          ->addRule(Form::EMAIL, 'E-mailová adresa není platná');
 
       $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)', 10)
         ->addRule(Form::FILLED, 'Vyplňte ochranu proti spamu')
         ->addRule(Form::NUMERIC, 'Špatně vyplněná ochrana proti spamu')
-        ->addRule(Form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6));
-      $form['antiSpam']->getControlPrototype()->class('antispam');
+        ->addRule(Form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6))
+        ->getControlPrototype()->class('antispam');
       $form['antiSpam']->getLabelPrototype()->class('antispam');
 
       $form->addSubmit('save', 'Odeslat')->getControlPrototype()->class('btn btn-primary');
