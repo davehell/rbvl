@@ -1,0 +1,38 @@
+<ul class="nav nav-pills nav-stacked">
+  <li {ifCurrent Default:*}class="active"{/if}><a href="{plink Default:}" title="Informace o „Region Beskydy“ volejbalové lize">Úvodní strana<span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+  <li {ifCurrent Aktuality:*}class="active"{/if}><a href="{plink Aktuality:}" title="Aktuality z „Region Beskydy“ volejbalové ligy">Aktuality<span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+
+  <li {ifCurrent Vysledky:*}class="active"{/if}><a href="{plink Vysledky:}" title="Výsledky zápasů „Region Beskydy“ volejbalové ligy">Výsledky<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+  {ifCurrent Vysledky:*}
+    {foreach $terminy as $termin}
+      {if $menuRocnikPopis != $termin->rocnik}
+        {if $menuRocnikPopis !=  ""}
+          </ul>
+        {/if}
+        <strong>{$termin->rocnik}</strong>
+        <ul>
+          {if $termin->rocnik != "Finále"}
+          <li><a href="{plink Vysledky:tabulky, $termin->id_rocnik}" title="Zobrazit celkové tabulky soutěže {$termin->rocnik}">Tabulky</a></li>
+          {/if}
+      {/if}
+      <li><a href="{plink Vysledky:termin, $termin->id}" title="Zobrazit výsledky zápasů ze dne {$termin->datum|czechDate}">{$termin->datum|czechDate}</a></li>
+      {assign $menuRocnikPopis $termin->rocnik}
+      {if $iterator->isLast()}</ul>{/if}
+    {/foreach}
+  {/if}
+  </li>
+
+  {if isset($user)}
+  <li {ifCurrent Druzstva:*}class="active"{/if}><a href="{plink Druzstva:}" title="Družstva hrající „Region Beskydy“ volejbalovou ligu">Družstva</a></li>
+  <li {ifCurrent Hraci:*}class="active"{/if}><a href="{plink Hraci:}" title="Hráči">Hráči</a></li>
+  {/if}
+
+  <li {ifCurrent Rozlosovani:*}class="active"{/if}><a href="{plink Rozlosovani:}" title="Rozlosování zápasů „Region Beskydy“ volejbalové ligy">Rozlosování</a></li>
+  <li {ifCurrent Propozice:*}class="active"{/if}><a href="{plink Propozice:}" title="Propozice pro přihlášení družstva">Propozice</a></li>
+  <li {ifCurrent Pravidla:*}class="active"{/if}><a href="{plink Pravidla:}" title="Pravidla soutěže">Pravidla</a></li>
+  <li {ifCurrent Download:*}class="active"{/if}><a href="{plink Download:}" title="Dokumenty ke stažení">Ke stažení</a></li>
+  <li {ifCurrent Kontakty:*}class="active"{/if}><a href="{plink Kontakty:}" title="Kontakty na vedení „Region Beskydy“ volejbalové ligy">Kontakty</a></li>
+  <li {ifCurrent Foto:*}class="active"{/if}><a href="{plink Foto:}" title="Fotografie z průběhu „Region Beskydy“ volejbalové ligy">Fotogalerie</a></li>
+  <li {ifCurrent Diskuze:*}class="active"{/if}><a href="{plink Diskuze:}" title="Diskuze návštěvníků">Diskuze</a></li>
+  <li {ifCurrent Akce:*}class="active"{/if}><a href="{plink Akce:}" title="Volejbalové turnaje a akce v Regionu Beskydy">Turnaje, akce</a></li>
+</ul>
