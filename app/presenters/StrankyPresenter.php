@@ -60,14 +60,18 @@ class StrankyPresenter extends BasePresenter
       $form = new AppForm($this, $name);
 
       $renderer = $form->getRenderer();
+      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
+      $renderer->wrappers['controls']['container'] = NULL;
+      $renderer->wrappers['label']['container'] = Html::el('div')->class('control-label');
       $renderer->wrappers['label']['requiredsuffix'] = " *";
 
       $form->addHidden('nazev');
 
       $form->addTextArea('text', 'Text:', 60, 20)
-        ->addRule(Form::FILLED, 'Zadejte text příspěvku.');
+        ->addRule(Form::FILLED, 'Zadejte text příspěvku.')
+        ->getControlPrototype()->class('form-control');
 
-      $form->addSubmit('save', 'Odeslat')->getControlPrototype()->class('default');
+      $form->addSubmit('save', 'Odeslat')->getControlPrototype()->class('btn btn-primary');
       $form->onSubmit[] = array($this, 'strankyFormSubmitted');
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
