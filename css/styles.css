@@ -72,3 +72,9 @@ body {
   bottom: 30px;
   left: 30px;
 }
+
+/* formulář na zadávání výsledků */
+#frm-vysledkyForm .form-group, #frm-vysledkyForm .checkbox {
+  display: block;
+  margin-bottom: 15px;
+}

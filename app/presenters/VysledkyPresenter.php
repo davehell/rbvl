@@ -13,7 +13,7 @@ class VysledkyPresenter extends BasePresenter
       $this->template->menuRocnikPopis = '';
       parent::startup();
   }
-    
+
   public function renderDefault()
   {
       $this->template->pageTitle = '„RB“VL - Výsledky';
@@ -23,7 +23,6 @@ class VysledkyPresenter extends BasePresenter
       $terminy = new Terminy;
       $this->template->terminy = $terminy->findAllVysledky($this->R)->fetchAll();
       $this->template->rocnikPopis = '';
-      
   }
 
   public function renderTermin($id = 0)
@@ -36,12 +35,11 @@ class VysledkyPresenter extends BasePresenter
       $druzstva = new Druzstva;
       $vysledky= new Vysledky;
 
-      $this->template->druzstva = $druzstva->findAll($this->R, array('nazev' => 'asc'));
+      $this->template->druzstva = $druzstva->findAllUnique($this->R, array('nazev' => 'asc'));
 
       $this->template->zapasy = $vysledky->findAllInTermin($id)->fetchAll();
       if (!$this->template->zapasy) {
         $this->flashMessage('Požadovaný záznam neexistuje.', 'error');
-        //$this->redirect('default');
       }
 
       $this->template->datum = '';
@@ -183,13 +181,14 @@ class VysledkyPresenter extends BasePresenter
     case 'vysledkyForm':
       $id = $this->getParam('id');
       $form = new AppForm($this, $name);
-      //$form->getElementPrototype()->class('form-horizontal');
+      $form->getElementPrototype()->class('form-inline');
 
       $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('control-group');
+      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
       $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('controls');
-      $renderer->wrappers['label']['container'] = NULL;
+      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
+      $renderer->wrappers['label']['requiredsuffix'] = " *";
 
       $form->addText('sety_domaci', 'Sety', 2);
       $form->addText('sety_hoste', ' : ', 2);
