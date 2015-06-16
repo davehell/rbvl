@@ -22,19 +22,12 @@
     {assign $rocnikPopis $termin->rocnik}
     {if $iterator->isLast()}</ul>{/if}
   {/foreach}
-
-  <hr />
-
-  <select id="druzstva" onchange="zvyrazneniTymu()">
-    <option value=" "> - - zvýraznit družstvo - - </option>
-    {foreach $druzstva as $druzstvo}
-    <option value="{$druzstvo->nazev}">{$druzstvo->nazev}</option>
-    {/foreach}
-  </select>
 </div><!-- noPrint -->
 
 
 {if count($rozlosovani)}
+  <hr />
+
   {foreach $rozlosovani as $zapas}
     {if $terminPopis != $zapas->termin}
       {if $terminPopis !=  ""}
@@ -43,6 +36,14 @@
       {assign $barva 1}
       <a name="{$zapas->datum}"></a>
       <h2>{$zapas->rocnik} - {$zapas->termin}: {$zapas->datum|czechDate}</h2>
+
+      <select id="druzstva" class="noPrint" onchange="zvyrazneniTymu()">
+        <option value=" "> - - zvýraznit družstvo - - </option>
+        {foreach $druzstva as $druzstvo}
+        <option value="{$druzstvo->nazev}">{$druzstvo->nazev}</option>
+        {/foreach}
+      </select>
+
       <table class="table table-hover table-condensed">
         <thead>
         <tr>
@@ -63,7 +64,7 @@
           <td>{if $zapas->domaci!=''}{$zapas->domaci}{else}{$zapas->skupina_popis}{$zapas->cislo_domaci}{/if}</td>
           <td>-</td>
           <td>{if $zapas->hoste!=''}{$zapas->hoste}{else}{$zapas->skupina_popis}{$zapas->cislo_hoste}{/if}</td>
-          <td>{!$zapas->poznamka |texy}</td>
+          <td>{!$zapas->poznamka}</td>
         </tr>
     {assign $terminPopis $zapas->termin}
     {assign $cas $zapas->cas}
