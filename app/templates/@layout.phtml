@@ -18,58 +18,79 @@
 
 <body>
 
-<!--
-<div class="navbar navbar-inverse">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="{plink Default:}"  title="Úvodní strana „Region Beskydy“ volejbalové ligy">„Region Beskydy“ volejbalová liga</a>
-    </div>
-  </div>
-</div>
--->
-
 <div id="header" class="container">
   <div class="row">
     <div class="col-md-12">
       <a href="{plink Default:}"  title="Úvodní strana „Region Beskydy“ volejbalové ligy"><h1>„Region Beskydy“ volejbalová liga</h1></a>
-      <h2>Pojďme se bavit volejbalem v každém věku</h2>
+      <h3>Pojďme se bavit volejbalem v každém věku</h3>
     </div>
   </div>
 </div>
 
-<div class="container-fluid darkgreen">
+<div class="navbar navbar-default">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <nav role="navigation" class="navbar navbar-default">
-          <div class="navbar-header">
-            <button data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" class="navbar-toggle" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-          </div>
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
 
-        </nav>
-      </div>
+    <div class="navbar-collapse" id="menu-collapse">
+      <ul class="nav navbar-nav">
+        <li {ifCurrent Default:*}class="active"{/if}><a href="{plink Default:}" title="Informace o „Region Beskydy“ volejbalové lize">Úvod</a></li>
+        <li {ifCurrent Aktuality:*}class="active"{/if}><a href="{plink Aktuality:}" title="Aktuality z „Region Beskydy“ volejbalové ligy">Novinky</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aktuální ročník <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li {ifCurrent Vysledky:*}class="active"{/if}><a href="{plink Vysledky:}" title="Výsledky aktuálního ročníku">Výsledky</a></li>
+            <li {ifCurrent Rozlosovani:*}class="active"{/if}><a href="{plink Rozlosovani:}" title="Rozlosování aktuálního ročníku">Rozlosování</a></li>
+            <li {ifCurrent Propozice:*}class="active"{/if}><a href="{plink Propozice:}" title="Propozice pro přihlášení družstva">Propozice</a></li>
+            <li {ifCurrent Pravidla:*}class="active"{/if}><a href="{plink Pravidla:}" title="Pravidla soutěže">Pravidla</a></li>
+            <li {ifCurrent Foto:*}class="active"{/if}><a href="{plink Foto:}" title="Fotografie z průběhu „Region Beskydy“ volejbalové ligy">Fotogalerie</a></li>
+          </ul>
+        </li>
+        <li {ifCurrent Download:*}class="active"{/if}><a href="{plink Download:}" title="Dokumenty ke stažení">Ke stažení</a></li>
+        <li {ifCurrent Kontakty:*}class="active"{/if}><a href="{plink Kontakty:}" title="Kontakty na vedení „Region Beskydy“ volejbalové ligy">Kontakt</a></li>
+        <li {ifCurrent Diskuze:*}class="active"{/if}><a href="{plink Diskuze:}" title="Diskuze návštěvníků">Diskuze</a></li>
+        <li {ifCurrent Akce:*}class="active"{/if}><a href="{plink Akce:}" title="Volejbalové turnaje a akce v Regionu Beskydy">Turnaje</a></li>
+      </ul>
     </div>
   </div>
-</div>
+</div> <!-- .navbar -->
+
 
 <div class="container">
   <div id="header"></div>
 
   <div class="row">
-    <div id="sidebar" class="col-md-3">
-      {include menu.phtml}
+    <div id="sidebar" class="col-md-2">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Aktuální kolo</div>
+        <div class="panel-body">
+          Výsledky
+        </div>
+      </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">Příští kolo</div>
+        <div class="panel-body">
+          Rozlosování
+        </div>
+      </div>
 
-    	{if isset($user)}
-    	<p id="logged-in">Uživatel: <strong>{$user->username}</strong></p>
+      {if isset($user)}
+      <p id="logged-in">Uživatel: <strong>{$user->username}</strong></p>
       <ul>
         <li><a href="{link Uzivatele:}" title="Správa uživatelů">Uživatelé</a></li>
         <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li>
         <li><a href="{link Auth:logout}" title="Odhlášení z administrace">Odhlášení</a></li>
       </ul>
-    	{/if}
-
+      {/if}
     </div> <!-- #sidebar -->
-    <div id="main" class="col-md-9">
+
+    <div id="main" class="col-md-10">
+      <div class="column">
       {if $pageHeading}
       <h1>{!$pageHeading}</h1>
       {/if}
@@ -79,6 +100,7 @@
       {/foreach}
 
       {include $content}
+      </div> <!-- .column -->
     </div> <!-- #main -->
   </div> <!-- .row -->
 </div> <!-- .container -->
