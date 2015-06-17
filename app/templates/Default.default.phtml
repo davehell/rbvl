@@ -1,8 +1,31 @@
-{if isset($user)}
-<p>
-  <a class="btn btn-default" href="{link Stranky:edit, 1}" title="Upravit text úvodní stránky"><span class="glyphicon glyphicon-pencil"></span> Upravit text</a>
-</p>
-{/if}
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel-box">
+      <div class="row">
+        <div class="col-md-12">
+          {if isset($user)}
+          <p>
+            <a class="btn btn-default pull-right" href="{link Stranky:edit, 1}" title="Upravit text úvodní stránky"><span class="glyphicon glyphicon-pencil"></span> Upravit text</a>
+          </p>
+          {/if}
+          {!$text|texy}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="panel-box">
+      <div class="titles">
+        <h4>Aktuální kolo</h4>
+      </div>
+    </div>
+    <div class="panel-box">
+      <div class="titles">
+        <h4>Příští kolo</h4>
+      </div>
+    </div>
+  </div>
+</div> <!-- .row -->
 
 <!--
 <p class="alert alert-warning">
@@ -14,5 +37,3 @@
  a&nbsp;<a href="{plink Propozice:}">Propozice</a>. Přihlášku a&nbsp;soupisku najdete v&nbsp;sekci <a href="{plink Download:}">Ke stažení</a>.
 </p>
 -->
-
-{!$text|texy}

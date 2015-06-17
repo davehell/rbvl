@@ -21,7 +21,7 @@ class StrankyPresenter extends BasePresenter
       $row = $stranky->find($id)->fetch();
       if (!$row) {
         //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'warning');
+        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
         $this->redirect('Default:default');
       }
       $form->setDefaults($row);
@@ -37,10 +37,10 @@ class StrankyPresenter extends BasePresenter
 
       try {
         $stranky->update($id, $form->getValues());
-        $this->flashMessage('Příspěvek byl úspěšně upraven.', 'ok');
+        $this->flashMessage('Příspěvek byl úspěšně upraven.', 'success');
         $this->redirect('Default:default');
        } catch (DibiException $e) {
-        $this->flashMessage('Nastala chyba. Příspěvek nebyl upraven.', 'warning');
+        $this->flashMessage('Nastala chyba. Příspěvek nebyl upraven.', 'danger');
         $form->addError($e->getMessage());
       }
     }

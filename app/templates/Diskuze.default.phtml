@@ -1,5 +1,5 @@
-<p>
-  <a class="btn btn-success" href="{link add}" title="Přidat příspěvek do diskuze"><span class="glyphicon glyphicon-plus"></span> Nový příspěvek</a>
+<p class="text-center">
+  <a class="btn btn-success btn-lg" href="{link add}" title="Přidat příspěvek do diskuze"><span class="glyphicon glyphicon-plus"></span> Přidat příspěvek</a>
 </p>
 
 {if !count($rows)}
@@ -13,19 +13,24 @@
   </div>
 
   {foreach $rows as $row}
-    {if isset($user)}
-      <div class="btn-group pull-right">
-        <a class="btn btn-default" href="{link edit, $row->id}" title="upravit příspěvek"><span class="glyphicon glyphicon-pencil"></span></a>
-        <a class="btn btn-default" href="{link delete, $row->id}" title="smazat příspěvek"><span class="glyphicon glyphicon-remove"></span></a>
+  <div class="panel-box">
+    <div class="row">
+      <div class="titles">
+        <h4>
+          {$row->jmeno} <small>{$row->vlozeno|date:'%d.%m.%Y %H:%M'}</small>
+          {if isset($user)}
+            <div class="btn-group pull-right">
+              <a class="btn btn-default" href="{link edit, $row->id}" title="upravit příspěvek"><span class="glyphicon glyphicon-pencil"></span></a>
+              <a class="btn btn-default" href="{link delete, $row->id}" title="smazat příspěvek"><span class="glyphicon glyphicon-remove"></span></a>
+            </div>
+          {/if}
+        </h4>
       </div>
-    {/if}
-    <h4 class="clearfix">{$row->jmeno} <small>{$row->vlozeno|date:'%d.%m.%Y %H:%M'}</small></h4>
-
-    {!$row->text |texy}
-
-    {if !$iterator->last}
-      <hr>
-    {/if}
+      <div class="col-md-12">
+        {!$row->text |texy}
+      </div>
+    </div>
+  </div>
   {/foreach}
 
   <div class="row">

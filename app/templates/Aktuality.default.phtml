@@ -1,6 +1,6 @@
 {if isset($user)}
-<p>
-  <a class="btn btn-success" href="{link add}" title="Přidat novou aktualitu"><span class="glyphicon glyphicon-plus"></span> Nová aktualita</a>
+<p class="text-center">
+  <a class="btn btn-success btn-lg" href="{link add}" title="Přidat novou aktualitu"><span class="glyphicon glyphicon-plus"></span> Přidat aktualitu</a>
 </p>
 {/if}
 
@@ -13,22 +13,29 @@
   {?$dataGrid->renderPaginator()}
 
   {foreach $rows as $row}
-    {if isset($user)}
-      <div class="btn-group pull-right">
-        <a class="btn btn-default" href="{link edit, $row->id}" title="upravit příspěvek"><span class="glyphicon glyphicon-pencil"></span></a>
-        <a class="btn btn-default" href="{link delete, $row->id}" title="smazat příspěvek"><span class="glyphicon glyphicon-remove"></span></a>
+  <div class="panel-box">
+    <div class="row">
+      <div class="titles">
+        <h4>
+          {$row->vlozeno|date:'%d.%m.%Y'}
+          {if isset($user)}
+            <div class="btn-group">
+              <a class="btn btn-default" href="{link edit, $row->id}" title="upravit příspěvek"><span class="glyphicon glyphicon-pencil"></span></a>
+              <a class="btn btn-default" href="{link delete, $row->id}" title="smazat příspěvek"><span class="glyphicon glyphicon-remove"></span></a>
+            </div>
+          {/if}
+        </h4>
       </div>
-    {/if}
-    <h4 class="clearfix">{$row->vlozeno|date:'%d.%m.%Y'}</h4>
-    {!$row->text |texy}
-
-    {if !$iterator->last}
-      <hr>
-    {/if}
+      <div class="col-md-12">
+        {!$row->text |texy}
+      </div>
+    </div>
+  </div>
   {/foreach}
 
   {?$dataGrid->renderPaginator()}
 
 {/if}
+
 
 

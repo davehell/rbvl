@@ -1,5 +1,5 @@
-<p>
-  <a class="btn btn-success" href="{link add}" title="Přidat novou akci"><span class="glyphicon glyphicon-plus"></span> Nová akce</a>
+<p class="text-center">
+  <a class="btn btn-success btn-lg" href="{link add}" title="Přidat novou akci"><span class="glyphicon glyphicon-plus"></span> Přidat akci</a>
 </p>
 
 {if !count($rows)}
@@ -11,31 +11,37 @@
   {?$dataGrid->renderPaginator()}
 
   {foreach $rows as $row}
-    {if isset($user)}
-      <div class="btn-group pull-right">
-        <a class="btn btn-default" href="{link edit, $row->id}" title="upravit příspěvek"><span class="glyphicon glyphicon-pencil"></span></a>
-        <a class="btn btn-default" href="{link delete, $row->id}" title="smazat příspěvek"><span class="glyphicon glyphicon-remove"></span></a>
+  <div class="panel-box">
+    <div class="row">
+      <div class="titles">
+        <h4>
+          {$row->nazev}
+          {if isset($user)}
+            <div class="btn-group pull-right">
+              <a class="btn btn-default" href="{link edit, $row->id}" title="upravit příspěvek"><span class="glyphicon glyphicon-pencil"></span></a>
+              <a class="btn btn-default" href="{link delete, $row->id}" title="smazat příspěvek"><span class="glyphicon glyphicon-remove"></span></a>
+            </div>
+          {/if}
+        </h4>
       </div>
-    {/if}
-    <h4 class="clearfix">{$row->nazev}</h4>
-    <p>
-    <span class="glyphicon glyphicon-calendar"></span>
-    {if $row->int_datum_do}
-      {$row->int_datum_od|date:'%d.%m.'} - {$row->int_datum_do|date:'%d.%m.%Y'}
-    {else}
-      {$row->int_datum_od|date:'%d.%m.%Y'}
-    {/if}
-    </p>
+      <div class="col-md-12">
+        <p>
+        <span class="glyphicon glyphicon-calendar"></span>
+        {if $row->int_datum_do}
+          {$row->int_datum_od|date:'%d.%m.'} - {$row->int_datum_do|date:'%d.%m.%Y'}
+        {else}
+          {$row->int_datum_od|date:'%d.%m.%Y'}
+        {/if}
+        </p>
 
-    {!$row->popis |texy}
-    <ul>
-      <li>Startovné: {$row->startovne}</li>
-      <li>Kontakt: {$row->jmeno} ({$row->telefon}{if $row->email}, <a href="mailto:{$row->email}">{$row->email}</a>{/if})</li>
-    </ul>
-
-    {if !$iterator->last}
-      <hr>
-    {/if}
+        {!$row->popis |texy}
+        <ul>
+          <li>Startovné: {$row->startovne}</li>
+          <li>Kontakt: {$row->jmeno} ({$row->telefon}{if $row->email}, <a href="mailto:{$row->email}">{$row->email}</a>{/if})</li>
+        </ul>
+      </div>
+    </div>
+  </div>
   {/foreach}
 
   {?$dataGrid->renderPaginator()}
