@@ -111,7 +111,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .post-item {
   background: url("../img/border-pattern.gif") repeat-x scroll left bottom rgba(0, 0, 0, 0);
-  /*border-bottom: medium double #ccc;*/
   margin-bottom: 15px;
   padding-bottom: 15px;
 }

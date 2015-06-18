@@ -30,8 +30,7 @@ a img { border: none; }
 
 /* Links */
 a:link, a:visited { background: transparent; font-weight: 700; text-decoration: underline;color:#333; }
-a:link[href^="http://"]:after, a[href^="http://"]:visited:after { content: " (" attr(href) ") "; font-size: 90%; }
-a[href^="http://"] {color:#000; }
+
 
 /* Table */
 table { margin: 1px; text-align:left; border-collapse: collapse;}
@@ -43,22 +42,12 @@ caption { background: #fff; margin-bottom:2em; text-align:left; }
 thead {display: table-header-group;}
 tr {page-break-inside: avoid;}
 
-table p {
-	padding: 0;
-	margin: 0;
-}
-table.rozlosovani .poznamka {
-  width: 30%;
-}
 
-table.vysledky, table.rozlosovani, table.hraci {
-  width: 100%;
-}
-
-.content-info {
+.content-info, .panel-box {
 	margin: 0 auto;
+	border: none;
 }
-#header, #footer, .footer-down, .section-wide, .crumbs, .section-title, .sidebar, .noPrint
+#header, #footer, .footer-down, .section-wide, .crumbs, .section-title, .sidebar, .well, .titles, .pagination, .noPrint
 {display:none;}
 
 

@@ -43,7 +43,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="well text-center">
-            <select id="druzstva" class="noPrint" onchange="zvyrazneniTymu()">
+            <select id="druzstva" onchange="zvyrazneniTymu()">
               <option value=" "> - - zvýraznit družstvo - - </option>
               {foreach $druzstva as $druzstvo}
               <option value="{$druzstvo->nazev}">{$druzstvo->nazev}</option>
