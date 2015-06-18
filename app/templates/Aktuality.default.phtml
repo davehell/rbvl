@@ -1,8 +1,10 @@
 {if isset($user)}
 <p class="text-center">
-  <a class="btn btn-success btn-lg" href="{link add}" title="Přidat novou aktualitu"><span class="glyphicon glyphicon-plus"></span> Přidat aktualitu</a>
+  <a class="btn btn-primary btn-lg" href="{link add}" title="Přidat novou aktualitu"><span class="glyphicon glyphicon-plus"></span> Přidat aktualitu</a>
 </p>
 {/if}
+
+<div class="panel-box">
 
 {if !count($rows)}
   <p>
@@ -13,9 +15,9 @@
   {?$dataGrid->renderPaginator()}
 
   {foreach $rows as $row}
-  <div class="panel-box">
+  <div class="post-item">
     <div class="row">
-      <div class="titles">
+      <div class="col-md-12">
         <h4>
           {$row->vlozeno|date:'%d.%m.%Y'}
           {if isset($user)}
@@ -25,8 +27,6 @@
             </div>
           {/if}
         </h4>
-      </div>
-      <div class="col-md-12">
         {!$row->text |texy}
       </div>
     </div>
@@ -37,5 +37,4 @@
 
 {/if}
 
-
-
+</div>

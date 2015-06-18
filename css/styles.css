@@ -3,11 +3,10 @@ body {
   background-color: #fff;
 }
 h1, h2, h3, h4, h5, h6 {
-    color: #272727;
-    font-family: 'Raleway',sans-serif;
-    font-weight: normal;
-    margin: 0;
-    padding: 5px 0 15px;
+  color: #272727;
+  font-weight: normal;
+  margin: 0;
+  padding: 5px 0 15px;
 }
 
 #header {
@@ -21,8 +20,18 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: 3px solid #88c425;
 }
 .navbar-default .navbar-nav > li > a {
+  color: #232323;
   line-height: 30px;
 }
+.navbar-default .navbar-nav > li > a:hover {
+  color: #88c425;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+  background: none;
+  box-shadow: none;
+  color: #88c425;
+}
+
 
 .crumbs {
     background: none repeat scroll 0 0 #fff;
@@ -59,7 +68,7 @@ h1, h2, h3, h4, h5, h6 {
   background: none repeat scroll 0 0 #f4f4f4;
   border-bottom: medium double #ccc;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
-  margin: -160px auto 0;
+  margin: -160px auto -120px;
   max-width: 1230px;
   position: relative;
 }
@@ -91,21 +100,76 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 10px;
 }
-
-
+.post-item {
+  background: url("../img/border-pattern.gif") repeat-x scroll left bottom rgba(0, 0, 0, 0);
+  /*border-bottom: medium double #ccc;*/
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+.post-item:last-child {
+  background: none;
+  padding-bottom: 0;
+}
 
 #header h1, #header h3{
   color: #124f80;
 }
 
-
+.section-wide {
+  background-color: #fff;
+  border-top: 1px solid #dedede;
+  margin-top: 20px;
+  padding: 30px 0;
+}
 
 
 #footer {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 3px solid #2d91d9;
+  background-color: #222;
+  background-image: url("../img/bgfooter.jpg");
+  background-repeat: repeat;
+  background-size: cover !important;
+  color: #888;
+  font-size: 13px;
+  line-height: 20px;
+  margin-top: 40px;
+  padding-bottom: 20px;
+  padding-top: 110px;
 }
+#footer h4 {
+  color: #fff;
+}
+.footer-down {
+  background-color: #88c425;
+  padding: 20px 0;
+}
+.footer-down p {
+  color: #fff;
+  font-size: 16px;
+  margin: 0;
+}
+.footer-down ul {
+  text-align: right;
+}
+.footer-down ul li {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-transform: uppercase;
+}
+.footer-down ul li a {
+  color: #f5f5f5;
+  font-size: 13px;
+}
+.nav-footer li:before {
+  color: #fff;
+  content: "|";
+  display: inline-block;
+  margin-right: 10px;
+}
+.nav-footer li:nth-child(1):before {
+  display: none;
+}
+
 
 /* chybové hlášky ve formuláři */
 .error {
@@ -132,4 +196,23 @@ mark {
 #frm-vysledkyForm .form-group, #frm-vysledkyForm .checkbox {
   display: block;
   margin-bottom: 15px;
+}
+
+
+.btn-primary{
+  color: #fff;
+  border-color: #dedede;
+  text-shadow:none;
+}
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  background: none repeat scroll 0 0 #88c425;
+  border-color: #cdcdcd;
+  color: #fff;
+}
+.btn:hover{
+  opacity: 0.8;
+}
+
+.form-control, .btn {
+  border-radius: 0;
 }

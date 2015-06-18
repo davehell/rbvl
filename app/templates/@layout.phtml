@@ -14,6 +14,8 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -21,9 +23,19 @@
 <div id="header">
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-10">
         <a href="{plink Default:}"  title="Úvodní strana „Region Beskydy“ volejbalové ligy"><h1>„Region Beskydy“ volejbalová liga</h1></a>
         <h3>Pojďme se bavit volejbalem v každém věku</h3>
+      </div>
+      <div class="col-md-2">
+        {if isset($user)}
+        <p id="logged-in">Uživatel: <strong>{$user->username}</strong></p>
+        <ul>
+          <li><a href="{link Uzivatele:}" title="Správa uživatelů">Uživatelé</a></li>
+          <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li>
+          <li><a href="{link Auth:logout}" title="Odhlášení z administrace">Odhlášení</a></li>
+        </ul>
+        {/if}
       </div>
     </div>
   </div>
@@ -43,21 +55,21 @@
       <div class="navbar-collapse" id="menu-collapse">
         <ul class="nav navbar-nav">
           <li {ifCurrent Default:*}class="activeX"{/if}><a href="{plink Default:}" title="Informace o „Region Beskydy“ volejbalové lize">Úvod</a></li>
-          <li {ifCurrent Aktuality:*}class="activeX"{/if}><a href="{plink Aktuality:}" title="Aktuality z „Region Beskydy“ volejbalové ligy">Novinky</a></li>
+          <li><a href="{plink Aktuality:}" title="Aktuality z „Region Beskydy“ volejbalové ligy">Novinky</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aktuální ročník <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li {ifCurrent Vysledky:*}class="activeX"{/if}><a href="{plink Vysledky:}" title="Výsledky aktuálního ročníku">Výsledky</a></li>
-              <li {ifCurrent Rozlosovani:*}class="activeX"{/if}><a href="{plink Rozlosovani:}" title="Rozlosování aktuálního ročníku">Rozlosování</a></li>
-              <li {ifCurrent Propozice:*}class="activeX"{/if}><a href="{plink Propozice:}" title="Propozice pro přihlášení družstva">Propozice</a></li>
-              <li {ifCurrent Pravidla:*}class="activeX"{/if}><a href="{plink Pravidla:}" title="Pravidla soutěže">Pravidla</a></li>
-              <li {ifCurrent Foto:*}class="activeX"{/if}><a href="{plink Foto:}" title="Fotografie z průběhu „Region Beskydy“ volejbalové ligy">Fotogalerie</a></li>
+              <li><a href="{plink Vysledky:}" title="Výsledky aktuálního ročníku">Výsledky</a></li>
+              <li><a href="{plink Rozlosovani:}" title="Rozlosování aktuálního ročníku">Rozlosování</a></li>
+              <li><a href="{plink Propozice:}" title="Propozice pro přihlášení družstva">Propozice</a></li>
+              <li><a href="{plink Pravidla:}" title="Pravidla soutěže">Pravidla</a></li>
+              <li><a href="{plink Foto:}" title="Fotografie z průběhu „Region Beskydy“ volejbalové ligy">Fotogalerie</a></li>
             </ul>
           </li>
-          <li {ifCurrent Download:*}class="activeX"{/if}><a href="{plink Download:}" title="Dokumenty ke stažení">Ke stažení</a></li>
-          <li {ifCurrent Kontakty:*}class="activeX"{/if}><a href="{plink Kontakty:}" title="Kontakty na vedení „Region Beskydy“ volejbalové ligy">Kontakt</a></li>
-          <li {ifCurrent Diskuze:*}class="activeX"{/if}><a href="{plink Diskuze:}" title="Diskuze návštěvníků">Diskuze</a></li>
-          <li {ifCurrent Akce:*}class="activeX"{/if}><a href="{plink Akce:}" title="Volejbalové turnaje a akce v Regionu Beskydy">Turnaje</a></li>
+          <li><a href="{plink Download:}" title="Dokumenty ke stažení">Ke stažení</a></li>
+          <li><a href="{plink Kontakty:}" title="Kontakty na vedení „Region Beskydy“ volejbalové ligy">Kontakty</a></li>
+          <li><a href="{plink Diskuze:}" title="Diskuze návštěvníků">Diskuze</a></li>
+          <li><a href="{plink Akce:}" title="Volejbalové turnaje a akce v Regionu Beskydy">Turnaje</a></li>
         </ul>
       </div>
     </div> <!-- .row -->
@@ -85,31 +97,61 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-              {foreach $flashes as $flash}
-              <p class="alert alert-{$flash->type}">{$flash->message}</p>
-              {/foreach}
-              {include $content}
+        {foreach $flashes as $flash}
+        <p class="alert alert-{$flash->type}">{$flash->message}</p>
+        {/foreach}
+        {include $content}
       </div>
     </div> <!-- .row -->
   </div> <!-- .container -->
-</div> <!-- #main -->
 
-<div id="footer" class="text-center">
-  <a href="http://www.regionbeskydy.cz/" title="Region Beskydy"><img src="{$baseUri}img/logos/rb_logo.jpg" width="80px" height="100px" alt="Region Beskydy" /></a>
+  <div class="section-wide">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text-center">
+            <a href="http://www.regionbeskydy.cz/" title="Region Beskydy"><img src="{$baseUri}img/logos/rb_logo.jpg" width="80px" height="100px" alt="Region Beskydy" /></a>
+          </div>
+<span class="pull-right">
+  <a href="{link Auth:login}" title="">administrace</a><br />
+</span>
+        </div>
+      </div> <!-- .row -->
+    </div> <!-- .container -->
+  </div> <!-- .section-wide -->
+</div> <!-- .content-info -->
 
-  <p>
-    <a href="{link Auth:login}" title="">administrace</a><br />
-  </p>
 
-  {if isset($user)}
-  <p id="logged-in">Uživatel: <strong>{$user->username}</strong></p>
-  <ul>
-    <li><a href="{link Uzivatele:}" title="Správa uživatelů">Uživatelé</a></li>
-    <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li>
-    <li><a href="{link Auth:logout}" title="Odhlášení z administrace">Odhlášení</a></li>
-  </ul>
-  {/if}
-</div><!-- #footer -->
+<div id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Latest Tweet</h4>
+        <p>bbb</p>
+      </div>
+    </div> <!-- .row -->
+  </div> <!-- .container -->
+</div> <!-- #footer -->
+
+<div class="footer-down">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+          <p>&copy; 2015 Beskydská volejbalová liga amatérů</p>
+      </div>
+      <div class="col-md-7">
+        <ul class="nav-footer">
+            <li><a href="#">ÚVOD</a> </li>
+            <li><a href="#">NOVINKY</a></li>
+            <li><a href="#">KE STAŽENÍ</a></li>
+            <li><a href="#">KONTAKTY</a></li>
+        </ul>
+      </div>
+    </div> <!-- .row -->
+  </div> <!-- .container -->
+</div> <!-- .footer-down -->
+
+
 
 
 {if isset($scripts)}
