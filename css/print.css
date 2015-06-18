@@ -55,7 +55,10 @@ table.vysledky, table.rozlosovani, table.hraci {
   width: 100%;
 }
 
-#header, #footer, #sidebar, .noDisplay , .noPrint
+.content-info {
+	margin: 0 auto;
+}
+#header, #footer, .footer-down, .section-wide, .crumbs, .section-title, .sidebar, .noPrint
 {display:none;}
 
 

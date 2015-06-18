@@ -225,3 +225,7 @@ mark {
 .form-control, .btn {
   border-radius: 0;
 }
+
+.sidebar ul {
+  padding-left: 20px;
+}

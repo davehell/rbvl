@@ -17,7 +17,7 @@ class VysledkyPresenter extends BasePresenter
   public function renderDefault()
   {
       $this->template->pageTitle = '„RB“VL - Výsledky';
-      $this->template->pageHeading = 'Výsledky ročníku ' . $this->Rocnik;
+      $this->template->pageHeading = 'Výsledky';
       $this->template->pageDesc = 'Výsledky zápasů „Region Beskydy“ volejbalové ligy';
 
       $terminy = new Terminy;
@@ -44,6 +44,7 @@ class VysledkyPresenter extends BasePresenter
 
       $this->template->datum = '';
       $this->template->skupina = '';
+      $this->template->rocnikPopis = '';
   }
 
   public function renderTabulky($id = 0)
@@ -58,6 +59,7 @@ class VysledkyPresenter extends BasePresenter
       $this->template->tabulky = $tabulky->getTabulky($id)->fetchAll();
       $this->template->skupina = '';
       $this->template->poradi = 0;
+      $this->template->rocnikPopis = '';
 
       if (!$this->template->tabulky) {
         $this->flashMessage('Požadovaný záznam neexistuje.', 'error');

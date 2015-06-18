@@ -9,7 +9,7 @@ class RozlosovaniPresenter extends BasePresenter
   public function actionDefault($id = 0)
   {
       $this->template->pageTitle = '„RB“VL - Rozlosování';
-      $this->template->pageHeading = 'Rozlosování ročníku ' .  $this->Rocnik;
+      $this->template->pageHeading = 'Rozlosování';
       $this->template->pageDesc = 'Rozlosování zápasů „Region Beskydy“ volejbalové ligy';
       $this->template->scripts = array('vysledky');
 
