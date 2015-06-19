@@ -15,6 +15,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
+  <link rel="stylesheet" href="{$baseUri}css/lightbox.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="{$baseUri}js/lightbox.min.js"></script>
+
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 </head>
 
@@ -126,9 +129,28 @@
 <div id="footer">
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
-        <h4>Latest Tweet</h4>
-        <p>bbb</p>
+      <div class="col-md-6">
+        <h4 class="text-center">Vítězové minulého ročníku</h4>
+        <ul class="thumbs">
+          <li>
+            <a href="{$baseUri}img/vitezove/1415-1-skokani.jpg" rel="lightbox['vitezove']" title="Skokani - mistr ligy 2014-2015">
+              <img src="{$baseUri}img/vitezove/thumb_1415-1-skokani.jpg" />
+            </a>
+            <p>Skokani<br>mistr ligy 2014-2015</p>
+          </li>
+          <li>
+            <a href="{$baseUri}img/vitezove/1415-2-wadovice.jpg" rel="lightbox['vitezove']" title="Wadovice - druhé místo">
+              <img src="{$baseUri}img/vitezove/thumb_1415-2-wadovice.jpg" />
+            </a>
+            <p>Wadowice<br>druhé místo</p>
+          </li>
+          <li>
+            <a href="{$baseUri}img/vitezove/1415-3-raskovice.jpg" rel="lightbox['vitezove']" title="Raškovice - třetí místo">
+              <img src="{$baseUri}img/vitezove/thumb_1415-3-raskovice.jpg" />
+            </a>
+            <p>Raškovice<br>třetí místo</p>
+          </li>
+        </ul>
       </div>
     </div> <!-- .row -->
   </div> <!-- .container -->
@@ -144,6 +166,7 @@
         <ul class="nav-footer">
             <li><a href="{plink Default:}">ÚVOD</a> </li>
             <li><a href="{plink Aktuality:}">NOVINKY</a></li>
+            <li><a href="{plink Vysledky:}">VÝSLEDKY</a></li>
             <li><a href="{plink Download:}">KE STAŽENÍ</a></li>
             <li><a href="{plink Kontakty:}">KONTAKTY</a></li>
         </ul>
@@ -171,8 +194,6 @@
   <script type="text/javascript" src="{$baseUri}js/antispam.js"></script>
   {/if}
   {if in_array('lightbox', $scripts)}
-  <link rel="stylesheet" href="{$baseUri}css/lightbox.css" type="text/css" media="screen" />
-  <script type="text/javascript" src="{$baseUri}js/lightbox.min.js"></script>
   {/if}
   {if in_array('autocomplete', $scripts)}
     <link rel="stylesheet" href="{$baseUri}css/autocomplete-jquery-ui.min.css" type="text/css" media="screen" />
