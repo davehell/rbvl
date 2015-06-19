@@ -18,13 +18,12 @@
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 </head>
 
-<body>
+<body {ifCurrent Default:*}class="homepage"{/if}>
 
 <div id="header">
   <div class="container">
     <div class="row">
       <div class="col-md-10">
-      <img class="pull-left" src="{$baseUri}img/logos/rb_logo.png" height="100px" alt="Region Beskydy" />
         <a href="{plink Default:}"  title="Úvodní strana „Region Beskydy“ volejbalové ligy"><h1>„Region Beskydy“ volejbalová liga</h1></a>
         <h3>Pojďme se bavit volejbalem v každém věku</h3>
       </div>
@@ -55,7 +54,7 @@
 
       <div class="navbar-collapse" id="menu-collapse">
         <ul class="nav navbar-nav">
-          <li {ifCurrent Default:*}class="activeX"{/if}><a href="{plink Default:}" title="Informace o „Region Beskydy“ volejbalové lize">Úvod</a></li>
+          <li><a href="{plink Default:}" title="Informace o „Region Beskydy“ volejbalové lize">Úvod</a></li>
           <li><a href="{plink Aktuality:}" title="Aktuality z „Region Beskydy“ volejbalové ligy">Novinky</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aktuální ročník <span class="caret"></span></a>
@@ -112,7 +111,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="text-center">
-            <a href="http://www.regionbeskydy.cz/" title="Region Beskydy"><img src="{$baseUri}img/logos/rb_logo.png" height="100px" alt="Region Beskydy" /></a>
+            <a href="http://www.regionbeskydy.cz/" title="Region Beskydy"><img src="{$baseUri}img/rb_logo.png" height="100px" width="77px" alt="Region Beskydy" /></a>
           </div>
 <span class="pull-right">
   <a href="{link Auth:login}" title="">administrace</a><br />

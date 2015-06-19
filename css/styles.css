@@ -12,8 +12,15 @@ h1, h2, h3, h4, h5, h6 {
 #header {
   border-top: 3px solid #88c425;
 }
+.homepage #header h1, .homepage #header h3 {
+  display: none;
+}
 .navbar {
   margin-bottom: 0;
+}
+.navbar-default {
+  border-radius: 0;
+  background-color: #fff;
 }
 #menu {
   border-top: 1px solid #dedede;
@@ -49,9 +56,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section-title {
-  background: url("../img/bgtitle.jpg") repeat scroll top center / cover  rgba(0, 0, 0, 0);
+  background: url("../img/bgtitle.jpg") repeat scroll top right / cover  rgba(0, 0, 0, 0);
+  background-color: #fff;
   height: 300px;
   position: relative;
+}
+.homepage .section-title {
+  height: 500px;
 }
 .section-title h1 {
   color: #fff;
@@ -80,6 +91,9 @@ h1, h2, h3, h4, h5, h6 {
   margin: -160px auto -120px;
   max-width: 1230px;
   position: relative;
+}
+.homepage .content-info {
+  margin-top: -360px;
 }
 .content-info > .container {
   padding-top: 50px;
