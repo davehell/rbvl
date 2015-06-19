@@ -47,7 +47,7 @@ tr {page-break-inside: avoid;}
 	margin: 0 auto;
 	border: none;
 }
-#header, #footer, .footer-down, .section-wide, .crumbs, .section-title, .sidebar, .well, .titles, .pagination, .noPrint
+#header, #footer, .footer-down, .section-wide, .crumbs, .section-title, .sidebar, .zvyrazneniDruzstva, .titles, .pagination, .noPrint
 {display:none;}
 
 

@@ -1,0 +1,22 @@
+<h4>Liga A - playoff</h4>
+<ul>
+  <li>Hrací den č. 6 - 22.3.2015</li>
+
+  <ul>
+   <li><a href="/download/rozlosovani_playoff2015_2.pdf">pořadí zápasů</a></li>
+   <li><a href="/download/playoff_2015_vysl.pdf">pavouk playoff</a></li>
+  </ul>
+</ul>
+
+{foreach $terminy as $termin}
+  {if $rocnikPopis != $termin->rocnik}
+    {if $rocnikPopis !=  ""}
+      </ul>
+    {/if}
+    <h4>{$termin->rocnik}</h4>
+    <ul>
+  {/if}
+  <li><a href="{plink Rozlosovani:default, $termin->id}" title="Zobrazit rozlosování zápasů dne {$termin->datum|czechDate}">{$termin->termin}</a> - {$termin->datum|czechDate}</li>
+  {assign $rocnikPopis $termin->rocnik}
+  {if $iterator->isLast()}</ul>{/if}
+{/foreach}

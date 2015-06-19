@@ -1,33 +1,4 @@
 <div class="row">
-  <div class="col-md-3 sidebar">
-    <div class="panel-box">
-      <div class="titles">
-        <h4>Hrací dny</h4>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <h4>Liga A - play off</h4>
-          <ul>
-            <li><a href="http://www.rbvl.cz/download/playoff_2015_vysl.pdf">Hrací den č. 6</a> - 22.3.2015</li>
-          </ul>
-
-          {foreach $terminy as $termin}
-            {if $rocnikPopis != $termin->rocnik}
-              {if $rocnikPopis !=  ""}
-                </ul>
-              {/if}
-              <h4>{$termin->rocnik}</h4>
-              <ul>
-                <li><a href="{plink Vysledky:tabulky, $termin->id_rocnik}" title="Zobrazit celkové tabulky soutěže {$termin->rocnik}">Celkové tabulky</a></li>
-            {/if}
-            <li><a href="{plink Vysledky:termin, $termin->id}" title="Zobrazit výsledky zápasů ze dne {$termin->datum|czechDate}">{$termin->termin}</a> - {$termin->datum|czechDate}</li>
-            {assign $rocnikPopis $termin->rocnik}
-            {if $iterator->isLast()}</ul>{/if}
-          {/foreach}
-        </div> <!-- .col-md-12 -->
-      </div> <!-- .row -->
-    </div> <!-- .panel-box -->
-  </div> <!-- .col-md-3 -->
   <div class="col-md-9">
     <div class="panel-box">
       <div class="titles">
@@ -35,9 +6,10 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="well text-center">
+          <div class="zvyrazneniDruzstva">
+            <span class="glyphicon glyphicon-zoom-in"></span>
             <select id="druzstva" onchange="zvyrazneniTymu()">
-              <option value=""> - - zvýraznit družstvo - - </option>
+              <option value=" "> - - zvýraznit družstvo - - </option>
               {foreach $druzstva as $druzstvo}
               <option value="{$druzstvo->nazev}">{$druzstvo->nazev}</option>
               {/foreach}
@@ -51,12 +23,12 @@
               {/if}
               <h2>{$zapas->datum|czechDate} - {$zapas->termin}</h2>
               <h3>{$zapas->skupina}</h3>
-              <table class="vysledky table table-striped table-hover table-condensed">
+              <table class="table table-striped table-hover table-condensed">
                 <thead>
                   <tr>
-                    <th class="span3">domácí</th>
-                    <th class="span3">hosté</th>
-                    <th class="span3">výsledek</th>
+                    <th>domácí</th>
+                    <th>hosté</th>
+                    <th>výsledek</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -65,12 +37,12 @@
                 </tbody></table>
               {/if}
               <h4>{$zapas->skupina}</h4>
-              <table class="vysledky table table-striped table-hover table-condensed">
+              <table class="table table-striped table-hover table-condensed">
                 <thead>
                   <tr>
-                    <th class="span3">domácí</th>
-                    <th class="span3">hosté</th>
-                    <th class="span3">výsledek</th>
+                    <th>domácí</th>
+                    <th>hosté</th>
+                    <th>výsledek</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -100,4 +72,16 @@
       </div> <!-- .row -->
     </div> <!-- .panel-box -->
   </div> <!-- .col-md-9 -->
+  <div class="col-md-3 sidebar">
+    <div class="panel-box">
+      <div class="titles">
+        <h4>Hrací dny</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          {include vysledky-menu.phtml}
+        </div> <!-- .col-md-12 -->
+      </div> <!-- .row -->
+    </div> <!-- .panel-box -->
+  </div> <!-- .col-md-3 -->
 </div> <!-- .row -->
