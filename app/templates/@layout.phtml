@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="{$baseUri}css/lightbox.css" type="text/css" media="screen" />
   <script type="text/javascript" src="{$baseUri}js/lightbox.min.js"></script>
 
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 </head>
 
 <body {ifCurrent Default:*}class="homepage"{/if}>
@@ -27,8 +27,10 @@
   <div class="container">
     <div class="row">
       <div class="col-md-10">
-        <a href="{plink Default:}"  title="Úvodní strana „Region Beskydy“ volejbalové ligy"><h1>„Region Beskydy“ volejbalová liga</h1></a>
-        <h3>Pojďme se bavit volejbalem v každém věku</h3>
+        <a href="{plink Default:}" class="brand" title="Úvodní stránka">
+          <h1>„Region Beskydy“ volejbalová liga</h1>
+          <p>Pojďme se bavit volejbalem v každém věku</p>
+        </a>
       </div>
       <div class="col-md-2">
         {if isset($user)}
@@ -164,18 +166,16 @@
       </div>
       <div class="col-md-7">
         <ul class="nav-footer">
-            <li><a href="{plink Default:}">ÚVOD</a> </li>
-            <li><a href="{plink Aktuality:}">NOVINKY</a></li>
-            <li><a href="{plink Vysledky:}">VÝSLEDKY</a></li>
-            <li><a href="{plink Download:}">KE STAŽENÍ</a></li>
-            <li><a href="{plink Kontakty:}">KONTAKTY</a></li>
+            <li><a href="{plink Default:}" title="Informace o „Region Beskydy“ volejbalové lize">ÚVOD</a> </li>
+            <li><a href="{plink Aktuality:}" title="Aktuality z „Region Beskydy“ volejbalové ligy">NOVINKY</a></li>
+            <li><a href="{plink Vysledky:}" title="Výsledky aktuálního ročníku">VÝSLEDKY</a></li>
+            <li><a href="{plink Download:}" title="Dokumenty ke stažení">KE STAŽENÍ</a></li>
+            <li><a href="{plink Kontakty:}" title="Kontakty na vedení „Region Beskydy“ volejbalové ligy">KONTAKTY</a></li>
         </ul>
       </div>
     </div> <!-- .row -->
   </div> <!-- .container -->
 </div> <!-- .footer-down -->
-
-
 
 
 {if isset($scripts)}

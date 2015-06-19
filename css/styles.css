@@ -12,8 +12,21 @@ h1, h2, h3, h4, h5, h6 {
 #header {
   border-top: 3px solid #88c425;
 }
-.homepage #header h1, .homepage #header h3 {
-  display: none;
+#header a.brand {
+  background: url("../img/rb_logo_small.png") no-repeat center left;
+  display: block;
+  padding-left: 50px;
+  text-decoration: none;
+}
+#header h1 {
+  color: #000;
+  font-size: 25px;
+  padding-bottom: 5px;
+}
+#header p {
+  color:  rgba(140, 140, 140, 1);
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 .navbar {
   margin-bottom: 0;
@@ -131,10 +144,6 @@ h1, h2, h3, h4, h5, h6 {
 .post-item:last-child {
   background: none;
   padding-bottom: 0;
-}
-
-#header h1, #header h3{
-  color: #124f80;
 }
 
 .section-wide {
