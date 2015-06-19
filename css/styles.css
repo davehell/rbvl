@@ -224,21 +224,23 @@ h1, h2, h3, h4, h5, h6 {
   padding: 3px;
   text-align: center;
   transition: all 0.5s ease 0s;
-  width: 150px;
+  width: 160px;
 }
 .thumbs li:hover {
   background-color: #88c425;
   color: #000;
   transition: all 0.5s ease 0s;
 }
-.thumbs li:first-child {
+
+#footer .thumbs li:first-child {
   margin-left: 0;
 }
 .thumbs li a {
 }
 .thumbs li img {
   display: block;
-  width: 100%;
+  margin: 0 auto;
+  height: 100px;
 }
 .thumbs li a img {
   border: medium none;

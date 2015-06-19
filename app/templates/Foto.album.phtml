@@ -17,33 +17,23 @@
   Album neobsahuje žádné fotky.
 </p>
 {else}
-  <p>
-    Po kliknutí na náhled se fotografie otevře v plné velikosti.
-  </p>
-
-  <div class="row">
+  <ul class="thumbs">
     {foreach $fotky as $fotka}
-      <div class="col-md-3">
-        <div class="thumbnail text-center">
-          <p>
-            <a href="{$baseUri}photos/{$fotka->soubor}" rel="lightbox[1]" title="{$fotka->popis}">
-              <img src="{$baseUri}photos/thumb_{$fotka->soubor}" alt="{$fotka->popis}"  />
-            </a>
-          </p>
-          <p>{$fotka->popis}</p>
+      <li>
+        <a href="{$baseUri}photos/{$fotka->soubor}" rel="lightbox[1]" title="{$fotka->popis}">
+          <img src="{$baseUri}photos/thumb_{$fotka->soubor}" alt="{$fotka->popis}" />
+        </a>
+        {if isset($user)}
           <div class="btn-group">
-            {if isset($user)}
-              <a class="btn btn-xs btn-default" href="{link Foto:edit, $fotka->id}" title="upravit"><span class="glyphicon glyphicon-pencil"></span></a>
-              <a class="btn btn-xs btn-default" href="{link Foto:delete, $fotka->id}" title="smazat"><span class="glyphicon glyphicon-remove"></span></a>
-            {/if}
-            <a class="btn btn-xs btn-default" href="{link download, $fotka->id}" title="uložit"><span class="glyphicon glyphicon-floppy-disk"></span></a>
+            <a class="btn btn-xs btn-default" href="{link Foto:edit, $fotka->id}" title="upravit"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-xs btn-default" href="{link Foto:delete, $fotka->id}" title="smazat"><span class="glyphicon glyphicon-remove"></span></a>
           </div>
-        </div>
-      </div>
+        {/if}
+        <!-- <a class="btn btn-xs btn-default" href="{link download, $fotka->id}" title="uložit"><span class="glyphicon glyphicon-floppy-disk"></span></a> -->
+      </li>
     {/foreach}
-  </div>
+  </ul>
 {/if}
-
     </div>
   </div>
 </div>
