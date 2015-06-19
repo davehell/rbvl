@@ -12,21 +12,24 @@ h1, h2, h3, h4, h5, h6 {
 #header {
   border-top: 3px solid #88c425;
 }
-#header a.brand {
+#header .brand {
   background: url("../img/rb_logo_small.png") no-repeat center left;
   display: block;
   padding-left: 50px;
   text-decoration: none;
 }
-#header h1 {
+#header .brand h1 {
   color: #000;
   font-size: 25px;
   padding-bottom: 5px;
 }
-#header p {
-  color:  rgba(140, 140, 140, 1);
+#header .brand p {
+  color: rgba(140, 140, 140, 1);
   font-size: 16px;
   letter-spacing: 1px;
+}
+#header .uziv {
+  padding-top: 5px;
 }
 .navbar {
   margin-bottom: 0;

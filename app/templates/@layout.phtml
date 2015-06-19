@@ -32,14 +32,15 @@
           <p>Pojďme se bavit volejbalem v každém věku</p>
         </a>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2 uziv text-right">
         {if isset($user)}
-        <p id="logged-in">Uživatel: <strong>{$user->username}</strong></p>
+          {$user->username}
+          <a href="{link Auth:logout}" class="btn btn-default" title="Odhlášení uživatele"><span class="glyphicon glyphicon-off"></span></a>
         <ul>
-          <li><a href="{link Uzivatele:}" title="Správa uživatelů">Uživatelé</a></li>
           <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li>
-          <li><a href="{link Auth:logout}" title="Odhlášení z administrace">Odhlášení</a></li>
         </ul>
+        {else}
+          <a href="{link Auth:login}" class="btn btn-default" title="Přihlášení uživatele"><span class="glyphicon glyphicon-user"></span></a>
         {/if}
       </div>
     </div>
@@ -118,9 +119,6 @@
           <div class="text-center">
             <a href="http://www.regionbeskydy.cz/" title="Region Beskydy"><img src="{$baseUri}img/rb_logo.png" height="100px" width="77px" alt="Region Beskydy" /></a>
           </div>
-<span class="pull-right">
-  <a href="{link Auth:login}" title="">administrace</a><br />
-</span>
         </div>
       </div> <!-- .row -->
     </div> <!-- .container -->
