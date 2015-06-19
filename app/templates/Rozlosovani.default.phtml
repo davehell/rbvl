@@ -41,7 +41,7 @@
             {if $cas != $zapas->cas}
               {assign $barva !$barva}
             {/if}
-                <tr{if $barva} class="info"{/if}>
+                <tr{if $barva} class="success"{/if}>
                   <td>{$zapas->cas|czechTime}</td>
                   <td>{if $zapas->domaci!=''}{$zapas->domaci}{else}{$zapas->skupina_popis}{$zapas->cislo_domaci}{/if}</td>
                   <td>-</td>

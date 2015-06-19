@@ -19,12 +19,13 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
 }
 #header .brand h1 {
-  color: #000;
+  color: #008000;
   font-size: 25px;
   padding-bottom: 5px;
 }
 #header .brand p {
-  color: rgba(140, 140, 140, 1);
+  /*color: rgba(140, 140, 140, 1);*/
+  color: #008000;
   font-size: 16px;
   letter-spacing: 1px;
 }
@@ -293,13 +294,21 @@ mark {
   border-radius: 0;
 }
 .pagination > li:first-child > a, .pagination > li:first-child > span {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 .pagination > li:last-child > a, .pagination > li:last-child > span {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
 }
+.table-striped > tbody > tr:nth-of-type(2n+1), .table > tbody > tr.success > td {
+  background-color: rgb(238, 247, 234);
+}
+.table-striped > tbody > tr:nth-of-type(2n+1):hover, .table > tbody > tr.success:hover > td {
+  background-color: rgb(226, 241, 220);
+}
+
+
 
 .sidebar ul {
   padding-left: 20px;

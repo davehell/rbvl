@@ -28,7 +28,7 @@
               </thead>
               <tbody>
             {/if}
-            <tr{if $iterator->isEven()} class="even"{/if}><td>{$poradi}.</td><td>{$row->druzstvo_nazev}</td><td>{$row->c}</td><td>{$row->v}</td><td>{$row->vt}</td><td>{$row->pt}</td><td>{$row->p}</td><td>{$row->pk}</td><td>{$row->sety_dal}:{$row->sety_dostal}</td><td>({$row->sety|round3})</td><td>{$row->mice_dal}:{$row->mice_dostal}</td><td>({$row->mice|round3})</td><td>{$row->body}</td></tr>
+            <tr><td>{$poradi}.</td><td>{$row->druzstvo_nazev}</td><td>{$row->c}</td><td>{$row->v}</td><td>{$row->vt}</td><td>{$row->pt}</td><td>{$row->p}</td><td>{$row->pk}</td><td>{$row->sety_dal}:{$row->sety_dostal}</td><td>({$row->sety|round3})</td><td>{$row->mice_dal}:{$row->mice_dostal}</td><td>({$row->mice|round3})</td><td>{$row->body}</td></tr>
             {assign $skupina $row->skupina_popis}
             <?php $poradi++?>
             {if $iterator->isLast()}</tbody></table>{/if}
