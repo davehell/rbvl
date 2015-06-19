@@ -172,6 +172,11 @@ h1, h2, h3, h4, h5, h6 {
 #footer h4 {
   color: #fff;
 }
+#footer .btn-primary {
+  background-color: #000;
+  border-color: #888;
+  color: #888;
+}
 .footer-down {
   background-color: #88c425;
   padding: 20px 0;
@@ -207,7 +212,7 @@ h1, h2, h3, h4, h5, h6 {
 /* náhledy v patičce */
 .thumbs {
   display: table;
-  margin: 0 auto;
+  margin: 0;
   overflow: hidden;
   padding: 0;
 }
@@ -225,6 +230,9 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #88c425;
   color: #000;
   transition: all 0.5s ease 0s;
+}
+.thumbs li:first-child {
+  margin-left: 0;
 }
 .thumbs li a {
 }

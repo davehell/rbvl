@@ -26,22 +26,11 @@
 <div id="header">
   <div class="container">
     <div class="row">
-      <div class="col-md-10">
+      <div class="col-md-12">
         <a href="{plink Default:}" class="brand" title="Úvodní stránka">
           <h1>„Region Beskydy“ volejbalová liga</h1>
           <p>Pojďme se bavit volejbalem v každém věku</p>
         </a>
-      </div>
-      <div class="col-md-2 uziv text-right">
-        {if isset($user)}
-          {$user->username}
-          <a href="{link Auth:logout}" class="btn btn-default" title="Odhlášení uživatele"><span class="glyphicon glyphicon-off"></span></a>
-        <ul>
-          <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li>
-        </ul>
-        {else}
-          <a href="{link Auth:login}" class="btn btn-default" title="Přihlášení uživatele"><span class="glyphicon glyphicon-user"></span></a>
-        {/if}
       </div>
     </div>
   </div>
@@ -92,13 +81,6 @@
 <div class="content-info">
 
   <div class="crumbs">
-<!--
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li>/</li>
-        <li>About Us</li>
-      </ul>
--->
   </div>
 
   <div class="container">
@@ -129,8 +111,12 @@
 <div id="footer">
   <div class="container">
     <div class="row">
+      <div class="col-md-3">
+      <h4>Pořadatel</h4>
+      <p>Beskydská volejbalová liga amatérů<br>V. Nezvala 549, Frýdek-Místek<br>IČ 02694409</p>
+      </div>
       <div class="col-md-6">
-        <h4 class="text-center">Vítězové minulého ročníku</h4>
+        <h4 class="">Vítězové minulého ročníku</h4>
         <ul class="thumbs">
           <li>
             <a href="{$baseUri}img/vitezove/1415-1-skokani.jpg" rel="lightbox['vitezove']" title="Skokani - mistr ligy 2014-2015">
@@ -151,6 +137,17 @@
             <p>Raškovice<br>třetí místo</p>
           </li>
         </ul>
+      </div>
+      <div class="col-md-3 text-right">
+        {if isset($user)}
+          {$user->username}
+          <a href="{link Auth:logout}" class="btn btn-primary" title="Odhlášení uživatele"><span class="glyphicon glyphicon-off"></span></a>
+        <ul>
+          <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li>
+        </ul>
+        {else}
+          <a href="{link Auth:login}" class="btn btn-primary" title="Přihlášení uživatele"><span class="glyphicon glyphicon-user"></span></a>
+        {/if}
       </div>
     </div> <!-- .row -->
   </div> <!-- .container -->
