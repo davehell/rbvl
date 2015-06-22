@@ -10,20 +10,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header {
+  border-bottom: none;
   border-top: 3px solid #88c425;
 }
-#header .brand {
+.navbar > .container .navbar-brand {
+  margin-left: 0;
+}
+.navbar-brand {
   background: url("../img/rb_logo_small.png") no-repeat center left;
   display: block;
-  padding-left: 50px;
+  height: auto;
+  padding: 0 15px 0 50px;
   text-decoration: none;
 }
-#header .brand h1 {
+.navbar-brand h1 {
   color: #008000;
   font-size: 25px;
   padding-bottom: 5px;
 }
-#header .brand p {
+.navbar-brand p {
   /*color: rgba(140, 140, 140, 1);*/
   color: #008000;
   font-size: 16px;
@@ -60,7 +65,6 @@ h1, h2, h3, h4, h5, h6 {
     background: none repeat scroll 0 0 #fff;
     border-bottom: 1px solid #dedede;
     border-top: 3px solid #88c425;
-    /*padding: 15px 20px;*/
 }
 .crumbs:before {
     border-bottom: 20px solid #88c425;
@@ -90,6 +94,12 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.5);
 }
+.section-title h2 {
+  color: #fff;
+  position: relative;
+  text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
 .overlay-bg {
   background: radial-gradient(ellipse closest-corner at 50% 55% , rgba(0, 0, 0, 0.27) 1%, rgba(0, 0, 0, 0.5) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
   bottom: 0;

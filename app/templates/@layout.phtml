@@ -23,20 +23,7 @@
 
 <body {ifCurrent Default:*}class="homepage"{/if}>
 
-<div id="header">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <a href="{plink Default:}" class="brand" title="Úvodní stránka">
-          <h1>„Region Beskydy“ volejbalová liga</h1>
-          <p>Pojďme se bavit volejbalem v každém věku</p>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="menu" class="navbar navbar-default">
+<div id="header" class="navbar navbar-default">
   <div class="container">
     <div class="row">
       <div class="navbar-header">
@@ -45,46 +32,56 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-      </div>
-
-      <div class="navbar-collapse" id="menu-collapse">
-        <ul class="nav navbar-nav">
-          <li><a href="{plink Default:}" title="Informace o „Region Beskydy“ volejbalové lize">Úvod</a></li>
-          <li><a href="{plink Aktuality:}" title="Aktuality z „Region Beskydy“ volejbalové ligy">Novinky</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aktuální ročník <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="{plink Vysledky:}" title="Výsledky aktuálního ročníku">Výsledky</a></li>
-              <li><a href="{plink Rozlosovani:}" title="Rozlosování aktuálního ročníku">Rozlosování</a></li>
-              <li><a href="{plink Propozice:}" title="Propozice pro přihlášení družstva">Propozice</a></li>
-              <li><a href="{plink Pravidla:}" title="Pravidla soutěže">Pravidla</a></li>
-              <li><a href="{plink Foto:}" title="Fotografie z průběhu „Region Beskydy“ volejbalové ligy">Fotogalerie</a></li>
-              <li><a href="{plink Druzstva:}" title="Družstva hrající „Region Beskydy“ volejbalovou ligu">Družstva</a></li>
-              {if isset($user)}
-              <li><a href="{plink Hraci:}" title="Evidence hráčů">Hráči</a></li>
-              {/if}
-            </ul>
-          </li>
-          <li><a href="{plink Download:}" title="Dokumenty ke stažení">Ke stažení</a></li>
-          <li><a href="{plink Kontakty:}" title="Kontakty na vedení „Region Beskydy“ volejbalové ligy">Kontakty</a></li>
-          <li><a href="{plink Diskuze:}" title="Diskuze návštěvníků">Diskuze</a></li>
-          <li><a href="{plink Akce:}" title="Volejbalové turnaje a akce v Regionu Beskydy">Turnaje</a></li>
-        </ul>
-      </div>
+        <a href="{plink Default:}" class="navbar-brand" title="Úvodní stránka">
+          <h1>„Region Beskydy“ volejbalová liga</h1>
+          <p class="hidden-xs">Pojďme se bavit volejbalem v každém věku</p>
+        </a>
+      </div> <!-- .navbar-header -->
     </div> <!-- .row -->
   </div> <!-- .container -->
+  <div id="menu">
+    <div class="container">
+      <div class="row">
+        <div class="collapse navbar-collapse" id="menu-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{plink Default:}" title="Informace o „Region Beskydy“ volejbalové lize">Úvod</a></li>
+            <li><a href="{plink Aktuality:}" title="Aktuality z „Region Beskydy“ volejbalové ligy">Novinky</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aktuální ročník <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{plink Vysledky:}" title="Výsledky aktuálního ročníku">Výsledky</a></li>
+                <li><a href="{plink Rozlosovani:}" title="Rozlosování aktuálního ročníku">Rozlosování</a></li>
+                <li><a href="{plink Propozice:}" title="Propozice pro přihlášení družstva">Propozice</a></li>
+                <li><a href="{plink Pravidla:}" title="Pravidla soutěže">Pravidla</a></li>
+                <li><a href="{plink Foto:}" title="Fotografie z průběhu „Region Beskydy“ volejbalové ligy">Fotogalerie</a></li>
+                <li><a href="{plink Druzstva:}" title="Družstva hrající „Region Beskydy“ volejbalovou ligu">Družstva</a></li>
+                {if isset($user)}
+                <li><a href="{plink Hraci:}" title="Evidence hráčů">Hráči</a></li>
+                {/if}
+              </ul>
+            </li>
+            <li><a href="{plink Download:}" title="Dokumenty ke stažení">Ke stažení</a></li>
+            <li><a href="{plink Kontakty:}" title="Kontakty na vedení „Region Beskydy“ volejbalové ligy">Kontakty</a></li>
+            <li><a href="{plink Diskuze:}" title="Diskuze návštěvníků">Diskuze</a></li>
+            <li><a href="{plink Akce:}" title="Volejbalové turnaje a akce v Regionu Beskydy">Turnaje</a></li>
+          </ul>
+        </div> <!-- navbar-collapse -->
+      </div> <!-- .row -->
+    </div> <!-- .container -->
+  </div> <!-- #menu -->
 </div> <!-- .navbar -->
 
 <section class="section-title">
   <div class="overlay-bg"></div>
   <div class="container">
-    <h1>{!$pageHeading}</h1>
+    <h1 class="hidden-xs">{!$pageHeading}</h1>
+    <h2 class="visible-xs">{!$pageHeading}</h2>
   </div>
 </section>
 
 <div class="content-info">
 
-  <div class="crumbs">
+  <div class="crumbs  hidden-xs">
   </div>
 
   <div class="container">
