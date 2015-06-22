@@ -15,5 +15,11 @@ class DefaultPresenter extends BasePresenter
         $stranky = new Stranky;
         $stranka = $stranky->findByNazev('uvod')->fetch();
         if($stranka) $this->template->text = $stranka->text;
+
+        $tabulky = new Tabulky;
+        $this->template->tabulkyA = $tabulky->getTabulky(19)->fetchAll();
+        $this->template->skupinaA = '';
+        $this->template->tabulkyB = $tabulky->getTabulky(22)->fetchAll();
+        $this->template->skupinaB = '';
     }
 }
