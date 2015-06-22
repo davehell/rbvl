@@ -116,8 +116,17 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-      <h4>Pořadatel</h4>
-      <p>Beskydská volejbalová liga amatérů<br>V. Nezvala 549, Frýdek-Místek<br>IČ 02694409</p>
+        <h4>Pořadatel</h4>
+        <p>Beskydská volejbalová liga amatérů<br>V. Nezvala 549, Frýdek-Místek<br>IČ 02694409</p>
+        {if isset($user)}
+          {$user->username}
+          <a href="{link Auth:logout}" class="btn btn-primary" title="Odhlášení uživatele"><span class="glyphicon glyphicon-off"></span></a>
+        <ul>
+          <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li>
+        </ul>
+        {else}
+          <a href="{link Auth:login}" class="btn btn-primary" title="Přihlášení uživatele"><span class="glyphicon glyphicon-user"></span></a>
+        {/if}
       </div>
       <div class="col-md-6">
         <h4 class="">Vítězové minulého ročníku</h4>
@@ -143,15 +152,6 @@
         </ul>
       </div>
       <div class="col-md-3 text-right">
-        {if isset($user)}
-          {$user->username}
-          <a href="{link Auth:logout}" class="btn btn-primary" title="Odhlášení uživatele"><span class="glyphicon glyphicon-off"></span></a>
-        <ul>
-          <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li>
-        </ul>
-        {else}
-          <a href="{link Auth:login}" class="btn btn-primary" title="Přihlášení uživatele"><span class="glyphicon glyphicon-user"></span></a>
-        {/if}
       </div>
     </div> <!-- .row -->
   </div> <!-- .container -->

@@ -210,7 +210,7 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
-/* náhledy v patičce */
+/* náhledy fotek */
 .thumbs {
   display: table;
   margin: 0;
@@ -232,12 +232,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #000;
   transition: all 0.5s ease 0s;
 }
-
-#footer .thumbs li:first-child {
-  margin-left: 0;
-}
-.thumbs li a {
-}
 .thumbs li img {
   display: block;
   margin: 0 auto;
@@ -245,6 +239,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 .thumbs li a img {
   border: medium none;
+}
+
+
+/* náhledy v patičce */
+#footer .thumbs li:first-child {
+  margin-left: 0;
+}
+#footer .thumbs li {
+  background-color: inherit;
+}
+#footer .thumbs li:hover {
+  background-color: #88c425;
 }
 
 
