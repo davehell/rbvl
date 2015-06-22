@@ -323,6 +323,12 @@ mark {
 .table-striped > tbody > tr:nth-of-type(2n+1):hover, .table > tbody > tr.success:hover > td {
   background-color: rgb(226, 241, 220);
 }
+.table > tbody > tr.success > td.danger {
+  background-color: #f2dede;
+}
+.table > tbody > tr.success:hover > td.danger {
+  background-color: #ebcccc;
+}
 
 
 

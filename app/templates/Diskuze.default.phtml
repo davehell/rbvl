@@ -1,10 +1,13 @@
+<div class="panel-box">
+  <div class="row">
+    <div class="col-md-12">
 <p class="text-center noPrint">
   <a class="btn btn-primary btn-lg" href="{link add}" title="Přidat příspěvek do diskuze"><span class="glyphicon glyphicon-plus"></span> Přidat příspěvek</a>
 </p>
 
 {?$dataGrid->renderPaginator()}
 
-<div class="panel-box">
+
 
 {if !count($rows)}
 <p>
@@ -32,7 +35,9 @@
   </div>
   {/foreach}
 {/if}
-</div>
 
 
   {?$dataGrid->renderPaginator()}
+    </div>
+  </div>
+</div>

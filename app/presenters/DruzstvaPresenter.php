@@ -34,18 +34,6 @@ class DruzstvaPresenter extends BasePresenter
     /********************* views add & edit *********************/
 
 
-  public function renderAdd()
-  {
-    $this->template->pageTitle = '„RB“VL - Družstva - Nové družstvo';
-    $this->template->pageHeading = 'Nové družstvo';
-    $this->template->pageDesc = '„RB“VL - vložení nového družstva';
-    $this->template->robots = 'noindex,noarchive';
-
-    $form = $this->getComponent('druzstvaForm');
-    $this->template->form = $form;
-  }
-
-
   public function renderEdit($id = 0)
   {
     $this->template->pageTitle = '„RB“VL - Družstva - Úprava družstva';
@@ -203,42 +191,6 @@ class DruzstvaPresenter extends BasePresenter
   }
 
 
-
-    /********************* view delete *********************/
-
-
-  public function renderDelete($id = 0)
-  {
-    $this->template->pageTitle = '„RB“VL - Družstva - Smazání družstva';
-    $this->template->pageHeading = 'Smazání družstva';
-    $this->template->pageDesc = '';
-    $this->template->robots = 'noindex,noarchive';
-
-    $this->template->form = $this->getComponent('deleteForm');
-    $druzstva = new Druzstva;
-
-    $this->template->druzstvo = $druzstva->find($id)->fetch();
-    if (!$this->template->druzstvo) {
-      //throw new BadRequestException('Požadovaný záznam nenalezen.');
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-      $this->redirect('default');
-    }
-  }
-
-
-
-  public function deleteFormSubmitted(AppForm $form)
-  {
-    if ($form['delete']->isSubmittedBy()) {
-      $druzstva = new Druzstva;
-      $druzstva->delete($this->getParam('id'));
-      $this->flashMessage('Družstvo bylo úspěšně smazáno.', 'success');
-    }
-
-    $this->redirect('default');
-  }
-
-
     /********************* facilities *********************/
 
 
@@ -285,16 +237,6 @@ class DruzstvaPresenter extends BasePresenter
 
       $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
       return;
-
-    case 'deleteForm':
-      $form = new AppForm($this, $name);
-      $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
-      $form->onSubmit[] = array($this, 'deleteFormSubmitted');
-
-      $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
-      return;
-
 
     case 'hracForm':
       $form = new AppForm($this, $name);
