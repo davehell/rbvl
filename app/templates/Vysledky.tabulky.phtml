@@ -18,7 +18,7 @@
           {foreach $tabulky as $row}
             {if $skupina != $row->skupina_popis}
               {if $skupina !=  ""}
-                </table>
+                </tbody></table>
               {/if}
               <h3>{$row->skupina_popis}</h3>
               {assign $poradi 1}
