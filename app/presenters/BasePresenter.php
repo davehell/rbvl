@@ -17,6 +17,7 @@ abstract class BasePresenter extends Presenter
       $this->template->registerHelper('czechDate', 'Helpers::czechDate');
       $this->template->registerHelper('czechTime', 'Helpers::czechTime');
       $this->template->registerHelper('round3', 'Helpers::round3');
+      $this->template->registerHelper('vlna', 'Helpers::vlna');
 
       //identita prihlaseneho uzivatele
   		$user = Environment::getUser();
