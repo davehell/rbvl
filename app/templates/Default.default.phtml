@@ -1,4 +1,21 @@
 <div class="row">
+  <div class="col-md-12">
+    <div class="panel-box">
+      <div class="row">
+        <div class="col-md-12">
+          {if isset($user)}
+          <p>
+            <a class="btn btn-default pull-right" href="{link Stranky:edit, 1}" title="Upravit text úvodní stránky"><span class="glyphicon glyphicon-pencil"></span> Upravit text</a>
+          </p>
+          {/if}
+          {!$text|texy|vlna}
+        </div>
+      </div>
+    </div> <!-- .panel-box -->
+  </div> <!-- .col-md-12 -->
+</div> <!-- .row -->
+{*
+<div class="row">
   <div class="col-md-6">
     <div class="panel-box">
       <div class="row">
@@ -82,7 +99,7 @@
     </div>
   </div> <!-- .col-md-3 -->
 </div> <!-- .row -->
-
+*}
 <!--
 <p class="alert alert-warning">
   už nyní se můžete přihlašovat do nového ročníku „RB“VL. <strong>Uzávěrka přihlášek je 15.9.2014!</strong>
