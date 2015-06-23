@@ -49,6 +49,32 @@ class Terminy extends Object
     ', $rocnik);
 	}
 
+  public function aktualniKolo($rocnikID)
+  {
+    return dibi::query('
+    SELECT terminy.datum, terminy.popis as termin, terminy.id as id, rocniky.popis as rocnik
+    FROM terminy
+    left join rocniky on (terminy.rocnik = rocniky.id)
+    WHERE rocniky.id = %i
+    AND datum <= NOW()
+    ORDER BY datum DESC
+    LIMIT 1
+    ', $rocnikID);
+  }
+
+  public function pristiKolo($rocnikID)
+  {
+    return dibi::query('
+    SELECT terminy.datum, terminy.popis as termin, terminy.id as id, rocniky.popis as rocnik
+    FROM terminy
+    left join rocniky on (terminy.rocnik = rocniky.id)
+    WHERE rocniky.id = %i
+    AND datum > NOW()
+    ORDER BY datum ASC
+    LIMIT 1
+    ', $rocnikID);
+  }
+
 
 	public function find($id)
 	{

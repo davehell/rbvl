@@ -19,8 +19,8 @@
             <h4>Výsledky aktuálního kola</h4>
           </div>
           <ul>
-            <li>Liga A - základní část<br><a href="#">Hrací den č. 5</a> - 15.2.2015</li>
-            <li>Liga B - finále<br><a href="#">Hrací den č. 5</a> - 15.2.2015</li>
+            {if $aktualniKoloA}<li>{$aktualniKoloA->rocnik}<br><a href="{plink Vysledky:termin, $aktualniKoloA->id}" title="Zobrazit výsledky zápasů ze dne {$aktualniKoloA->datum|czechDate}">{$aktualniKoloA->termin}</a> - {$aktualniKoloA->datum|czechDate}</li>{/if}
+            {if $aktualniKoloB}<li>{$aktualniKoloB->rocnik}<br><a href="{plink Vysledky:termin, $aktualniKoloB->id}" title="Zobrazit výsledky zápasů ze dne {$aktualniKoloB->datum|czechDate}">{$aktualniKoloB->termin}</a> - {$aktualniKoloB->datum|czechDate}</li>{/if}
           </ul>
         </div>
       </div>
@@ -30,8 +30,8 @@
             <h4>Rozlosování příštího kola</h4>
           </div>
           <ul>
-            <li>Liga A - základní část<br><a href="#">Hrací den č. 5</a> - 15.2.2015</li>
-            <li>Liga B - finále<br><a href="#">Hrací den č. 5</a> - 15.2.2015</li>
+            {if $pristiKoloA}<li>{$pristiKoloA->rocnik}<br><a href="{plink Rozlosovani:default, $pristiKoloA->id}" title="Zobrazit rozlosování zápasů dne {$pristiKoloA->datum|czechDate}">{$pristiKoloA->termin}</a> - {$pristiKoloA->datum|czechDate}</li>{/if}
+            {if $pristiKoloB}<li>{$pristiKoloB->rocnik}<br><a href="{plink Rozlosovani:default, $pristiKoloB->id}" title="Zobrazit rozlosování zápasů dne {$pristiKoloB->datum|czechDate}">{$pristiKoloB->termin}</a> - {$pristiKoloB->datum|czechDate}</li>{/if}
           </ul>
         </div>
       </div>

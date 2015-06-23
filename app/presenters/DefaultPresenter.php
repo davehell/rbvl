@@ -16,10 +16,17 @@ class DefaultPresenter extends BasePresenter
         $stranka = $stranky->findByNazev('uvod')->fetch();
         if($stranka) $this->template->text = $stranka->text;
 
+        $idLigaA = 19;
+        $idLigaB = 22;
         $tabulky = new Tabulky;
-        $this->template->tabulkyA = $tabulky->getTabulky(19)->fetchAll();
+        $this->template->tabulkyA = $tabulky->getTabulky($idLigaA)->fetchAll();
         $this->template->skupinaA = '';
-        $this->template->tabulkyB = $tabulky->getTabulky(22)->fetchAll();
+        $this->template->tabulkyB = $tabulky->getTabulky($idLigaB)->fetchAll();
         $this->template->skupinaB = '';
+        $terminy = new Terminy;
+        $this->template->aktualniKoloA = $terminy->aktualniKolo($idLigaA)->fetch();
+        $this->template->pristiKoloA = $terminy->pristiKolo($idLigaA)->fetch();
+        $this->template->aktualniKoloB = $terminy->aktualniKolo($idLigaB)->fetch();
+        $this->template->pristiKoloB = $terminy->pristiKolo($idLigaB)->fetch();
     }
 }
