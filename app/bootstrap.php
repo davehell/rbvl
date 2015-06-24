@@ -42,7 +42,7 @@ $application->errorPresenter = 'Error';
 $application->catchExceptions = false; //false = ladenka, true = server error
 
 
-/*
+
 // Step 4: Setup application router
 $router = $application->getRouter();
 
@@ -77,7 +77,7 @@ if (function_exists('apache_get_modules') && in_array('mod_rewrite', apache_get_
 } else {
 	$router[] = new SimpleRouter('Default:default');
 }
-*/
+
 
 
 // Step 5: Run the application!

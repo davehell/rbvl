@@ -6,17 +6,28 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{$pageTitle}</title>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<!-- kvuli IE8 a respond.js nemohou byt css linkovana crossdomain, ale pouze lokalne */
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+-->
+  <link rel="stylesheet" href="{$baseUri}css/bootstrap.min.css">
+  <link rel="stylesheet" href="{$baseUri}css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="{$baseUri}css/styles.css" type="text/css" />
   <link rel="stylesheet" media="print" href="{$baseUri}css/print.css" type="text/css" />
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <!-- kvuli IE8 se nemuze pouzit jquery 2, ale pouze 1.x -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="{$baseUri}js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="{$baseUri}css/lightbox.css" type="text/css" media="screen" />
   <script type="text/javascript" src="{$baseUri}js/lightbox.min.js"></script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
   <link rel="shortcut icon" href="{$baseUri}favicon.ico">
@@ -74,13 +85,13 @@
   </div> <!-- #menu -->
 </div> <!-- .navbar -->
 
-<section class="section-title">
+<div class="section-title">
   <div class="overlay-bg"></div>
   <div class="container">
     <h1 class="hidden-xs">{!$pageHeading}</h1>
     <h2 class="visible-xs">{!$pageHeading}</h2>
   </div>
-</section>
+</div>
 
 <div class="content-info">
 
