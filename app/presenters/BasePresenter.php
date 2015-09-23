@@ -3,7 +3,7 @@ require_once dirname(__FILE__) . '/../extras/controls/DataGrid.php';
 
 abstract class BasePresenter extends Presenter
 {
-    public $R = "r1415";
+    public $R = "r1516";
 
     protected function beforeRender()
     {

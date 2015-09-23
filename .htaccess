@@ -7,7 +7,7 @@ Options -Indexes
 	RewriteCond %{HTTP_HOST} ^rbvl.cz
   RewriteRule (.*) http://www.rbvl.cz/$1 [R=301,QSA,L]
 	
-  RewriteBase /
+  #RewriteBase /
 
 	# front controller
 	RewriteCond %{REQUEST_FILENAME} !-f
