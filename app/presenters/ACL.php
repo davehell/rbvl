@@ -39,6 +39,7 @@ class ACL extends Permission
         $this->addResource('Druzstva');
         $this->addResource('Kontakty');
         $this->addResource('Partneri');
+        $this->addResource('Dary');
         $this->addResource('Rozlosovani');
         $this->addResource('Error');
         $this->addResource('Vysledky');
