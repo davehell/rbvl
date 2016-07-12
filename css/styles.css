@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: 0;
 }
 .navbar-brand {
-  background: url("../img/rb_logo_small.png") no-repeat scroll 0 5px;
+  background: url("../img/rb-logo-small.png") no-repeat scroll 0 5px;
   display: block;
   height: auto;
   padding: 0 15px 0 50px;
