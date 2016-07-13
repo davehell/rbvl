@@ -9,10 +9,6 @@ h1, h2, h3, h4, h5, h6 {
   padding: 5px 0 15px;
 }
 
-#header {
-  border-bottom: none;
-  border-top: 3px solid #88c425;
-}
 .navbar > .container .navbar-brand {
   margin-left: 0;
 }
@@ -39,6 +35,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 5px;
 }
 .navbar {
+  border: none;
   margin-bottom: 0;
 }
 .navbar-default {
@@ -95,11 +92,6 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.5);
 }
-.section-title h2 {
-  color: #fff;
-  position: relative;
-  text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.5);
-}
 
 .overlay-bg {
   background: radial-gradient(ellipse closest-corner at 50% 55% , rgba(0, 0, 0, 0.27) 1%, rgba(0, 0, 0, 0.5) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -114,9 +106,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .content-info {
   background: none repeat scroll 0 0 #f4f4f4;
-  border-bottom: medium double #ccc;
+  /* border-bottom: medium double #ccc; */
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
-  margin: -160px auto -120px;
+  /* margin: -160px auto -120px; */
+  margin: -160px auto 0;
   max-width: 1230px;
   position: relative;
 }
@@ -187,6 +180,10 @@ h1, h2, h3, h4, h5, h6 {
 #footer .btn-primary {
   background-color: inherit;
   border-color: #888;
+  color: #888;
+}
+.bottom .btn-primary {
+  background-color: inherit;
   color: #888;
 }
 .footer-down {
@@ -291,6 +288,10 @@ mark {
   display: block;
   margin-bottom: 15px;
 }
+#frm-vysledkyForm .mice {
+  display: inline;
+  margin-bottom: 15px;
+}
 
 /* tabulky na úvodní stránce */
 .homepage h5 {
@@ -352,4 +353,52 @@ mark {
   font-size: 30px;
   margin-right: 10px;
   top: 10px;
+}
+
+
+/* Small devices (tablets, 768px and up) */
+@media(max-width:767px){
+  .homepage .section-title, .section-title {
+    background: none;
+    height: auto;
+  }
+  .homepage .content-info, .content-info {
+    border: none;
+    margin: auto;
+    box-shadow: none;
+  }
+  .content-info > .container {
+    padding-top: 0;
+  }
+  .panel-box {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  .panel-box {
+    border: none;
+  }
+  .overlay-bg {
+    display: none
+  }
+  .section-title h1 {
+    color: #272727;
+    font-size: 30px;
+    font-weight: normal;
+    margin: 0;
+    padding: 5px 0;
+    text-shadow: none;
+  }
+  .bottom {
+    margin-top: 0;
+    padding: 10px 0;
+  }
+  #frm-vysledkyForm .form-control {
+    display: inline-block;
+    width: auto;
+  }
+  #frm-vysledkyForm .mice {
+    display: block;
+    margin-bottom: 15px;
+    margin-left: 65px;
+  }
 }

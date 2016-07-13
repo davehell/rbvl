@@ -36,6 +36,7 @@
 <body {ifCurrent Default:*}class="homepage"{/if}>
 
 <div id="header" class="navbar navbar-default">
+
   <div class="container">
     <div class="row">
       <div class="navbar-header">
@@ -44,13 +45,16 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
+{*
         <a href="{plink Default:}" class="navbar-brand" title="Úvodní stránka">
           <h1>„Region Beskydy“ volejbalová liga</h1>
           <p class="hidden-xs">Pojďme se bavit volejbalem v každém věku</p>
         </a>
+*}
       </div> <!-- .navbar-header -->
     </div> <!-- .row -->
   </div> <!-- .container -->
+
   <div id="menu">
     <div class="container">
       <div class="row">
@@ -88,8 +92,7 @@
 <div class="section-title">
   <div class="overlay-bg"></div>
   <div class="container">
-    <h1 class="hidden-xs">{!$pageHeading}</h1>
-    <h2 class="visible-xs">{!$pageHeading}</h2>
+    <h1>{!$pageHeading}</h1>
   </div>
 </div>
 
@@ -109,21 +112,36 @@
     </div> <!-- .row -->
   </div> <!-- .container -->
 
-  <div class="section-wide">
+  <div class="section-wide bottom">
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4">
+          <h4>Pořadatel</h4>
+          <p>Beskydská volejbalová liga amatérů<br>V. Nezvala 549, Frýdek-Místek<br>IČ 02694409</p>
+          {if isset($user)}
+            {$user->username}
+            <a href="{link Auth:logout}" class="btn btn-primary" title="Odhlášení uživatele"><span class="glyphicon glyphicon-off"></span></a>
+          <ul>
+            <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li>
+          </ul>
+          {else}
+            <a href="{link Auth:login}" class="btn btn-primary" title="Přihlášení uživatele"><span class="glyphicon glyphicon-user"></span></a>
+          {/if}
+        </div>
+        <div class="col-md-4">
           <div class="text-center">
             <a href="http://www.frydekmistek.cz/" title="Frýdek-Místek"><img src="{$baseUri}img/fm-logo2.png" height="100px" width="77px" alt="Frýdek-Místek" /></a>
             <a href="http://www.regionbeskydy.cz/" title="Region Beskydy"><img src="{$baseUri}img/rb-logo.png" height="100px" width="77px" alt="Region Beskydy" /></a>
           </div>
+        </div>
+        <div class="col-md-4">
         </div>
       </div> <!-- .row -->
     </div> <!-- .container -->
   </div> <!-- .section-wide -->
 </div> <!-- .content-info -->
 
-
+{*
 <div id="footer">
   <div class="container">
     <div class="row">
@@ -141,7 +159,6 @@
         {/if}
       </div>
       <div class="col-md-6">
-<!--
         <h4 class="">Vítězové minulého ročníku</h4>
         <ul class="thumbs">
           <li>
@@ -163,21 +180,18 @@
             <p>Raškovice<br>třetí místo</p>
           </li>
         </ul>
--->
       </div>
       <div class="col-md-3 text-right">
       </div>
     </div> <!-- .row -->
   </div> <!-- .container -->
 </div> <!-- #footer -->
+*}
 
 <div class="footer-down">
   <div class="container">
     <div class="row">
-      <div class="col-md-5">
-          <p>&copy; 2015 Beskydská volejbalová liga amatérů</p>
-      </div>
-      <div class="col-md-7">
+      <div class="col-md-12">
         <ul class="nav-footer">
             <li><a href="{plink Default:}" title="Informace o „Region Beskydy“ volejbalové lize">ÚVOD</a> </li>
             <li><a href="{plink Aktuality:}" title="Aktuality z „Region Beskydy“ volejbalové ligy">NOVINKY</a></li>
