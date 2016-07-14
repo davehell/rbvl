@@ -84,13 +84,17 @@ h1, h2, h3, h4, h5, h6 {
   height: 500px;
 }
 .section-title h1 {
-  color: #fff;
   font-size: 45px;
   font-weight: bold;
   line-height: 55px;
   padding: 42px 0 0 5px;
   position: relative;
   text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.section-title h1 a {
+  color: #fff;
+  text-decoration: none;
 }
 
 .overlay-bg {
@@ -117,6 +121,9 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: -360px;
 }
 .content-info > .container {
+  padding-top: 15px;
+}
+.homepage .content-info > .container {
   padding-top: 50px;
 }
 
@@ -354,6 +361,9 @@ mark {
   margin-right: 10px;
   top: 10px;
 }
+.nav-footer {
+  padding-left: 0;
+}
 
 
 /* Small devices (tablets, 768px and up) */
@@ -367,7 +377,7 @@ mark {
     margin: auto;
     box-shadow: none;
   }
-  .content-info > .container {
+  .content-info > .container, .homepage .content-info > .container {
     padding-top: 0;
   }
   .panel-box {

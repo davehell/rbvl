@@ -7,9 +7,9 @@ class AktualityPresenter extends BasePresenter
 {
   public function actionDefault()
   {
-      $this->template->pageTitle = '„RB“VL - Aktuality';
+      $this->template->pageTitle = '„RB“VL - Novinky';
       $this->template->pageHeading = 'Novinky';
-      $this->template->pageDesc = 'Aktuality z „RB“VL';
+      $this->template->pageDesc = 'Novinky z „RB“VL';
 
 
       $aktuality = new Aktuality;
