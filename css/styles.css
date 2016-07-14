@@ -308,6 +308,23 @@ mark {
   padding: 1px 5px;
 }
 
+/* aktuality na úvodní stránce */
+.homepage ul li {
+  list-style-type: none;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.homepage ul.aktuality {
+  padding-left: 15px;
+}
+.homepage ul.aktuality li {
+  list-style-type: none;
+  padding-right: 15px;
+  margin-bottom: 15px;
+}
+
+
 .btn-primary{
   color: #fff;
   border-color: #dedede;

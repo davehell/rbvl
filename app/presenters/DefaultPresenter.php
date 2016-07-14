@@ -28,5 +28,8 @@ class DefaultPresenter extends BasePresenter
         $this->template->pristiKoloA = $terminy->pristiKolo($idLigaA)->fetch();
         $this->template->aktualniKoloB = $terminy->aktualniKolo($idLigaB)->fetch();
         $this->template->pristiKoloB = $terminy->pristiKolo($idLigaB)->fetch();
+
+        $aktuality = new Aktuality;
+        $this->template->aktuality = $aktuality->findAll(array('vlozeno' => 'desc'), 3);
     }
 }
