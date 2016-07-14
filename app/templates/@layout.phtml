@@ -122,15 +122,6 @@
         <div class="col-md-4">
           <h4>Pořadatel „RB“VL</h4>
           <p>Beskydská volejbalová liga amatérů<br>V. Nezvala 549, Frýdek-Místek<br>IČ 02694409</p>
-          {if isset($user)}
-            {$user->username}
-            <a href="{link Auth:logout}" class="btn btn-primary" title="Odhlášení uživatele"><span class="glyphicon glyphicon-off"></span></a>
-          <ul>
-            <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li>
-          </ul>
-          {else}
-            <a href="{link Auth:login}" class="btn btn-primary" title="Přihlášení uživatele"><span class="glyphicon glyphicon-user"></span></a>
-          {/if}
         </div>
         <div class="col-md-4">
           <div class="text-center">
@@ -138,7 +129,16 @@
             <a href="http://www.regionbeskydy.cz/" title="Region Beskydy"><img src="{$baseUri}img/rb-logo.png" height="100px" width="77px" alt="Region Beskydy" /></a>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 text-right">
+          {if isset($user)}
+            {$user->username}
+            <a href="{link Auth:logout}" class="btn btn-primary" title="Odhlášení uživatele"><span class="glyphicon glyphicon-off"></span></a>
+            <ul>
+              <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li>
+            </ul>
+          {else}
+            <a href="{link Auth:login}" class="btn btn-primary" title="Přihlášení uživatele"><span class="glyphicon glyphicon-user"></span></a>
+          {/if}
         </div>
       </div> <!-- .row -->
     </div> <!-- .container -->
