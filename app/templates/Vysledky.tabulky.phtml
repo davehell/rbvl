@@ -6,15 +6,6 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <ul>
-          <li><strong>c</strong> - počet zápasů</li>
-          <li><strong>v</strong> - výhry 2:0 (3 body)</li>
-          <li><strong>vt</strong> - výhry 2:1 (2 body)</li>
-          <li><strong>pt</strong> - prohry 1:2 (1 bod)</li>
-          <li><strong>p</strong> - prohry 0:2 (0 bodů)</li>
-          <li><strong>pk</strong> - kontumace (-1 bod)</li>
-          </ul>
-
           {foreach $tabulky as $row}
             {if $skupina != $row->skupina_popis}
               {if $skupina !=  ""}
@@ -33,6 +24,15 @@
             <?php $poradi++?>
             {if $iterator->isLast()}</tbody></table>{/if}
           {/foreach}
+
+          <ul>
+            <li><strong>c</strong> - počet zápasů</li>
+            <li><strong>v</strong> - výhry 2:0 (3 body)</li>
+            <li><strong>vt</strong> - výhry 2:1 (2 body)</li>
+            <li><strong>pt</strong> - prohry 1:2 (1 bod)</li>
+            <li><strong>p</strong> - prohry 0:2 (0 bodů)</li>
+            <li><strong>pk</strong> - kontumace (-1 bod)</li>
+          </ul>
         </div> <!-- .col-md-12 -->
       </div> <!-- .row -->
     </div> <!-- .panel-box -->
