@@ -356,11 +356,11 @@ mark {
 .table-striped > tbody > tr:nth-of-type(2n+1):hover, .table > tbody > tr.success:hover > td {
   background-color: rgb(226, 241, 220);
 }
-.table > tbody > tr.success > td.warning {
-  background-color: #fcf8e3;
+.table > tbody > tr > td.warning, .table > tbody > tr.success > td.warning {
+  background-color: rgb(250, 211, 0);
 }
-.table > tbody > tr.success:hover > td.warning {
-  background-color: #faf2cc;
+.table > tbody > tr:hover > td.warning, .table > tbody > tr.success:hover > td.warning {
+  background-color: rgb(240, 204, 0);
 }
 
 
