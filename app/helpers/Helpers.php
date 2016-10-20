@@ -21,12 +21,12 @@ class Helpers{
   public static function czechTime($usTime)
   {
     list($hour, $minute) = explode(":", $usTime);
-    if(substr($hour, 0, 1) == 0) {
-      $hour = substr($hour,1);
-    }
-    if(substr($minute, 0, 1) == 0 && $minute != "00") {
-      $minute = substr($minute,1);
-    }
+    // if(substr($hour, 0, 1) == 0) {
+    //   $hour = substr($hour,1);
+    // }
+    // if(substr($minute, 0, 1) == 0 && $minute != "00") {
+    //   $minute = substr($minute,1);
+    // }
 
     return $hour.":".$minute;
   }

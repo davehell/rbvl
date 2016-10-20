@@ -1,8 +1,8 @@
-/* -------------------------------------------------------------- 
-  
+/* --------------------------------------------------------------
+
  Hartija Css Print  Framework
    * Version:   0.8 (2008-03-10)
-	 
+
 -------------------------------------------------------------- */
 
 body {
@@ -33,10 +33,10 @@ a:link, a:visited { background: transparent; font-weight: 700; text-decoration: 
 
 
 /* Table */
-table { margin: 1px; text-align:left; border-collapse: collapse;}
+table { margin: 1px; text-align:left; border-collapse: collapse; }
 th { border-bottom: 1px solid #000; font-weight: bold; border-bottom: #000 double }
 td { border-bottom: 1px solid #000; }
-th,td { padding: 2px 10px 2px 0; }
+th,td { padding: 2px 10px 2px 0 !important; }
 tfoot { font-style: italic; }
 caption { background: #fff; margin-bottom:2em; text-align:left; }
 thead {display: table-header-group;}
@@ -46,6 +46,10 @@ tr {page-break-inside: avoid;}
 .content-info, .panel-box {
 	margin: 0 auto;
 	border: none;
+}
+.col-md-12 {
+  padding-left: 0;
+  padding-right: 0;
 }
 #header, #footer, .footer-down, .section-wide, .crumbs, .section-title, .sidebar, .zvyrazneniDruzstva, .titles, .pagination, .noPrint
 {display:none;}
