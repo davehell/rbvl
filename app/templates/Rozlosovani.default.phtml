@@ -39,7 +39,7 @@
                 <tr{if $barva} class="success"{/if}>
                   <td>{$zapas->cas|czechTime}&nbsp;&nbsp;&nbsp;{!$zapas->poznamka}</td>
                   <td>{if $zapas->domaci!=''}{$zapas->domaci}{else}{$zapas->skupina_popis}{$zapas->cislo_domaci}{/if}</td>
-                  <td>-&nbsp;&nbsp;{if $zapas->hoste!=''}{$zapas->hoste}{else}{$zapas->skupina_popis}{$zapas->cislo_hoste}{/if}</td>
+                  <td>{if $zapas->hoste!=''}{$zapas->hoste}{else}{$zapas->skupina_popis}{$zapas->cislo_hoste}{/if}</td>
                 </tr>
             {assign $terminPopis $zapas->termin}
             {assign $cas $zapas->cas}
