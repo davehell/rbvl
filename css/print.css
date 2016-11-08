@@ -12,6 +12,7 @@ padding:0 !important;
 line-height: 1.4;
 word-spacing:1.1pt;
 letter-spacing:0.2pt; font-family: Garamond,"Times New Roman", serif; color: #000; background: none; font-size: 12pt; }
+.rozl {font-size: 14pt;}
 
 /*Headings */
 h1,h2,h3,h4,h5,h6 { font-family: Helvetica, Arial, sans-serif; }
@@ -36,7 +37,7 @@ a:link, a:visited { background: transparent; font-weight: 700; text-decoration: 
 table { margin: 1px; text-align:left; border-collapse: collapse; }
 th { border-bottom: 1px solid #000; font-weight: bold; border-bottom: #000 double }
 td { border-bottom: 1px solid #000; }
-th,td { padding: 2px 10px 2px 0 !important; }
+th,td { padding: 3px 5px 2px 0 !important; }
 tfoot { font-style: italic; }
 caption { background: #fff; margin-bottom:2em; text-align:left; }
 thead {display: table-header-group;}
