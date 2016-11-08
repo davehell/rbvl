@@ -9,7 +9,7 @@
             <a class="btn btn-default pull-right" href="{link Stranky:edit, 1}" title="Upravit text úvodní stránky"><span class="glyphicon glyphicon-pencil"></span> Upravit text</a>
           </p>
           {/if}
-          {!$text|texy|vlna}
+          {!$text|vlna|texy}
         </div>
       </div>
     </div> <!-- .panel-box -->
@@ -27,7 +27,7 @@
             <a class="btn btn-default pull-right" href="{link Stranky:edit, 1}" title="Upravit text úvodní stránky"><span class="glyphicon glyphicon-pencil"></span> Upravit text</a>
           </p>
           {/if}
-          {!$text|texy|vlna}
+          {!$text|vlna|texy}
         </div>
       </div>
     </div> <!-- .panel-box -->
@@ -73,7 +73,7 @@
             <span class="glyphicon glyphicon-calendar"></span>
             {$aktualita->vlozeno|date:'%d.%m.%Y'}
             <br>
-            {!$aktualita->text|vlna|truncate:300}
+            {!$aktualita->text|truncate:300}
             <br>
             <a href="{plink Aktuality:default}" title="Zobrazit všechny novinky">celý text</a>
           </li>
