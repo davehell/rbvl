@@ -53,6 +53,12 @@
           <ul>
             {if $pristiKoloA}<li>{$pristiKoloA->rocnik}<br><a href="{plink Rozlosovani:default, $pristiKoloA->id}" title="Zobrazit rozlosování zápasů dne {$pristiKoloA->datum|czechDate}">{$pristiKoloA->termin}</a> - {$pristiKoloA->datum|czechDate}</li>{/if}
             {if $pristiKoloB}<li>{$pristiKoloB->rocnik}<br><a href="{plink Rozlosovani:default, $pristiKoloB->id}" title="Zobrazit rozlosování zápasů dne {$pristiKoloB->datum|czechDate}">{$pristiKoloB->termin}</a> - {$pristiKoloB->datum|czechDate}</li>{/if}
+           <li>Liga A - playoff</li>
+           <li><a href="/download/rozlosovani-playoff-2017-a.pdf">Hrací den č. 6</a> - 19.3.2017</li>
+           <li><a href="/download/playoff-2017-a.pdf">pavouk playoff</a></li>
+           <li>Liga B - playoff</li>
+           <li><a href="/download/rozlosovani-playoff-2017-b.pdf">Hrací den č. 6</a> - 12.3.2017</li>
+           <li><a href="/download/playoff-2017-b.pdf">pavouk playoff</a></li>
           </ul>
         </div>
       </div>
