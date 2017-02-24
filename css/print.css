@@ -12,10 +12,10 @@ padding:0 !important;
 line-height: 1.4;
 word-spacing:1.1pt;
 letter-spacing:0.2pt; font-family: Garamond,"Times New Roman", serif; color: #000; background: none; font-size: 12pt; }
-.rozl {font-size: 14pt;}
+.rozl {font-size: 16pt;}
 
 /*Headings */
-h1,h2,h3,h4,h5,h6 { font-family: Helvetica, Arial, sans-serif; }
+h1,h2,h3,h4,h5,h6 { font-family: Helvetica, Arial, sans-serif; padding: 3px 0;}
 h1{font-size:17pt;}
 h2{font-size:15pt;}
 h3{font-size:12pt;}
