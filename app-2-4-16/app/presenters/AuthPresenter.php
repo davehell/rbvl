@@ -13,30 +13,23 @@ class AuthPresenter extends BasePresenter
     protected function startup()
     {
         parent::startup();
-
-        // if (!$this->user->isLoggedIn()) {
-        //     if ($this->user->logoutReason === NS\IUserStorage::INACTIVITY) {
-        //         $this->flashMessage('Proběhlo odhlášení po dlouhé době neaktivity. Prosím, přihlašte se znovu.');
-        //     }
-        //     $this->redirect('Auth:login', ['backlink' => $this->storeRequest()]);
-        // }
     }
 
     public function actionLogin($backlink)
     {
-    $this->template->pageTitle = '„RB“VL - Přihlášení';
-    $this->template->pageHeading = 'Přihlášení';
-    $this->template->pageDesc = '';
+        $this->template->pageTitle = '„RB“VL - Přihlášení';
+        $this->template->pageHeading = 'Přihlášení';
+        $this->template->pageDesc = '';
 
-    $form = new \Nette\Application\UI\Form($this, 'form');
-    $form->getElementPrototype()->class('form-horizontal');
+        $form = new \Nette\Application\UI\Form($this, 'form');
+        $form->getElementPrototype()->class('form-horizontal');
 
-    $renderer = $form->getRenderer();
-    $renderer->wrappers['pair']['container'] = \Nette\Utils\Html::el('div')->class('form-group');
-    $renderer->wrappers['controls']['container'] = NULL;
-    $renderer->wrappers['control']['container'] = \Nette\Utils\Html::el('div')->class('col-sm-9');
-    $renderer->wrappers['label']['container'] = \Nette\Utils\Html::el('div')->class('col-sm-3 control-label');
-    $renderer->wrappers['label']['requiredsuffix'] = " *";
+        $renderer = $form->getRenderer();
+        $renderer->wrappers['pair']['container'] = \Nette\Utils\Html::el('div')->class('form-group');
+        $renderer->wrappers['controls']['container'] = NULL;
+        $renderer->wrappers['control']['container'] = \Nette\Utils\Html::el('div')->class('col-sm-9');
+        $renderer->wrappers['label']['container'] = \Nette\Utils\Html::el('div')->class('col-sm-3 control-label');
+        $renderer->wrappers['label']['requiredsuffix'] = " *";
 
         $form->addText('username', 'Uživatelské jméno:')
             ->addRule(\Nette\Forms\Form::FILLED, 'Zadejte uživatelské jméno.')
@@ -57,7 +50,7 @@ class AuthPresenter extends BasePresenter
     public function actionLogout()
     {
         $this->user->logout();
-        $this->flashMessage('Proběhlo úspěšné odhlášení.', 'info');
+        $this->flashMessage('Jste úspěšně odhlášeni.', 'info');
         $this->redirect('Auth:login');
     }
 

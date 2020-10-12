@@ -319,6 +319,9 @@ mark {
 }
 
 
+.alert {
+  border-radius: 0;
+}
 .btn-primary{
   color: #fff;
   border-color: #dedede;

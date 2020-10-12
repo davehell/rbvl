@@ -12,6 +12,7 @@ services:
 	- App\Model\Aktuality
 	- App\Model\Diskuze
 	- App\Model\UserManager
+	- App\Model\AuthorizatorFactory::create
 	- App\Forms\FormFactory
 	- App\Forms\SignInFormFactory
 	- App\Forms\SignUpFormFactory

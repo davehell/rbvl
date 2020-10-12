@@ -39,6 +39,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     {
         parent::startup();
 
+        if (!$this->getUser()->isAllowed($this->name, $this->view)) {
+            $this->flashMessage('Pro tuto akci nemáte dostatečné oprávnění.', 'danger');
+            $this->redirect('Auth:login', ['backlink' => $this->storeRequest()]);
+        }
+
       // if (!$this->user->isAllowed($this->name, $this->view))
       // {
       //  if ($this->user->isLoggedIn()) {
