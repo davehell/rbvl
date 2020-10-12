@@ -1,0 +1,58 @@
+/* --------------------------------------------------------------
+
+ Hartija Css Print  Framework
+   * Version:   0.8 (2008-03-10)
+
+-------------------------------------------------------------- */
+
+body {
+width:100% !important;
+margin:0 !important;
+padding:0 !important;
+line-height: 1.4;
+word-spacing:1.1pt;
+letter-spacing:0.2pt; font-family: Garamond,"Times New Roman", serif; color: #000; background: none; font-size: 12pt; }
+.rozl {font-size: 14pt;}
+
+/*Headings */
+h1,h2,h3,h4,h5,h6 { font-family: Helvetica, Arial, sans-serif; }
+h1{font-size:17pt;}
+h2{font-size:15pt;}
+h3{font-size:12pt;}
+h4,h5,h6{font-size:12pt;}
+
+code { font: 10pt Courier, monospace; }
+blockquote { margin: 1.3em; padding: 1em;  font-size: 10pt; }
+hr { background-color: #ccc; }
+
+/* Images */
+img { float: left; margin: 1em 1.5em 1.5em 0; }
+a img { border: none; }
+
+/* Links */
+a:link, a:visited { background: transparent; font-weight: 700; text-decoration: underline;color:#333; }
+
+
+/* Table */
+table { margin: 1px; text-align:left; border-collapse: collapse; }
+th { border-bottom: 1px solid #000; font-weight: bold; border-bottom: #000 double }
+td { border-bottom: 1px solid #000; }
+th,td { padding: 3px 5px 2px 0 !important; }
+tfoot { font-style: italic; }
+caption { background: #fff; margin-bottom:2em; text-align:left; }
+thead {display: table-header-group;}
+tr {page-break-inside: avoid;}
+
+
+.content-info, .panel-box {
+	margin: 0 auto;
+	border: none;
+}
+.col-md-12 {
+  padding-left: 0;
+  padding-right: 0;
+}
+#header, #footer, .footer-down, .section-wide, .crumbs, .section-title, .sidebar, .zvyrazneniDruzstva, .titles, .pagination, .noPrint
+{display:none;}
+
+
