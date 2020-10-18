@@ -52,6 +52,31 @@
             <li><a href="{plink Default:}" title="Informace o „Region Beskydy“ volejbalové lize">Úvod</a></li>
             <li><a href="{plink Aktuality:}" title="Aktuality z „Region Beskydy“ volejbalové ligy">Novinky</a></li>
 
+{*             <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aktuální ročník <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{plink Propozice:}" title="Propozice pro přihlášení družstva">Propozice</a></li>
+                <li><a href="{plink Pravidla:}" title="Pravidla soutěže">Pravidla</a></li>
+
+                <li><a href="{plink Vysledky:}" title="Výsledky aktuálního ročníku">Výsledky</a></li>
+                <li><a href="{plink Rozlosovani:}" title="Rozlosování aktuálního ročníku">Rozlosování</a></li>
+                <li><a href="{plink Druzstva:}" title="Družstva hrající „Region Beskydy“ volejbalovou ligu">Družstva</a></li>
+
+                {if $user->isLoggedIn()}
+
+                <!-- <li><a href="{plink Druzstva:}" title="Družstva hrající „Region Beskydy“ volejbalovou ligu">Družstva</a></li> -->
+
+                <li><a href="{plink Hraci:}" title="Evidence hráčů">Hráči</a></li>
+                {/if}
+              </ul>
+            </li> *}
+
+            <li><a href="{plink Download:}" title="Dokumenty ke stažení">Ke stažení</a></li>
+            <li><a href="{plink Diskuze:}" title="Diskuze návštěvníků">Diskuze</a></li>
+            {* <li><a href="{plink Akce:}" title="Volejbalové turnaje a akce v Regionu Beskydy">Turnaje</a></li> *}
+            <li><a href="{plink Dary:}" title="Dotace a dary pro „Region Beskydy“ volejbalovou ligu">Dotace a dary</a></li>
+            <li><a href="{plink Gdpr:}" title="GDPR - ochrana osobních údajů">GDPR</a></li>
+            <li><a href="{plink Kontakty:}" title="Kontakty na vedení „Region Beskydy“ volejbalové ligy">Kontakty</a></li>
           </ul>
         </div> <!-- navbar-collapse -->
       </div> <!-- .row -->
@@ -104,6 +129,7 @@
             {$user->getIdentity()->username}
             <a href="{link Auth:logout}" class="btn btn-primary" title="Odhlášení uživatele"><span class="glyphicon glyphicon-off"></span></a>
             <ul>
+              {* TODO presenter Uzivatele *}
               {* <li><a href="{link Uzivatele:change}" title="Změna uživatelského jména a hesla">Změna hesla</a></li> *}
             </ul>
           {else}
@@ -122,7 +148,7 @@
         <ul class="nav-footer">
             <li><a href="{plink Default:}" title="Informace o „Region Beskydy“ volejbalové lize">ÚVOD</a> </li>
             <li><a href="{plink Aktuality:}" title="Aktuality z „Region Beskydy“ volejbalové ligy">NOVINKY</a></li>
-            {* <li><a href="{plink Kontakty:}" title="Kontakty na vedení „Region Beskydy“ volejbalové ligy">KONTAKTY</a></li> *}
+            <li><a href="{plink Kontakty:}" title="Kontakty na vedení „Region Beskydy“ volejbalové ligy">KONTAKTY</a></li>
         </ul>
       </div>
     </div> <!-- .row -->

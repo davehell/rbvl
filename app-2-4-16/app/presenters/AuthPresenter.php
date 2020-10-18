@@ -5,7 +5,7 @@ namespace App\Presenters;
 use Nette\Application\UI,
     Nette\Security as NS;
 
-class AuthPresenter extends BasePresenter
+final class AuthPresenter extends BasePresenter
 {
     /** @persistent */
     public $backlink = '';

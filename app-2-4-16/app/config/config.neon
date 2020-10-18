@@ -9,11 +9,13 @@ extensions:
 	dibi: Dibi\Bridges\Nette\DibiExtension22
 
 services:
+	- App\Model\Akce
 	- App\Model\Aktuality
 	- App\Model\Diskuze
+	- App\Model\Stranky
 	- App\Model\UserManager
 	- App\Model\AuthorizatorFactory::create
-	- App\Forms\FormFactory
-	- App\Forms\SignInFormFactory
-	- App\Forms\SignUpFormFactory
 	router: App\RouterFactory::createRouter
+	nette.latteFactory:
+		setup:
+			- addFilter("texy", [\Texy(), process])

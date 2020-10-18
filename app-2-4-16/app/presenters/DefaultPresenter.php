@@ -2,9 +2,35 @@
 
 namespace App\Presenters;
 
+use App;
 
 final class DefaultPresenter extends BasePresenter
 {
+    /** @var App\Model\Stranky */
+    private $stranky;
+
+    /** @var App\Model\Aktuality */
+    private $aktuality;
+
+    /** @var App\Model\Tabulky */
+    // private $tabulky;
+
+    /** @var App\Model\Terminy */
+    // private $terminy;
+
+    public function __construct(
+        // App\Model\Tabulky $tabulky,
+        // App\Model\Terminy $terminy,
+        App\Model\Aktuality $aktuality,
+        App\Model\Stranky $stranky
+    )
+    {
+        // $this->tabulky = $tabulky;
+        // $this->terminy = $terminy;
+        $this->aktuality = $aktuality;
+        $this->stranky = $stranky;
+    }
+
 	public function renderDefault()
 	{
         $this->template->pageTitle = '„Region Beskydy“ volejbalová liga';
@@ -13,9 +39,8 @@ final class DefaultPresenter extends BasePresenter
         $this->template->scripts = array('lightbox');
 
         $this->template->text = '';
-        // $stranky = new Stranky;
-        // $stranka = $stranky->findByNazev('uvod')->fetch();
-        // if($stranka) $this->template->text = $stranka->text;
+        $stranka = $this->stranky->findByNazev('uvod');
+        if($stranka) $this->template->text = $stranka->text;
 
         // $idLigaA = 42;
         // $idLigaB = 43;
@@ -30,7 +55,6 @@ final class DefaultPresenter extends BasePresenter
         // $this->template->aktualniKoloB = $terminy->aktualniKolo($idLigaB)->fetch();
         // $this->template->pristiKoloB = $terminy->pristiKolo($idLigaB)->fetch();
 
-        // $aktuality = new Aktuality;
-        // $this->template->aktuality = $aktuality->findAll(array('vlozeno' => 'desc'), 3);
+        $this->template->aktuality = $this->aktuality->findAll(array('vlozeno' => 'desc'), 3);
 	}
 }

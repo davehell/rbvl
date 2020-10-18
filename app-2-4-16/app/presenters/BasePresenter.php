@@ -18,21 +18,36 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->template->pageHeading = '';
         $this->template->pageDesc = '';
 
-      // //texy
-      // $texy = new Texy\Texy;
+        //filtry
+        $this->template->addFilter("vlna", function ($string) {
+            return preg_replace('<([^a-zA-Z0-9])([ksvzaiou])\s([a-zA-Z0-9]{1,})>i', "$1$2\xc2\xa0$3", $string); //&nbsp; === \xc2\xa0
+        });
 
-      // //helpers
-      // $this->template->registerHelper('texy', array($texy, 'process'));
-      // $this->template->registerHelper('currency', 'Helpers::currency');
-      // $this->template->registerHelper('czechDate', 'Helpers::czechDate');
-      // $this->template->registerHelper('czechTime', 'Helpers::czechTime');
-      // $this->template->registerHelper('round3', 'Helpers::round3');
-      // $this->template->registerHelper('vlna', 'Helpers::vlna');
-      // $this->template->registerHelper('aktuality', 'Helpers::aktuality');
+        $this->template->addFilter("currency", function ($value) {
+            return str_replace(" ", "\xc2\xa0", number_format($value, 0, "", " ")) . "\xc2\xa0Kč";
+        });
 
-      //identita prihlaseneho uzivatele
-        // $user = Nette\Environment::getUser();
-        // $this->template->user = $user->isLoggedIn() ? $user->getIdentity() : NULL;
+        $this->template->addFilter("czechDate", function ($usDate) {
+            return $usDate->format("j. n. Y");
+        });
+
+        $this->template->addFilter("czechTime", function ($dateInterval) {
+            return $dateInterval->format("%H:%I");
+        });
+
+        $this->template->addFilter("round3", function ($value) {
+            return round($value, 3);
+        });
+
+        $this->template->addFilter("aktuality", function ($string) {
+            $string = preg_replace('/={2,}/i', "<br>", $string);
+            $string = preg_replace('/#{2,}/i', "<br>", $string);
+            $string = preg_replace('/\*{2,}/i', "<br>", $string);
+            $string = preg_replace('/-{2,}/i', "", $string);
+            $string = preg_replace('/\|/i', "", $string);
+            $string = preg_replace('/^<br>/i', "", $string);
+            return $string;
+        });
     }
 
     protected function startup()
