@@ -40,7 +40,8 @@ class AuthorizatorFactory
         $acl->allow('member');
         $acl->deny('member', 'Uzivatele', array('add', 'edit', 'delete'));
 
-$acl->allow('guest', 'Auth');
+        $acl->allow('guest', 'Auth');
+        $acl->allow('guest', 'Error');
         $acl->allow('guest', $acl::ALL, 'default');
         $acl->allow('guest', 'Diskuze', 'add');
         $acl->allow('guest', 'Akce', 'add');
