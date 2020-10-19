@@ -27,7 +27,7 @@ final class StrankyPresenter extends BasePresenter
     $this->template->form = $form;
 
     if (!$form->isSubmitted()) {
-      $row = $this->stranky->find($id);
+      $row = $this->stranky->get($id);
       if (!$row) {
         //throw new BadRequestException('Požadovaný záznam nenalezen.');
         $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
@@ -43,13 +43,14 @@ final class StrankyPresenter extends BasePresenter
       $id = (int) $this->getParam('id');
       $values = $form->getValues();
 
-      try {
-        $this->stranky->update($id, $form->getValues());
+      $row = $this->stranky->get($id);
+      if($row) {
+        $row->update($values);
         $this->flashMessage('Příspěvek byl úspěšně upraven.', 'success');
         $this->redirect('Default:default');
-       } catch (DibiException $e) {
-        $this->flashMessage('Nastala chyba. Příspěvek nebyl upraven.', 'danger');
-        $form->addError($e->getMessage());
+      }
+      else {
+        $this->error();
       }
     }
   }

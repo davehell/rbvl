@@ -39,7 +39,7 @@ final class DefaultPresenter extends BasePresenter
         $this->template->scripts = array('lightbox');
 
         $this->template->text = '';
-        $stranka = $this->stranky->findByNazev('uvod');
+        $stranka = $this->stranky->getByNazev("uvod");
         if($stranka) $this->template->text = $stranka->text;
 
         // $idLigaA = 42;
