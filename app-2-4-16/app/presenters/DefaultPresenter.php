@@ -55,6 +55,6 @@ final class DefaultPresenter extends BasePresenter
         // $this->template->aktualniKoloB = $terminy->aktualniKolo($idLigaB)->fetch();
         // $this->template->pristiKoloB = $terminy->pristiKolo($idLigaB)->fetch();
 
-        $this->template->aktuality = $this->aktuality->findAll(array('vlozeno' => 'desc'), 3);
+        // $this->template->aktuality = $this->aktuality->findAll(array('vlozeno' => 'desc'), 3);
 	}
 }

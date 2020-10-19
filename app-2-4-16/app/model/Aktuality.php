@@ -2,11 +2,10 @@
 
 namespace App\Model;
 
-use Dibi;
 
 final class Aktuality
 {
-    /** @var Dibi\Connection */
+/*
     private $connection;
     private $table = "aktuality";
 
@@ -50,5 +49,5 @@ final class Aktuality
     {
         return $this->db->delete($this->table)->where('id=%i', $id)->execute();
     }
-
+*/
 }

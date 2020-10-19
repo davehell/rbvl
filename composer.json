@@ -15,7 +15,6 @@
 		}
 	],
 	"require": {
-		"dibi/dibi": "~3.2",
 		"texy/texy": "~2.9",
 		"php": ">=5.6.0",
 		"nette/application": "^2.4.4",

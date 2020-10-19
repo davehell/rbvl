@@ -2,14 +2,14 @@
 
 namespace App\Model;
 
-use Dibi;
+// use Dibi;
 
 /**
  * Aktuality model.
  */
 final class Akce
 {
-    /** @var Dibi\Connection */
+/*
     private $connection;
     private $table = "akce";
 
@@ -52,5 +52,5 @@ final class Akce
 	{
 		return $this->dibi->delete($this->table)->where('id=%i', $id)->execute();
 	}
-
+*/
 }

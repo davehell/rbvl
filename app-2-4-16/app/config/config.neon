@@ -5,9 +5,6 @@ application:
 session:
 	expiration: 14 days
 
-extensions:
-	dibi: Dibi\Bridges\Nette\DibiExtension22
-
 services:
 	- App\Model\Akce
 	- App\Model\Aktuality

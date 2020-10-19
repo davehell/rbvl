@@ -5,11 +5,3 @@ database:
     dsn: 'mysql:host=127.0.0.1;dbname=rbvl'
     user: root
     password: root
-
-dibi:
-    driver: mysql
-    host: localhost
-    username: root
-    password: root
-    database: rbvl
-    lazy: true

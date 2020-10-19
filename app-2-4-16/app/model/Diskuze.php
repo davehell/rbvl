@@ -45,7 +45,7 @@ final class Diskuze
 
 	public function insert($data)
 	{
-		return $this->db->insert($this->table, $data)->execute(dibi::IDENTIFIER);
+		return $this->db->insert($this->table, $data)->execute();
 	}
 
 
