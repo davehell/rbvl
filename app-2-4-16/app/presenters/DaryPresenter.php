@@ -2,8 +2,17 @@
 
 namespace App\Presenters;
 
+use App;
+
 final class DaryPresenter extends BasePresenter
 {
+    private $stranky;
+
+    public function __construct(App\Model\Stranky $stranky)
+    {
+        $this->stranky = $stranky;
+    }
+
     public function renderDefault()
     {
         $this->template->pageTitle = '„RB“VL - Dotace a dary';
@@ -11,8 +20,7 @@ final class DaryPresenter extends BasePresenter
         $this->template->pageHeading = 'Dotace a dary';
 
         $this->template->text = '';
-        // $stranky = new Stranky;
-        // $stranka = $stranky->findByNazev('dary')->fetch();
-        // if($stranka) $this->template->text = $stranka->text;
+        $stranka = $this->stranky->getByNazev("dary");
+        if($stranka) $this->template->text = $stranka->text;
     }
 }

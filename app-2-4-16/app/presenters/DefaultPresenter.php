@@ -6,16 +6,9 @@ use App;
 
 final class DefaultPresenter extends BasePresenter
 {
-    /** @var App\Model\Stranky */
     private $stranky;
-
-    /** @var App\Model\Aktuality */
     private $aktuality;
-
-    /** @var App\Model\Tabulky */
     // private $tabulky;
-
-    /** @var App\Model\Terminy */
     // private $terminy;
 
     public function __construct(
@@ -55,6 +48,6 @@ final class DefaultPresenter extends BasePresenter
         // $this->template->aktualniKoloB = $terminy->aktualniKolo($idLigaB)->fetch();
         // $this->template->pristiKoloB = $terminy->pristiKolo($idLigaB)->fetch();
 
-        // $this->template->aktuality = $this->aktuality->findAll(array('vlozeno' => 'desc'), 3);
+        $this->template->aktuality = $this->aktuality->findAllDateSorted(3);
 	}
 }
