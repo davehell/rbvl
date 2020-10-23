@@ -16,3 +16,5 @@ services:
 	nette.latteFactory:
 		setup:
 			- addFilter("texy", [\Texy(), process])
+	paginationControlFactory:
+		implement: App\Components\IPaginationControlFactory

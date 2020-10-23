@@ -4,16 +4,23 @@ namespace App\Presenters;
 
 use App,
     Nette\Application\UI\Form,
-    Nette\Utils\Html;
+    Nette\Utils\Html,
+    App\Components\PaginationControl,
+    App\Components\IPaginationControlFactory;
 
 final class AktualityPresenter extends BasePresenter
 {
-
+  /** @var App\Model\Aktuality */
   private $aktuality;
 
-  public function __construct(App\Model\Aktuality $aktuality)
+  /** @var App\Components\PaginationControl */
+  private $paginationControlFactory;
+
+  public function __construct(App\Model\Aktuality $aktuality, IPaginationControlFactory $paginationControlFactory)
   {
+    parent::__construct();
     $this->aktuality = $aktuality;
+    $this->paginationControlFactory = $paginationControlFactory;
   }
 
   public function renderDefault($id)
@@ -23,7 +30,14 @@ final class AktualityPresenter extends BasePresenter
     $this->template->pageDesc = 'Novinky z „RB“VL';
 
     $aktuality = $this->aktuality->findAllDateSorted();
-    //$articles = $aktuality->findAll(array('vlozeno' => 'desc'));
+
+    $paginator = $this->getComponent('pagination')->getPaginator();
+    $paginator->setItemCount(count($aktuality));
+    $paginator->setItemsPerPage(5);
+    $paginator->setPage($this->getParameter('page', 1));
+
+    $aktuality->limit($paginator->getLength(), $paginator->getOffset());
+
     $this->template->rows = $aktuality;
   }
 
@@ -139,6 +153,9 @@ final class AktualityPresenter extends BasePresenter
   protected function createComponent($name)
   {
     switch ($name) {
+      case 'pagination':
+        return new PaginationControl( $this->getHttpRequest() );
+
     case 'aktualityForm':
       $id = $this->getParam('id');
       $form = new Form($this, $name);
