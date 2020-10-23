@@ -29,16 +29,16 @@ final class AktualityPresenter extends BasePresenter
     $this->template->pageHeading = 'Novinky';
     $this->template->pageDesc = 'Novinky z „RB“VL';
 
-    $aktuality = $this->aktuality->findAllDateSorted();
+    $rows = $this->aktuality->findAllDateSorted();
 
     $paginator = $this->getComponent('pagination')->getPaginator();
-    $paginator->setItemCount(count($aktuality));
+    $paginator->setItemCount(count($rows));
     $paginator->setItemsPerPage(5);
     $paginator->setPage($this->getParameter('page', 1));
 
-    $aktuality->limit($paginator->getLength(), $paginator->getOffset());
+    $rows->limit($paginator->getLength(), $paginator->getOffset());
 
-    $this->template->rows = $aktuality;
+    $this->template->rows = $rows;
   }
 
   public function renderAdd()
@@ -98,7 +98,7 @@ final class AktualityPresenter extends BasePresenter
           $this->aktuality->insert($values);
           $this->flashMessage('Aktualita byla úspěšně přidána.', 'success');
           $this->redirect('default');
-        } catch (DibiException $e) {
+        } catch (Exception $e) {
           $this->flashMessage('Nastala chyba. Příspěvek nebyl vložen.', 'danger');
         }
       }

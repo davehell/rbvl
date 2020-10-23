@@ -7,7 +7,7 @@ final class Aktuality extends BaseModel
 {
     protected $table = "aktuality";
 
-    public function findAllDateSorted($limit = 30)
+    public function findAllDateSorted()
     {
         return $this->findAll()->order("vlozeno DESC");
     }
