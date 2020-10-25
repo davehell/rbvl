@@ -100,7 +100,7 @@ final class DiskuzePresenter extends BasePresenter
           $this->diskuze->insert($values);
           $this->flashMessage('Příspěvek byl úspěšně přidán.', 'success');
           $this->redirect('default');
-        } catch (Exception $e) {
+        } catch (\Nette\Database\DriverException $e) {
           $this->flashMessage('Nastala chyba. Příspěvek nebyl vložen.', 'danger');
           //$form->addError('');
         }
@@ -136,14 +136,14 @@ final class DiskuzePresenter extends BasePresenter
   {
     if ($form['delete']->isSubmittedBy()) {
       $row = $this->diskuze->get($this->getParam('id'));
-        if($row) {
-          $row->delete();
-          $this->flashMessage('Příspěvek byl úspěšně smazán.', 'success');
-          $this->redirect('default');
-        }
-        else {
-          $this->error();
-        }
+      if($row) {
+        $row->delete();
+        $this->flashMessage('Příspěvek byl úspěšně smazán.', 'success');
+        $this->redirect('default');
+      }
+      else {
+        $this->error();
+      }
     }
 
     $this->redirect('default');

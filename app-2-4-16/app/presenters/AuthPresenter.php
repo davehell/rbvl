@@ -62,11 +62,8 @@ final class AuthPresenter extends BasePresenter
             $this->user->login($values->username, $values->password);
             $this->restoreRequest($this->backlink);
             $this->redirect('Default:');
-
         } catch (NS\AuthenticationException $e) {
-            $form->addError($e->getMessage());
+            $this->flashMessage($e->getMessage(), 'danger');
         }
     }
-
-
 }

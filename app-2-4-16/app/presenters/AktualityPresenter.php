@@ -98,7 +98,7 @@ final class AktualityPresenter extends BasePresenter
           $this->aktuality->insert($values);
           $this->flashMessage('Aktualita byla úspěšně přidána.', 'success');
           $this->redirect('default');
-        } catch (Exception $e) {
+        } catch (\Nette\Database\DriverException $e) {
           $this->flashMessage('Nastala chyba. Příspěvek nebyl vložen.', 'danger');
         }
       }

@@ -12,6 +12,7 @@ services:
 	- App\Model\Stranky
 	- App\Model\UserManager
 	- App\Model\AuthorizatorFactory::create
+	- App\Model\Uzivatele
 	router: App\RouterFactory::createRouter
 	nette.latteFactory:
 		setup:
