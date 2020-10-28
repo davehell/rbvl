@@ -75,7 +75,6 @@ final class UzivatelePresenter extends BasePresenter
 
       $values = $form->getValues();
       $values['password'] = sha1($values['password'].$values['username']);
-      unset($values['password2']);
 
       if ($id > 0) { //edit
         $row = $this->uzivatele->get($id);
@@ -144,7 +143,6 @@ final class UzivatelePresenter extends BasePresenter
 
       $values = $form->getValues();
       $values['password'] = sha1($values['password'].$values['username']);
-      unset($values['password2']);
 
       $row = $this->uzivatele->get($id);
 
@@ -237,6 +235,7 @@ final class UzivatelePresenter extends BasePresenter
         ->getControlPrototype()->class('form-control');
 
       $form->addPassword('password2', 'Heslo pro kontrolu:', 30)
+        ->setOmitted()
         ->addRule(Form::FILLED, 'Zadejte heslo ještě jednou pro kontrolu')
         ->addRule(Form::EQUAL, 'Zadané hesla se neshodují', $form['password'])
         ->getControlPrototype()->class('form-control');

@@ -6,7 +6,10 @@ use App;
 
 final class DefaultPresenter extends BasePresenter
 {
+    /** @var App\Model\Stranky */
     private $stranky;
+
+    /** @var App\Model\Aktuality */
     private $aktuality;
     // private $tabulky;
     // private $terminy;

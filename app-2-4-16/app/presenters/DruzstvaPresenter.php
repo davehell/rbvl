@@ -7,8 +7,13 @@ use App,
 
 final class DruzstvaPresenter extends BasePresenter
 {
+  /** @var App\Model\Druzstva */
   private $druzstva;
+
+  /** @var App\Model\Soupisky */
   private $soupisky;
+
+  /** @var App\Model\Hraci */
   private $hraci;
 
   public function __construct(App\Model\Druzstva $druzstva, App\Model\Soupisky $soupisky, App\Model\Hraci $hraci)
@@ -127,15 +132,15 @@ final class DruzstvaPresenter extends BasePresenter
       $idHrac = (int) $values["hrac"];
       $idDruzstvo = (int) $this->getParam('id');
 
-  		if (strlen($values["narozen"])) {
-  			$tmp = preg_replace('~([[:space:]])~', '', $values["narozen"]);
-  			$tmp = explode('.', $tmp);
+      if (strlen($values["narozen"])) {
+        $tmp = preg_replace('~([[:space:]])~', '', $values["narozen"]);
+        $tmp = explode('.', $tmp);
         if(count($tmp) == 3) $values["narozen"] = $tmp[2] . '-' . $tmp[1] . '-' . $tmp[0]; // database format Y-m-d
         else {
           $this->flashMessage('Chybně zadáno datum narození hráče. Hráč nebyl vytvořen.', 'danger');
           return;
         }
-  		}
+      }
       else $values["narozen"] = null;
 
       //pripadne vytvoreni hrace
@@ -160,6 +165,9 @@ final class DruzstvaPresenter extends BasePresenter
          try {
             unset($values["hrac"]);
             $row->update($values);
+          } catch (\Nette\Database\UniqueConstraintViolationException $e) {
+            $this->flashMessage('Tento hráč už v databázi existuje.', 'danger');
+            return;
           } catch (\Nette\Database\DriverException $e) {
             $this->flashMessage('Nastala chyba. Hráč nebyl upraven.', 'danger');
             return;

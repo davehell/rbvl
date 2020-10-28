@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Components;
+
 /**
  * DatePicker input control.
  *
@@ -10,7 +12,7 @@
  * @package    Nette\Extras\DatePicker
  * @version    0.1
  */
-class DatePicker extends /*Nette\Forms\*/Nette\Forms\Controls\TextInput
+class DatePicker extends \Nette\Forms\Controls\TextInput
 {
 
 	/**
@@ -18,7 +20,7 @@ class DatePicker extends /*Nette\Forms\*/Nette\Forms\Controls\TextInput
 	 * @param  int  width of the control
 	 * @param  int  maximum number of characters the user may enter
 	 */
-	public function __construct($label, $cols = NULL, $maxLenght = NULL)
+	public function __construct($label = NULL, $cols = NULL, $maxLenght = NULL)
 	{
 		parent::__construct($label, $cols, $maxLenght);
 	}
@@ -50,6 +52,8 @@ class DatePicker extends /*Nette\Forms\*/Nette\Forms\Controls\TextInput
 	public function setValue($value)
 	{
 		$value = preg_replace('~([0-9]{4})-([0-9]{2})-([0-9]{2})~', '$3.$2.$1', $value);
+		$value = preg_replace('~[0-9]{2}:[0-9]{2}:[0-9]{2}~', '', $value);
+		$value = trim($value);
 		parent::setValue($value);
 	}
 

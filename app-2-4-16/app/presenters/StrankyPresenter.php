@@ -7,6 +7,7 @@ use App,
 
 final class StrankyPresenter extends BasePresenter
 {
+  /** @var App\Model\Stranky */
   private $stranky;
 
   public function __construct(App\Model\Stranky $stranky)

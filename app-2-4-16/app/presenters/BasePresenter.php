@@ -71,11 +71,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
       //   $this->redirect('Auth:login', ['backlink' => $this->storeRequest()]);
       // }
 
-      // Nette\Forms\Form::extensionMethod('Nette\Forms\Form::addDatePicker', 'Form_addDatePicker'); // v PHP 5.2
+      // \Nette\Forms\Form::extensionMethod('Nette\Forms\Form::addDatePicker', 'Form_addDatePicker'); // v PHP 5.2
+      \Nette\Forms\Container::extensionMethod('addDatePicker', function ($form, $name, $label = null, $cols = NULL, $maxLength = NULL) {
+        return $form[$name] = new \App\Components\DatePicker($label, $cols, $maxLength);
+      });
     }
 }
 
-function Form_addDatePicker(Nette\Forms\Form $_this, $name, $label, $cols = NULL, $maxLength = NULL)
-{
-    return $_this[$name] = new DatePicker($label, $cols, $maxLength);
-}
+// function Form_addDatePicker(\Nette\Forms\Form $_this, $name, $label, $cols = NULL, $maxLength = NULL)
+// {
+//     return $_this[$name] = new DatePicker($label, $cols, $maxLength);
+// }

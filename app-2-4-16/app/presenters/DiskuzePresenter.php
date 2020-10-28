@@ -81,7 +81,6 @@ final class DiskuzePresenter extends BasePresenter
     if ($form['save']->isSubmittedBy()) {
       $id = (int) $this->getParam('id');
       $values = $form->getValues();
-      unset($values['antiSpam']);
 
       if ($id > 0) { //edit
         $row = $this->diskuze->get($id);
@@ -178,6 +177,7 @@ final class DiskuzePresenter extends BasePresenter
         ->getControlPrototype()->class('form-control');
 
       $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)', 10)
+        ->setOmitted()
         ->addRule(Form::FILLED, 'Vyplňte ochranu proti spamu')
         ->addRule(Form::NUMERIC, 'Špatně vyplněná ochrana proti spamu')
         ->addRule(Form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6))

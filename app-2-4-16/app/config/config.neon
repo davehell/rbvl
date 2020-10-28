@@ -16,6 +16,7 @@ services:
 	- App\Model\UserManager
 	- App\Model\Uzivatele
 	- App\Model\AuthorizatorFactory::create
+	- App\Components\DatePicker
 	router: App\RouterFactory::createRouter
 	nette.latteFactory:
 		setup:

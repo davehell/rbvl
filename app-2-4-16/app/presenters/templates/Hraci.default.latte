@@ -1,0 +1,49 @@
+{block content}
+<div class="panel-box">
+<div class="row">
+<div class="col-md-12">
+<div class="noPrint">
+<a class="btn btn-primary" href="{link add}" title="Přidat nového hráče"><span class="glyphicon glyphicon-plus"></span> Nový hráč</a>
+<a class="btn btn-danger" href="{link clear}" title="Odebrat všechny hráče ze soupisek"><span class="glyphicon glyphicon-trash"></span> Vymazání soupisek</a>
+</div>
+
+{if !count($rows)}
+<p>
+Databáze neobsahuje žádné hráče.
+</p>
+{else}
+
+
+<table class="table table-striped table-hover">
+<thead>
+<tr>
+<th>příjmení</th>
+<th>jméno</th>
+<th>datum narození</th>
+<th>družstvo</th>
+<th>&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+{foreach $rows as $row}
+<tr>
+<td>{$row->prijmeni}</td>
+<td>{$row->jmeno}</td>
+<td>{$row->narozen|date:'%d.%m.%Y'}</td>
+<td>{$row->nazev}</td>
+<td>
+<div class="pull-right btn-group">
+<a class="btn btn-default btn-xs" href="{link edit, $row->id}" title="upravit hráče {$row->prijmeni} {$row->jmeno}"><span class="glyphicon glyphicon-pencil"></span></a>
+<a class="btn btn-default btn-xs" href="{link delete, $row->id}" title="smazat hráče {$row->prijmeni} {$row->jmeno}"><span class="glyphicon glyphicon-remove"></span></a>
+</div>
+</td>
+</tr>
+{/foreach}
+</tbody>
+</table>
+{/if}
+
+</div>
+</div>
+</div>
+{/block content}
