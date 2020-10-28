@@ -225,49 +225,6 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
-/* náhledy fotek */
-.thumbs {
-  display: table;
-  margin: 0;
-  overflow: hidden;
-  padding: 0;
-}
-.thumbs li {
-  background: none repeat scroll 0 0 #eee;
-  display: inline-block;
-  list-style: none outside none;
-  margin: 7px;
-  padding: 3px;
-  text-align: center;
-  transition: all 0.5s ease 0s;
-  width: 160px;
-}
-.thumbs li:hover {
-  background-color: #88c425;
-  color: #000;
-  transition: all 0.5s ease 0s;
-}
-.thumbs li img {
-  display: block;
-  margin: 0 auto;
-  height: 100px;
-}
-.thumbs li a img {
-  border: medium none;
-}
-
-
-/* náhledy v patičce */
-#footer .thumbs li:first-child {
-  margin-left: 0;
-}
-#footer .thumbs li {
-  background-color: inherit;
-}
-#footer .thumbs li:hover {
-  background-color: #88c425;
-}
-
 
 /* chybové hlášky ve formuláři */
 .error {
@@ -279,16 +236,6 @@ mark {
   background-color: #FFFF99;
 }
 
-/* fotogalerie */
-.thumbnail {
-  height: 250px;
-  padding-top: 10px;
-}
-.thumbnail .btn-group {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-}
 
 /* formulář na zadávání výsledků */
 #frm-vysledkyForm .form-group, #frm-vysledkyForm .checkbox {
@@ -317,7 +264,6 @@ mark {
   padding-right: 15px;
   margin-bottom: 15px;
 }
-
 
 .alert {
   border-radius: 0;

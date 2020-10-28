@@ -9,10 +9,13 @@ services:
 	- App\Model\Akce
 	- App\Model\Aktuality
 	- App\Model\Diskuze
+	- App\Model\Druzstva
+	- App\Model\Hraci
+	- App\Model\Soupisky
 	- App\Model\Stranky
 	- App\Model\UserManager
-	- App\Model\AuthorizatorFactory::create
 	- App\Model\Uzivatele
+	- App\Model\AuthorizatorFactory::create
 	router: App\RouterFactory::createRouter
 	nette.latteFactory:
 		setup:

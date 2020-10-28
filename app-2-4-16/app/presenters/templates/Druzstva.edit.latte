@@ -1,0 +1,115 @@
+{block content}
+<div class="panel-box">
+<div class="row">
+<div class="col-md-12">
+<p>
+<span class="glyphicon glyphicon-arrow-left"></span> <a href="{link default}">Zpět na družstva</a>
+</p>
+{$form|noescape}
+
+<h2>soupiska</h2>
+<p id="infoNovy">Bude vytvořen nový hráč.</p>
+<p id="infoEdit" style="display: none;">Bude editován existující hráč. <button type="button" class="btn btn-default" id="frm-hracForm-reset">Storno</button></p>
+
+{$formSoupiska|noescape}
+
+
+{if !count($soupiska)}
+  <p>
+  Družstvo nemá na soupisce žádné hráče.
+  </p>
+{else}
+  <table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>pořadí</th>
+      <th>příjmení</th>
+      <th>jméno</th>
+      <th>datum narození</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    {var $poradi = 1}
+    {foreach $soupiska as $row}
+      <tr>
+        <td>{$poradi++}</td>
+        <td>{$row->prijmeni}</td>
+        <td>{$row->jmeno}</td>
+        <td>{$row->narozen|date:'%d.%m.%Y'}</td>
+        <td>
+          <div class="pull-right">
+            <a class="btn btn-default btn-xs" href="{link soupiskadelete, $row->idHrac, $druzstvo}" title="odebrat hráče {$row->prijmeni} {$row->jmeno} ze soupisky"><span class="glyphicon glyphicon-remove"></span></a>
+          </div>
+        </td>
+      </tr>
+    {/foreach}
+  </tbody>
+  </table>
+{/if}
+
+<style>
+#frm-hracForm .form-group:first-child {
+  display: none;
+}
+</style>
+
+
+<script>
+$(function() {
+  $( "#frm-hracForm-prijmeni" ).focus();
+  var val = $( "#frm-hracForm-hrac" ).val();
+  if(val) {
+    $( "#infoNovy" ).hide();
+    $( "#infoEdit" ).show();
+  }
+  else {
+    $( "#infoNovy" ).show();
+    $( "#infoEdit" ).hide();
+  }
+
+  var hraci = [
+      {foreach $hraci as $row}
+        { id: {$row->id}, value: {$row->prijmeni}, jmeno: {$row->jmeno}, narozen: {if $row->narozen} {$row->narozen|date:'%d.%m.%Y'} {else} "" {/if}},
+      {/foreach}
+  ];
+
+  $( "#frm-hracForm-prijmeni" ).autocomplete({
+    minLength: 0,
+    source: hraci,
+    focus: function( event, ui ) {
+
+      $( "#frm-hracForm-prijmeni" ).val( ui.item.value );
+      return false;
+    },
+    select: function( event, ui ) {
+      console.info($( "#frm-hracForm-hrac" ));
+      $( "#frm-hracForm-hrac" ).val( ui.item.id );
+      $( "#frm-hracForm-jmeno" ).val( ui.item.jmeno );
+      $( "#frm-hracForm-prijmeni" ).val( ui.item.value );
+      $( "#frm-hracForm-narozen" ).val( ui.item.narozen );
+      $( "#infoNovy" ).hide();
+      $( "#infoEdit" ).show();
+      return false;
+    }
+  })
+  .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+    return $( "<li>" )
+      .append( "<a>" + item.value + " " + item.jmeno + ", " + item.narozen + "</a>" )
+      .appendTo( ul );
+  };
+
+  $( "#frm-hracForm-reset" ).click(function() {
+    $( "#frm-hracForm-hrac" ).val("");
+    $( "#frm-hracForm-jmeno" ).val("");
+    $( "#frm-hracForm-prijmeni" ).val("");
+    $( "#frm-hracForm-narozen" ).val("");
+    $( "#infoNovy" ).show();
+    $( "#infoEdit" ).hide();
+  });
+});
+</script>
+</div>
+</div>
+</div>
+
