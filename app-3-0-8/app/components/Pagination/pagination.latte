@@ -1,0 +1,54 @@
+<div class="paginator">
+<ul class="pagination">
+{* Šipka vlevo. *}
+<li n:class="page-item, $page <= 1 ? disabled">
+<span><span aria-hidden="true">
+{if $page > 1}
+<a class="page-link" href="{$url->setQueryParameter('page', $page - 1)->getAbsoluteUrl()}">&laquo;</a>
+{else}
+&laquo;
+{/if}
+</span></span>
+ </li>
+
+{* Umístění jedničky. *}
+<li class="page-item" n:if="$left > 1">
+<span><a href="{$url->setQueryParameter('page', 1)->getAbsoluteUrl()}">1</a></span>
+ </li>
+
+{* Tečky vlevo. *}
+<li n:if="$left > 2" class="disabled">
+<span>...</span>
+ </li>
+
+{* Stránky v radiusu. *}
+<li n:for="$i = $left; $i <= $right; $i++" n:class="page-item, $i == $page ? active">
+{if $i == $page} {* Aktivní stránka. *}
+<span>{$i}<span class="sr-only">(current)</span></span>
+{else}
+<a class="page-link" href="{$url->setQueryParameter('page', $i)->getAbsoluteUrl()}">{$i}</a>
+{/if}
+ </li>
+
+{* Tečky vpravo. *}
+<li n:if="$right < $pages - 1" class="disabled">
+<span>...</span>
+ </li>
+
+{* Umístění poslední stránky. *}
+<li n:if="$right < $pages">
+<span><a class="page-link" href="{$url->setQueryParameter('page', $pages)->getAbsoluteUrl()}">{$pages}</a></span>
+ </li>
+
+{* Šipka vpravo. *}
+<li n:class="page-item, $page >= $pages ? disabled">
+<span><span aria-hidden="true">
+{if $page < $pages}
+<a class="page-link" href="{$url->setQueryParameter('page', $page + 1)->getAbsoluteUrl()}">&raquo;</a>
+{else}
+&raquo;
+{/if}
+</span></span>
+</li>
+</ul>
+</div>

@@ -1,0 +1,25 @@
+application:
+	mapping:
+		*: App\Presenters\*Presenter
+
+session:
+	expiration: 14 days
+
+services:
+	- App\Model\Akce
+	- App\Model\Aktuality
+	- App\Model\Diskuze
+	- App\Model\Druzstva
+	- App\Model\Hraci
+	- App\Model\Soupisky
+	- App\Model\Stranky
+	- App\Model\UserManager
+	- App\Model\Uzivatele
+	- App\Model\AuthorizatorFactory::create
+	- App\Components\DatePicker
+	router: App\RouterFactory::createRouter
+	nette.latteFactory:
+		setup:
+			- addFilter("texy", [\Texy(), process])
+	paginationControlFactory:
+		implement: App\Components\IPaginationControlFactory

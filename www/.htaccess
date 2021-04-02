@@ -1,0 +1,66 @@
+# htaccess rules for subdomains and aliases
+# to create new subdomain, create a folder www/subdom/(subdomain name)
+# to create web for alias, create a folder www/domains/(whole domain name)
+
+# htaccess pravidla pro subdomeny a samostatne weby aliasu
+# pro vytvoreni subdomeny vytvorte adresar www/subdom/(nazev subdomeny)
+# pro vytvoreni webu pro alias vytvorte adresar www/domains/(cely domenovy nazev)
+# dalsi info a priklady: https://kb.wedos.com/cs/webhosting/htaccess/htaccess-na-webhostingu
+
+RewriteEngine On
+
+# cele domeny (aliasy)
+RewriteCond %{REQUEST_URI} !^domains/
+RewriteCond %{REQUEST_URI} !^/domains/
+RewriteCond %{HTTP_HOST} ^(www\.)?(.*)$
+RewriteCond %{DOCUMENT_ROOT}/domains/%2 -d
+RewriteRule (.*) domains/%2/$1 [DPI]
+
+# subdomeny (s nebo bez www na zacatku)
+RewriteCond %{REQUEST_URI} !^subdom/
+RewriteCond %{REQUEST_URI} !^/subdom/
+RewriteCond %{HTTP_HOST} ^(www\.)?(.*)\.([^\.]*)\.([^\.]*)$
+RewriteCond %{DOCUMENT_ROOT}/subdom/%2 -d
+RewriteRule (.*) subdom/%2/$1 [DPI]
+
+# aliasy - spravne presmerovani pri chybejicim /
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^domains/[^/]+/(.+[^/])$ /$1/ [R]
+
+# subdomeny - spravne presmerovani pri chybejicim /
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^subdom/[^/]+/(.+[^/])$ /$1/ [R]
+
+
+# Apache configuration file (see httpd.apache.org/docs/current/mod/quickreference.html)
+Allow from all
+
+# disable directory listing
+<IfModule mod_autoindex.c>
+	Options -Indexes
+</IfModule>
+
+# enable cool URL
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	# RewriteBase /
+
+	# use HTTPS
+	# RewriteCond %{HTTPS} !on
+	# RewriteRule .? https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+	# prevents files starting with dot to be viewed by browser
+	RewriteRule /\.|^\.(?!well-known/) - [F]
+
+	# front controller
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule !\.(pdf|js|ico|gif|jpg|png|svg|css|rar|zip|tar\.gz|map)$ index.php [L]
+</IfModule>
+
+# enable gzip compression
+<IfModule mod_deflate.c>
+	<IfModule mod_filter.c>
+		AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json application/xml image/svg+xml
+	</IfModule>
+</IfModule>

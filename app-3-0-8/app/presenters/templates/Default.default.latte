@@ -1,0 +1,134 @@
+{block content}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel-box">
+      <div class="row">
+        <div class="col-md-12">
+          {if $user->isLoggedIn()}
+          <p>
+            <a class="btn btn-default pull-right" href="{link Stranky:edit, 1}" title="Upravit text úvodní stránky"><span class="glyphicon glyphicon-pencil"></span> Upravit text</a>
+          </p>
+          {/if}
+          {$text|vlna|texy|noescape}
+        </div>
+      </div>
+    </div> <!-- .panel-box -->
+  </div> <!-- .col-md-12 -->
+</div> <!-- .row -->
+
+{*
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel-box">
+      <div class="row">
+        <div class="col-md-12">
+          {if $user->isLoggedIn()}
+          <p>
+            <a class="btn btn-default pull-right" href="{link Stranky:edit, 1}" title="Upravit text úvodní stránky"><span class="glyphicon glyphicon-pencil"></span> Upravit text</a>
+          </p>
+          {/if}
+          {$text|vlna|texy|noescape}
+        </div>
+      </div>
+    </div> <!-- .panel-box -->
+  </div> <!-- .col-md-9 -->
+  <div class="col-md-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel-box">
+          <div class="titles">
+            <h4>Výsledky aktuálního kola</h4>
+          </div>
+          <ul>
+            {if $aktualniKoloA}<li>{$aktualniKoloA->rocnik}<br><a href="{plink Vysledky:termin, $aktualniKoloA->id}" title="Zobrazit výsledky zápasů ze dne {$aktualniKoloA->datum|czechDate}">{$aktualniKoloA->termin}</a> - {$aktualniKoloA->datum|czechDate}</li>{/if}
+            {if $aktualniKoloB}<li>{$aktualniKoloB->rocnik}<br><a href="{plink Vysledky:termin, $aktualniKoloB->id}" title="Zobrazit výsledky zápasů ze dne {$aktualniKoloB->datum|czechDate}">{$aktualniKoloB->termin}</a> - {$aktualniKoloB->datum|czechDate}</li>{/if}
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="panel-box">
+          <div class="titles">
+            <h4>Rozlosování příštího kola</h4>
+          </div>
+          <ul>
+            {if $pristiKoloA}<li>{$pristiKoloA->rocnik}<br><a href="{plink Rozlosovani:default, $pristiKoloA->id}" title="Zobrazit rozlosování zápasů dne {$pristiKoloA->datum|czechDate}">{$pristiKoloA->termin}</a> - {$pristiKoloA->datum|czechDate}</li>{/if}
+            {if $pristiKoloB}<li>{$pristiKoloB->rocnik}<br><a href="{plink Rozlosovani:default, $pristiKoloB->id}" title="Zobrazit rozlosování zápasů dne {$pristiKoloB->datum|czechDate}">{$pristiKoloB->termin}</a> - {$pristiKoloB->datum|czechDate}</li>{/if}
+<!--
+           <li>Liga A - playoff<br>
+           <a href="/download/rozl-playoff-2019-a.pdf">Hrací den č. 6</a> - 24.3.2019<br>
+           <a href="/download/playoff-2019-a.pdf">pavouk playoff</a></li>
+-->
+          </ul>
+        </div>
+      </div>
+    </div> <!-- .row -->
+  </div>
+</div> <!-- .row -->
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel-box">
+      <div class="titles">
+        <h4>Novinky</h4>
+      </div>
+        <ul class="aktuality">
+        {foreach $aktuality as $aktualita}
+          <li>
+            <span class="glyphicon glyphicon-calendar"></span>
+            {$aktualita->vlozeno|date:'%d.%m.%Y'}
+            <br>
+            {$aktualita->text|truncate:300|aktuality|noescape}
+            <br>
+            <a href="{plink Aktuality:default}" title="Zobrazit všechny novinky">celý text</a>
+          </li>
+        {/foreach}
+        </ul>
+    </div>
+  </div> <!-- .col-md-6 -->
+  <div class="col-md-3">
+    <div class="panel-box">
+      <div class="titles">
+        <h4><!--Liga A - -->Tabulka</h4>
+      </div>
+      {foreach $tabulkyA as $row}
+        {if $skupinaA != $row->skupina_popis}
+          {if $skupinaA !=  ""}
+            </tbody></table>
+          {/if}
+          <h5 class="text-center">{$row->skupina_popis}</h5>
+          {var $poradi = 1}
+          <table class="table table-hover table-condensed">
+          <tbody>
+        {/if}
+        <tr><td>{$poradi}.</td><td>{$row->druzstvo_nazev}</td><td>{$row->body}</td></tr>
+        {var $skupinaA = $row->skupina_popis}
+        <?php $poradi++?>
+        {if $iterator->isLast()}</tbody></table>{/if}
+      {/foreach}
+    </div>
+  </div> <!-- .col-md-3 -->
+  <div class="col-md-3">
+    <div class="panel-box">
+      <div class="titles">
+        <h4><!--Liga B - -->Tabulka</h4>
+      </div>
+      {foreach $tabulkyB as $row}
+        {if $skupinaB != $row->skupina_popis}
+          {if $skupinaB !=  ""}
+            </tbody></table>
+          {/if}
+          <h5 class="text-center">{$row->skupina_popis}</h5>
+          {var $poradi = 1}
+          <table class="table table-hover table-condensed">
+          <tbody>
+        {/if}
+        <tr><td>{$poradi}.</td><td>{$row->druzstvo_nazev}</td><td>{$row->body}</td></tr>
+        {var $skupinaB = $row->skupina_popis}
+        <?php $poradi++?>
+        {if $iterator->isLast()}</tbody></table>{/if}
+      {/foreach}
+    </div>
+  </div> <!-- .col-md-3 -->
+</div> <!-- .row -->
+*}
+{/block}

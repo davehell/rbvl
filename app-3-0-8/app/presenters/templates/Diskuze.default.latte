@@ -1,0 +1,42 @@
+{block content}
+<div class="panel-box">
+<div class="row">
+<div class="col-md-12">
+<p class="text-center noPrint">
+<a class="btn btn-primary btn-lg" href="{link add}" title="Přidat příspěvek do diskuze"><span class="glyphicon glyphicon-plus"></span> Přidat příspěvek</a>
+</p>
+
+{control pagination}
+
+{if !count($rows)}
+<p>
+Nejsou uloženy žádné příspěvky
+</p>
+{else}
+
+{foreach $rows as $row}
+<div class="post-item">
+<div class="row">
+<div class="col-md-12">
+<h4>
+{$row->jmeno} <small>{$row->vlozeno|date:'%d.%m.%Y %H:%M'}</small>
+{if $user->isLoggedIn()}
+<div class="btn-group pull-right">
+<a class="btn btn-default" href="{link edit, $row->id}" title="upravit příspěvek"><span class="glyphicon glyphicon-pencil"></span></a>
+<a class="btn btn-default" href="{link delete, $row->id}" title="smazat příspěvek"><span class="glyphicon glyphicon-remove"></span></a>
+</div>
+{/if}
+</h4>
+
+{$row->text|vlna|texy|noescape}
+</div>
+</div>
+</div>
+{/foreach}
+{/if}
+
+{control pagination}
+
+</div>
+</div>
+</div>
