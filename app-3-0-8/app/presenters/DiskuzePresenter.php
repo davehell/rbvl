@@ -148,59 +148,57 @@ final class DiskuzePresenter extends BasePresenter
     $this->redirect('default');
   }
 
-
-  protected function createComponent($name)
+  protected function createComponentPagination()
   {
-    switch ($name) {
-      case 'pagination':
-        return new PaginationControl( $this->getHttpRequest() );
+    return new PaginationControl( $this->getHttpRequest() );
+  }
 
-    case 'diskuzeForm':
-      $id = $this->getParam('id');
-      $form = new Form($this, $name);
-      $form->getElementPrototype()->class('form-horizontal');
+  protected function createComponentDiskuzeForm(): Form
+  {
+    $id = $this->getParam('id');
+    $form = new Form;
+    $form->getElementPrototype()->class('form-horizontal');
 
-      $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
-      $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
-      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
-      $renderer->wrappers['label']['requiredsuffix'] = " *";
+    $renderer = $form->getRenderer();
+    $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
+    $renderer->wrappers['controls']['container'] = NULL;
+    $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+    $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
+    $renderer->wrappers['label']['requiredsuffix'] = " *";
 
 
-      $form->addText('jmeno', 'Jméno:', 30)
-        ->addRule(Form::FILLED, 'Zadejte uživatelské jméno')
-        ->getControlPrototype()->class('form-control');
+    $form->addText('jmeno', 'Jméno:', 30)
+      ->addRule(Form::FILLED, 'Zadejte uživatelské jméno')
+      ->getControlPrototype()->class('form-control');
 
-      $form->addTextArea('text', 'Text:', 0, 20)
-        ->addRule(Form::FILLED, 'Zadejte text příspěvku.')
-        ->getControlPrototype()->class('form-control');
+    $form->addTextArea('text', 'Text:', 0, 20)
+      ->addRule(Form::FILLED, 'Zadejte text příspěvku.')
+      ->getControlPrototype()->class('form-control');
 
-      $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)', 10)
-        ->setOmitted()
-        ->addRule(Form::FILLED, 'Vyplňte ochranu proti spamu')
-        ->addRule(Form::NUMERIC, 'Špatně vyplněná ochrana proti spamu')
-        ->addRule(Form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6))
-        ->getControlPrototype()->class('antispam');
-      $form['antiSpam']->getLabelPrototype()->class('antispam');
+    $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)', 10)
+      ->setOmitted()
+      ->addRule(Form::FILLED, 'Vyplňte ochranu proti spamu')
+      ->addRule(Form::NUMERIC, 'Špatně vyplněná ochrana proti spamu')
+      ->addRule(Form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6))
+      ->getControlPrototype()->class('antispam');
+    $form['antiSpam']->getLabelPrototype()->class('antispam');
 
-      $form->addSubmit('save', 'Odeslat')->getControlPrototype()->class('btn btn-primary');
-      $form->onSuccess[] = array($this, 'diskuzeFormSubmitted');
+    $form->addSubmit('save', 'Odeslat')->getControlPrototype()->class('btn btn-primary');
+    $form->onSuccess[] = array($this, 'diskuzeFormSubmitted');
 
-      $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
-      return;
+    $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
 
-    case 'deleteForm':
-      $form = new Form($this, $name);
-      $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
-      $form->onSuccess[] = array($this, 'deleteFormSubmitted');
+    return $form;
+  }
 
-      $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
-      return;
+  protected function createComponentDeleteForm(): Form
+  {
+    $form = new Form;
+    $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
+    $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
+    $form->onSuccess[] = array($this, 'deleteFormSubmitted');
 
-    default:
-      parent::createComponent($name);
-    }
+    $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
+    return $form;
   }
 }

@@ -208,93 +208,89 @@ final class UzivatelePresenter extends BasePresenter
 
 
     /********************* facilities *********************/
-
-
-  protected function createComponent($name)
+  protected function createComponentUserForm(): Form
   {
-    switch ($name) {
-    case 'userForm':
-      $id = $this->getParam('id');
-      $form = new Form($this, $name);
-      $form->getElementPrototype()->class('form-horizontal');
+    $id = $this->getParam('id');
+    $form = new Form;
+    $form->getElementPrototype()->class('form-horizontal');
 
-      $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
-      $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
-      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
-      $renderer->wrappers['label']['requiredsuffix'] = " *";
+    $renderer = $form->getRenderer();
+    $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
+    $renderer->wrappers['controls']['container'] = NULL;
+    $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+    $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
+    $renderer->wrappers['label']['requiredsuffix'] = " *";
 
-      $form->addText('username', 'Uživatelské jméno:', 30)
+    $form->addText('username', 'Uživatelské jméno:', 30)
+      ->addRule(Form::FILLED, 'Zadejte uživatelské jméno')
+      ->getControlPrototype()->class('form-control');
+
+    $form->addPassword('password', 'Heslo:', 30)
+      ->addRule(Form::FILLED, 'Zvolte si heslo')
+      ->addRule(Form::MIN_LENGTH, 'Zadané heslo je příliš krátké, zvolte si heslo alespoň o %d znacích', 3)
+      ->getControlPrototype()->class('form-control');
+
+    $form->addPassword('password2', 'Heslo pro kontrolu:', 30)
+      ->setOmitted()
+      ->addRule(Form::FILLED, 'Zadejte heslo ještě jednou pro kontrolu')
+      ->addRule(Form::EQUAL, 'Zadané hesla se neshodují', $form['password'])
+      ->getControlPrototype()->class('form-control');
+
+    $roles = array('--- Vyberte oprávnění ---', 'admin'=>'Administrátor', 'member'=>'Uživatel');
+    $form->addSelect('role', 'Oprávnění:', $roles)->getControlPrototype()->class('form-control');
+    $form['role']->addRule(Form::FILLED, 'Vyberte oprávnění');
+
+    $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
+    $form->addSubmit('cancel', 'Storno')->setValidationScope(NULL)->getControlPrototype()->class('btn btn-default');
+    $form->onSuccess[] = array($this, 'userFormSubmitted');
+
+    $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
+    return $form;
+  }
+
+  protected function createComponentChangeForm(): Form
+  {
+    $form = new Form;
+    $form->getElementPrototype()->class('form-horizontal');
+
+    $renderer = $form->getRenderer();
+    $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
+    $renderer->wrappers['controls']['container'] = NULL;
+    $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+    $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
+    $renderer->wrappers['label']['requiredsuffix'] = " *";
+
+    $form->addText('username', 'Uživatelské jméno:', 30)
         ->addRule(Form::FILLED, 'Zadejte uživatelské jméno')
         ->getControlPrototype()->class('form-control');
 
-      $form->addPassword('password', 'Heslo:', 30)
+    $form->addPassword('password', 'Heslo:', 30)
         ->addRule(Form::FILLED, 'Zvolte si heslo')
         ->addRule(Form::MIN_LENGTH, 'Zadané heslo je příliš krátké, zvolte si heslo alespoň o %d znacích', 3)
         ->getControlPrototype()->class('form-control');
 
-      $form->addPassword('password2', 'Heslo pro kontrolu:', 30)
-        ->setOmitted()
+    $form->addPassword('password2', 'Heslo pro kontrolu:', 30)
         ->addRule(Form::FILLED, 'Zadejte heslo ještě jednou pro kontrolu')
         ->addRule(Form::EQUAL, 'Zadané hesla se neshodují', $form['password'])
         ->getControlPrototype()->class('form-control');
 
-      $roles = array('--- Vyberte oprávnění ---', 'admin'=>'Administrátor', 'member'=>'Uživatel');
-      $form->addSelect('role', 'Oprávnění:', $roles)->getControlPrototype()->class('form-control');
-      $form['role']->addRule(Form::FILLED, 'Vyberte oprávnění');
+    $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
+    $form->addSubmit('cancel', 'Storno')->setValidationScope(NULL)->getControlPrototype()->class('btn btn-default');
+    $form->onSuccess[] = array($this, 'changeFormSubmitted');
 
-      $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Storno')->setValidationScope(NULL)->getControlPrototype()->class('btn btn-default');
-      $form->onSuccess[] = array($this, 'userFormSubmitted');
+    $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
+    return $form;
+  }
 
-      $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
-      return;
+  protected function createComponentDeleteForm(): Form
+  {
+    $form = new Form;
+    $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
+    $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
+    $form->onSuccess[] = array($this, 'deleteFormSubmitted');
 
-    case 'changeForm':
-      $form = new Form($this, $name);
-      $form->getElementPrototype()->class('form-horizontal');
-
-      $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
-      $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
-      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
-      $renderer->wrappers['label']['requiredsuffix'] = " *";
-
-      $form->addText('username', 'Uživatelské jméno:', 30)
-          ->addRule(Form::FILLED, 'Zadejte uživatelské jméno')
-          ->getControlPrototype()->class('form-control');
-
-      $form->addPassword('password', 'Heslo:', 30)
-          ->addRule(Form::FILLED, 'Zvolte si heslo')
-          ->addRule(Form::MIN_LENGTH, 'Zadané heslo je příliš krátké, zvolte si heslo alespoň o %d znacích', 3)
-          ->getControlPrototype()->class('form-control');
-
-      $form->addPassword('password2', 'Heslo pro kontrolu:', 30)
-          ->addRule(Form::FILLED, 'Zadejte heslo ještě jednou pro kontrolu')
-          ->addRule(Form::EQUAL, 'Zadané hesla se neshodují', $form['password'])
-          ->getControlPrototype()->class('form-control');
-
-      $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Storno')->setValidationScope(NULL)->getControlPrototype()->class('btn btn-default');
-      $form->onSuccess[] = array($this, 'changeFormSubmitted');
-
-      $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
-      return;
-
-    case 'deleteForm':
-      $form = new Form($this, $name);
-      $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
-      $form->onSuccess[] = array($this, 'deleteFormSubmitted');
-
-      $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
-      return;
-
-    default:
-      parent::createComponent($name);
-    }
+    $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
+    return $form;
   }
 
 }

@@ -152,7 +152,7 @@ final class AktualityPresenter extends BasePresenter
   protected function createComponentAktualityForm(): Form
   {
     $id = $this->getParam('id');
-    $form = new Form($this, $name);
+    $form = new Form;
     $form->getElementPrototype()->class('form-horizontal');
 
     $renderer = $form->getRenderer();
@@ -176,7 +176,7 @@ final class AktualityPresenter extends BasePresenter
 
   protected function createComponentDeleteForm(): Form
   {
-    $form = new Form($this, $name);
+    $form = new Form;
     $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
     $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');;
     $form->onSuccess[] = array($this, 'deleteFormSubmitted');

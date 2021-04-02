@@ -6,15 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{$pageTitle}</title>
-  <link rel="stylesheet" href="{$baseUri}/css/bootstrap.min.css">
-  <link rel="stylesheet" href="{$baseUri}/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="{$baseUri}/css/styles.css" type="text/css" />
-  <link rel="stylesheet" media="print" href="{$baseUri}/css/print.css?v=3" type="text/css" />
+  <link rel="stylesheet" href="{$baseUrl}/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{$baseUrl}/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="{$baseUrl}/css/styles.css" type="text/css" />
+  <link rel="stylesheet" media="print" href="{$baseUrl}/css/print.css?v=3" type="text/css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   {* <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> *}
-  <script src="{$baseUri}/js/bootstrap.min.js"></script>
+  <script src="{$baseUrl}/js/bootstrap.min.js"></script>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-  <link rel="shortcut icon" href="{$baseUri}/favicon.ico">
+  <link rel="shortcut icon" href="{$baseUrl}/favicon.ico">
 </head>
 
 <body {ifCurrent Default:*}class="homepage"{/ifCurrent}>
@@ -47,8 +47,8 @@
                 <li><a href="{plink Propozice:}" title="Propozice pro přihlášení družstva">Propozice</a></li>
                 <li><a href="{plink Pravidla:}" title="Pravidla soutěže">Pravidla</a></li>
 
-                {* <li><a href="{plink Vysledky:}" title="Výsledky aktuálního ročníku">Výsledky</a></li> *}
-                {* <li><a href="{plink Rozlosovani:}" title="Rozlosování aktuálního ročníku">Rozlosování</a></li> *}
+                <li><a href="{plink Vysledky:}" title="Výsledky aktuálního ročníku">Výsledky</a></li>
+                <li><a href="{plink Rozlosovani:}" title="Rozlosování aktuálního ročníku">Rozlosování</a></li>
                 <li><a href="{plink Druzstva:}" title="Družstva hrající „Region Beskydy“ volejbalovou ligu">Družstva</a></li>
 
                 {if $user->isLoggedIn()}
@@ -89,7 +89,7 @@
         <p class="alert alert-{$flash->type}">{$flash->message}</p>
         {/foreach}
         {ifCurrent Default:*}
-        {else}
+        {* {else} *}
           <h1 class="noPrint">{$pageHeading|noescape}</h1>
         {/ifCurrent}
         {include content}
@@ -106,8 +106,8 @@
         </div>
         <div class="col-md-7">
           <div>
-            <a href="http://www.frydekmistek.cz/" title="Statutární město Frýdek-Místek"><img src="{$baseUri}/img/fm-logo3.png" height="80px" alt="Statutární město Frýdek-Místek" /></a>
-            <a href="http://www.regionbeskydy.cz/" title="Region Beskydy"><img src="{$baseUri}/img/rb-logo2.png" height="60px" alt="Region Beskydy" /></a>
+            <a href="http://www.frydekmistek.cz/" title="Statutární město Frýdek-Místek"><img src="{$baseUrl}/img/fm-logo3.png" height="80px" alt="Statutární město Frýdek-Místek" /></a>
+            <a href="http://www.regionbeskydy.cz/" title="Region Beskydy"><img src="{$baseUrl}/img/rb-logo2.png" height="60px" alt="Region Beskydy" /></a>
           </div>
         </div>
         <div class="col-md-1 text-right">
@@ -143,9 +143,9 @@
 
 {if isset($scripts)}
   {if in_array('datepicker', $scripts)}
-  <link rel="stylesheet" href="{$baseUri}/css/datepicker.css" type="text/css" />
-  <script type="text/javascript" src="{$baseUri}/js/bootstrap-datepicker.js"></script>
-  <script type="text/javascript" src="{$baseUri}/js/bootstrap-datepicker.cs.js"></script>
+  <link rel="stylesheet" href="{$baseUrl}/css/datepicker.css" type="text/css" />
+  <script type="text/javascript" src="{$baseUrl}/js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript" src="{$baseUrl}/js/bootstrap-datepicker.cs.js"></script>
   <script type="text/javascript">
   $(document).ready(function(){
     $('.datepicker').datepicker( { autoclose: true, language: 'cs' } );
@@ -154,17 +154,17 @@
   </script>
   {/if}
   {if in_array('antispam', $scripts)}
-  <script type="text/javascript" src="{$baseUri}/js/antispam.js"></script>
+  <script type="text/javascript" src="{$baseUrl}/js/antispam.js"></script>
   {/if}
   {if in_array('autocomplete', $scripts)}
-    <link rel="stylesheet" href="{$baseUri}/css/autocomplete-jquery-ui.min.css" type="text/css" media="screen" />
-    <script type="text/javascript" src="{$baseUri}/js/autocomplete-jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="{$baseUrl}/css/autocomplete-jquery-ui.min.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="{$baseUrl}/js/autocomplete-jquery-ui.min.js"></script>
   {/if}
   {if in_array('vysledky', $scripts)}
-    <script type="text/javascript" src="{$baseUri}/js/vysledky.js"></script>
+    <script type="text/javascript" src="{$baseUrl}/js/vysledky.js"></script>
   {/if}
   {if in_array('zapis-vysledku', $scripts)}
-    <script type="text/javascript" src="{$baseUri}/js/zapis-vysledku.js"></script>
+    <script type="text/javascript" src="{$baseUrl}/js/zapis-vysledku.js"></script>
   {/if}
 {/if}
 

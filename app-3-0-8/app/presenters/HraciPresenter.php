@@ -172,63 +172,59 @@ final class HraciPresenter extends BasePresenter
 
     /********************* facilities *********************/
 
-
-  protected function createComponent($name)
+  protected function createComponentHracForm(): Form
   {
-    switch ($name) {
-    case 'hracForm':
-      $form = new Form($this, $name);
-      $form->getElementPrototype()->class('form-horizontal');
+    $form = new Form;
+    $form->getElementPrototype()->class('form-horizontal');
 
-      $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
-      $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
-      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
-      $renderer->wrappers['label']['requiredsuffix'] = " *";
+    $renderer = $form->getRenderer();
+    $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
+    $renderer->wrappers['controls']['container'] = NULL;
+    $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+    $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
+    $renderer->wrappers['label']['requiredsuffix'] = " *";
 
-      $druzstvo = $this->getParam('id');
+    $druzstvo = $this->getParam('id');
 
-      $form->addText('prijmeni', 'Příjmení:', 50)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka příjmení může být %d znaků', 100)
-        ->addRule(Form::FILLED, 'Zadejte příjmení hráče.')
-        ->getControlPrototype()->class('form-control');
+    $form->addText('prijmeni', 'Příjmení:', 50)
+      ->addRule(Form::MAX_LENGTH, 'Maximální délka příjmení může být %d znaků', 100)
+      ->addRule(Form::FILLED, 'Zadejte příjmení hráče.')
+      ->getControlPrototype()->class('form-control');
 
-      $form->addText('jmeno', 'Jméno:', 30)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka jména může být %d znaků', 100)
-        ->addRule(Form::FILLED, 'Zadejte jméno hráče.')
-        ->getControlPrototype()->class('form-control');
+    $form->addText('jmeno', 'Jméno:', 30)
+      ->addRule(Form::MAX_LENGTH, 'Maximální délka jména může být %d znaků', 100)
+      ->addRule(Form::FILLED, 'Zadejte jméno hráče.')
+      ->getControlPrototype()->class('form-control');
 
-      $form->addDatePicker('narozen', 'Datum narození:', 10)
-        ->getControlPrototype()->class('form-control');
+    $form->addDatePicker('narozen', 'Datum narození:', 10)
+      ->getControlPrototype()->class('form-control');
 
-      $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
-      $form->onSuccess[] = array($this, 'hracFormSubmitted');
+    $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
+    $form->onSuccess[] = array($this, 'hracFormSubmitted');
 
-      $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
-      return;
-
-    case 'clearForm':
-      $form = new Form($this, $name);
-      $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
-      $form->onSuccess[] = array($this, 'clearFormSubmitted');
-
-      $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
-      return;
-
-    case 'deleteForm':
-      $form = new Form($this, $name);
-      $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
-      $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
-      $form->onSuccess[] = array($this, 'deleteFormSubmitted');
-
-      $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
-      return;
-
-    default:
-      parent::createComponent($name);
-    }
+    $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
+    return $form;
   }
 
+  protected function createComponentClearForm(): Form
+  {
+    $form = new Form;
+    $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
+    $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
+    $form->onSuccess[] = array($this, 'clearFormSubmitted');
+
+    $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
+    return $form;
+  }
+
+  protected function createComponentDeleteForm(): Form
+  {
+    $form = new Form;
+    $form->addSubmit('delete', 'Smazat')->getControlPrototype()->class('btn btn-primary');
+    $form->addSubmit('cancel', 'Storno')->getControlPrototype()->class('btn btn-default');
+    $form->onSuccess[] = array($this, 'deleteFormSubmitted');
+
+    $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
+    return $form;
+  }
 }

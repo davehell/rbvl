@@ -194,95 +194,91 @@ final class DruzstvaPresenter extends BasePresenter
     }
   }
 
-
-  protected function createComponent($name)
+  protected function createComponentDruzstvaForm(): Form
   {
-    switch ($name) {
-    case 'druzstvaForm':
-      $id = $this->getParam('id');
-      $form = new Form($this, $name);
-      $form->getElementPrototype()->class('form-horizontal');
+    $id = $this->getParam('id');
+    $form = new Form($this, $name);
+    $form->getElementPrototype()->class('form-horizontal');
 
-      $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
-      $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
-      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
-      $renderer->wrappers['label']['requiredsuffix'] = " *";
+    $renderer = $form->getRenderer();
+    $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
+    $renderer->wrappers['controls']['container'] = NULL;
+    $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+    $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
+    $renderer->wrappers['label']['requiredsuffix'] = " *";
 
-      $form->addText('nazev', 'Název:', 40)
-        ->setRequired(TRUE)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka názvu družstva může být %d znaků', 100)
-        ->addRule(Form::FILLED, 'Zadejte název družstva.')
-        ->getControlPrototype()->class('form-control');
+    $form->addText('nazev', 'Název:', 40)
+      ->setRequired(TRUE)
+      ->addRule(Form::MAX_LENGTH, 'Maximální délka názvu družstva může být %d znaků', 100)
+      ->addRule(Form::FILLED, 'Zadejte název družstva.')
+      ->getControlPrototype()->class('form-control');
 
-      $form->addText('vedouci', 'Vedoucí:', 40)
-        ->setRequired(FALSE)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka jména vedoucího může být %d znaků', 100)
-        ->getControlPrototype()->class('form-control');
+    $form->addText('vedouci', 'Vedoucí:', 40)
+      ->setRequired(FALSE)
+      ->addRule(Form::MAX_LENGTH, 'Maximální délka jména vedoucího může být %d znaků', 100)
+      ->getControlPrototype()->class('form-control');
 
-      $form->addText('telefon', 'Telefon:', 20)
-        ->setRequired(FALSE)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka telefonního čísla může být %d znaků', 15)
-        ->getControlPrototype()->class('form-control');
+    $form->addText('telefon', 'Telefon:', 20)
+      ->setRequired(FALSE)
+      ->addRule(Form::MAX_LENGTH, 'Maximální délka telefonního čísla může být %d znaků', 15)
+      ->getControlPrototype()->class('form-control');
 
-      $form->addText('email', 'E-mail:', 40)
-        ->setRequired(FALSE)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 100)
-        ->getControlPrototype()->class('form-control')
-        ->setEmptyValue('@')
-        //->addRule(Form::FILLED, 'Zadejte kontaktní e-mail.')
-        ->addCondition(Form::FILLED)
-            ->addRule(Form::EMAIL, 'E-mailová adresa není platná');
+    $form->addText('email', 'E-mail:', 40)
+      ->setRequired(FALSE)
+      ->addRule(Form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 100)
+      ->getControlPrototype()->class('form-control')
+      ->setEmptyValue('@')
+      //->addRule(Form::FILLED, 'Zadejte kontaktní e-mail.')
+      ->addCondition(Form::FILLED)
+          ->addRule(Form::EMAIL, 'E-mailová adresa není platná');
 
-      $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
-      $form->onSuccess[] = array($this, 'akceFormSubmitted');
+    $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
+    $form->onSuccess[] = array($this, 'akceFormSubmitted');
 
-      $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
-      return;
+    $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
 
-    case 'hracForm':
-      $form = new Form($this, $name);
-      $form->getElementPrototype()->class('form-horizontal');
+    return $form;
+  }
 
-      $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
-      $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
-      $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
-      $renderer->wrappers['label']['requiredsuffix'] = " *";
+  protected function createComponentHracForm(): Form
+  {
+    $form = new Form;
+    $form->getElementPrototype()->class('form-horizontal');
 
-      $druzstvo = $this->getParam('id');
+    $renderer = $form->getRenderer();
+    $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
+    $renderer->wrappers['controls']['container'] = NULL;
+    $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+    $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
+    $renderer->wrappers['label']['requiredsuffix'] = " *";
 
-      $form->addText('hrac', 'ID')
-        ->setRequired(FALSE)
-        ->getControlPrototype()->class('form-control')
-        ->setHtmlId('#frm-hracForm-hrac');
+    $druzstvo = $this->getParam('id');
 
-      $form->addText('prijmeni', 'Příjmení:', 50)
-        ->setRequired(TRUE)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka příjmení může být %d znaků', 100)
-        ->addRule(Form::FILLED, 'Zadejte příjmení hráče.')
-        ->getControlPrototype()->class('form-control');
+    $form->addText('hrac', 'ID')
+      ->setRequired(FALSE)
+      ->getControlPrototype()->class('form-control')
+      ->setHtmlId('#frm-hracForm-hrac');
 
-      $form->addText('jmeno', 'Jméno:', 30)
-        ->setRequired(TRUE)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka jména může být %d znaků', 100)
-        ->addRule(Form::FILLED, 'Zadejte jméno hráče.')
-        ->getControlPrototype()->class('form-control');
+    $form->addText('prijmeni', 'Příjmení:', 50)
+      ->setRequired(TRUE)
+      ->addRule(Form::MAX_LENGTH, 'Maximální délka příjmení může být %d znaků', 100)
+      ->addRule(Form::FILLED, 'Zadejte příjmení hráče.')
+      ->getControlPrototype()->class('form-control');
 
-      $form->addText('narozen', 'Datum narození:', 10)
-        ->setRequired(FALSE)
-        ->getControlPrototype()->class('form-control');
+    $form->addText('jmeno', 'Jméno:', 30)
+      ->setRequired(TRUE)
+      ->addRule(Form::MAX_LENGTH, 'Maximální délka jména může být %d znaků', 100)
+      ->addRule(Form::FILLED, 'Zadejte jméno hráče.')
+      ->getControlPrototype()->class('form-control');
 
-      $form->addSubmit('save', 'Přidat hráče')->getControlPrototype()->class('btn btn-primary');
-      $form->onSuccess[] = array($this, 'hracFormSubmitted');
+    $form->addText('narozen', 'Datum narození:', 10)
+      ->setRequired(FALSE)
+      ->getControlPrototype()->class('form-control');
 
-      $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
-      return;
+    $form->addSubmit('save', 'Přidat hráče')->getControlPrototype()->class('btn btn-primary');
+    $form->onSuccess[] = array($this, 'hracFormSubmitted');
 
-    default:
-      parent::createComponent($name);
-    }
+    $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
+    return $form;
   }
 }

@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App,
+    Nette\Application\UI\Form,
     Nette\Application\UI;
 
 final class StrankyPresenter extends BasePresenter
@@ -60,34 +61,28 @@ final class StrankyPresenter extends BasePresenter
     /********************* facilities *********************/
 
 
-  protected function createComponent($name)
+  protected function createComponentStrankyForm(): Form
   {
-    switch ($name) {
-    case 'strankyForm':
-      $id = $this->getParam('id');
-      $form = new \Nette\Application\UI\Form($this, $name);
+    $id = $this->getParam('id');
+    $form = new Form;
 
-      $renderer = $form->getRenderer();
-      $renderer->wrappers['pair']['container'] = \Nette\Utils\Html::el('div')->class('form-group');
-      $renderer->wrappers['controls']['container'] = NULL;
-      $renderer->wrappers['label']['container'] = \Nette\Utils\Html::el('div')->class('control-label');
-      $renderer->wrappers['label']['requiredsuffix'] = " *";
+    $renderer = $form->getRenderer();
+    $renderer->wrappers['pair']['container'] = \Nette\Utils\Html::el('div')->class('form-group');
+    $renderer->wrappers['controls']['container'] = NULL;
+    $renderer->wrappers['label']['container'] = \Nette\Utils\Html::el('div')->class('control-label');
+    $renderer->wrappers['label']['requiredsuffix'] = " *";
 
-      $form->addHidden('nazev');
+    $form->addHidden('nazev');
 
-      $form->addTextArea('text', 'Text:', 60, 20)
-        ->addRule(\Nette\Forms\Form::FILLED, 'Zadejte text příspěvku.')
-        ->getControlPrototype()->class('form-control');
+    $form->addTextArea('text', 'Text:', 60, 20)
+      ->addRule(\Nette\Forms\Form::FILLED, 'Zadejte text příspěvku.')
+      ->getControlPrototype()->class('form-control');
 
-      $form->addSubmit('save', 'Odeslat')->getControlPrototype()->class('btn btn-primary');
-      $form->onSuccess[] = array($this, 'strankyFormSubmitted');
+    $form->addSubmit('save', 'Odeslat')->getControlPrototype()->class('btn btn-primary');
+    $form->onSuccess[] = array($this, 'strankyFormSubmitted');
 
-      $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
-      return;
-
-    default:
-      parent::createComponent($name);
-    }
+    $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
+    return $form;
   }
 
 }

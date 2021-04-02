@@ -15,6 +15,8 @@ services:
 	- App\Model\Stranky
 	- App\Model\UserManager
 	- App\Model\Uzivatele
+	- App\Model\Vysledky
+	- App\Model\Terminy
 	- App\Model\AuthorizatorFactory::create
 	- App\Components\DatePicker
 	router: App\RouterFactory::createRouter
