@@ -14,7 +14,8 @@ final class Hraci extends BaseModel
     		FROM hraci as h
     		LEFT JOIN soupisky AS s ON h.id = s.hrac
     		LEFT JOIN druzstva AS d ON s.druzstvo = d.id
-    		ORDER BY prijmeni ASC, jmeno ASC');
+    		ORDER BY prijmeni ASC, jmeno ASC
+        ')->fetchAll();
 	}
 
 }

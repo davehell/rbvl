@@ -27,7 +27,7 @@ final class Soupisky extends BaseModel
           WHERE s.druzstvo = ?
           AND s.hrac = h.id
           ORDER BY h.prijmeni ASC, h.jmeno ASC
-        ', $druzstvo);
+        ', $druzstvo)->fetchAll();
     }
 
     public function deleteOnePlayerInTeam($hrac, $druzstvo)

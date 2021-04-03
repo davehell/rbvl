@@ -20,7 +20,7 @@ final class Druzstva extends BaseModel
         AND r.aktualni=1
         AND d.nazev <> "foo"
         ORDER BY t.skupina ASC, t.cislo ASC
-      ', $rocnik);
+      ', $rocnik)->fetchAll();
     }
 
 
@@ -37,22 +37,8 @@ final class Druzstva extends BaseModel
             WHERE r.rocnik=? AND r.aktualni=1 AND d.nazev <> "foo"
             GROUP BY d.nazev
             ORDER BY ?
-        ', $rocnik, $order);
+        ', $rocnik, $order)->fetchAll();
     }
-
-    // public function findAllInSkupina($skupina, $rocnik)
-    // {
-    //       return $this->connection->dataSource('
-    //         SELECT d.id, d.nazev
-    //         FROM tabulky as t
-    //         LEFT JOIN druzstva AS d ON (t.druzstvo=d.id)
-    //         LEFT JOIN skupiny AS s ON (s.id=t.skupina)
-    //         LEFT JOIN rocniky AS r ON (s.rocnik=r.id)
-    //         WHERE s.id = %i
-    //         AND r.rocnik = %s
-    //         ORDER BY t.id ASC
-    //       ', $skupina, $rocnik);
-    // }
 
     public function soupiskaDruzstva($id)
     {
@@ -62,6 +48,6 @@ final class Druzstva extends BaseModel
         WHERE s.druzstvo = ?
         AND h.id = s.hrac
         ORDER BY s.id ASC
-      ', $id);
+      ', $id)->fetchAll();
     }
 }

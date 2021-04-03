@@ -197,7 +197,7 @@ final class DruzstvaPresenter extends BasePresenter
   protected function createComponentDruzstvaForm(): Form
   {
     $id = $this->getParameter('id');
-    $form = new Form($this, $name);
+    $form = new Form;
     $form->getElementPrototype()->class('form-horizontal');
 
     $renderer = $form->getRenderer();
