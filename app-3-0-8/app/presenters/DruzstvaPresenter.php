@@ -94,7 +94,7 @@ final class DruzstvaPresenter extends BasePresenter
   public function akceFormSubmitted(Form $form)
   {
     if ($form['save']->isSubmittedBy()) {
-      $id = (int) $this->getParam('id');
+      $id = (int) $this->getParameter('id');
       $values = $form->getValues();
 
       if ($id > 0) { //edit
@@ -130,7 +130,7 @@ final class DruzstvaPresenter extends BasePresenter
     if ($form['save']->isSubmittedBy()) {
       $values = $form->getValues();
       $idHrac = (int) $values["hrac"];
-      $idDruzstvo = (int) $this->getParam('id');
+      $idDruzstvo = (int) $this->getParameter('id');
 
       if (strlen($values["narozen"])) {
         $tmp = preg_replace('~([[:space:]])~', '', $values["narozen"]);
@@ -196,7 +196,7 @@ final class DruzstvaPresenter extends BasePresenter
 
   protected function createComponentDruzstvaForm(): Form
   {
-    $id = $this->getParam('id');
+    $id = $this->getParameter('id');
     $form = new Form($this, $name);
     $form->getElementPrototype()->class('form-horizontal');
 
@@ -252,7 +252,7 @@ final class DruzstvaPresenter extends BasePresenter
     $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
     $renderer->wrappers['label']['requiredsuffix'] = " *";
 
-    $druzstvo = $this->getParam('id');
+    $druzstvo = $this->getParameter('id');
 
     $form->addText('hrac', 'ID')
       ->setRequired(FALSE)

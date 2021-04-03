@@ -71,10 +71,11 @@ final class UzivatelePresenter extends BasePresenter
   public function userFormSubmitted(Form $form)
   {
     if ($form['save']->isSubmittedBy()) {
-      $id = (int) $this->getParam('id');
+      $id = (int) $this->getParameter('id');
 
       $values = $form->getValues();
       $values['password'] = sha1($values['password'].$values['username']);
+      unset($values['password2']);
 
       if ($id > 0) { //edit
         $row = $this->uzivatele->get($id);
@@ -143,6 +144,7 @@ final class UzivatelePresenter extends BasePresenter
 
       $values = $form->getValues();
       $values['password'] = sha1($values['password'].$values['username']);
+      unset($values['password2']);
 
       $row = $this->uzivatele->get($id);
 
@@ -192,7 +194,7 @@ final class UzivatelePresenter extends BasePresenter
   public function deleteFormSubmitted(Form $form)
   {
     if ($form['delete']->isSubmittedBy()) {
-      $row = $this->uzivatele->get($this->getParam('id'));
+      $row = $this->uzivatele->get($this->getParameter('id'));
       if($row) {
         $row->delete();
         $this->flashMessage('Uživatel byl úspěšně smazán.', 'success');
@@ -210,7 +212,7 @@ final class UzivatelePresenter extends BasePresenter
     /********************* facilities *********************/
   protected function createComponentUserForm(): Form
   {
-    $id = $this->getParam('id');
+    $id = $this->getParameter('id');
     $form = new Form;
     $form->getElementPrototype()->class('form-horizontal');
 

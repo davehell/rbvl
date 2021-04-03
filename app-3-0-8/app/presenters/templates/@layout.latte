@@ -88,10 +88,10 @@
         {foreach $flashes as $flash}
         <p class="alert alert-{$flash->type}">{$flash->message}</p>
         {/foreach}
-        {ifCurrent Default:*}
-        {* {else} *}
+        {if $presenter->isLinkCurrent('Default:*')}
+        {else}
           <h1 class="noPrint">{$pageHeading|noescape}</h1>
-        {/ifCurrent}
+        {/if}
         {include content}
       </div>
     </div> <!-- .row -->

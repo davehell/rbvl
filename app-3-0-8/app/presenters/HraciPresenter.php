@@ -95,7 +95,7 @@ final class HraciPresenter extends BasePresenter
   public function hracFormSubmitted(Form $form)
   {
     if ($form['save']->isSubmittedBy()) {
-      $id = (int) $this->getParam('id');
+      $id = (int) $this->getParameter('id');
       $values = $form->getValues();
 
       if ($id > 0) { //edit
@@ -156,7 +156,7 @@ final class HraciPresenter extends BasePresenter
   public function deleteFormSubmitted(Form $form)
   {
     if ($form['delete']->isSubmittedBy()) {
-      $row = $this->hraci->get($this->getParam('id'));
+      $row = $this->hraci->get($this->getParameter('id'));
         if($row) {
           $row->delete();
           $this->flashMessage('Hráč byl úspěšně smazán.', 'success');
@@ -184,7 +184,7 @@ final class HraciPresenter extends BasePresenter
     $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
     $renderer->wrappers['label']['requiredsuffix'] = " *";
 
-    $druzstvo = $this->getParam('id');
+    $druzstvo = $this->getParameter('id');
 
     $form->addText('prijmeni', 'Příjmení:', 50)
       ->addRule(Form::MAX_LENGTH, 'Maximální délka příjmení může být %d znaků', 100)

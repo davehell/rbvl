@@ -77,7 +77,7 @@ final class AktualityPresenter extends BasePresenter
   public function aktualityFormSubmitted(Form $form)
   {
     if ($form['save']->isSubmittedBy()) {
-      $id = (int) $this->getParam('id');
+      $id = (int) $this->getParameter('id');
       $values = $form->getValues();
 
       if ($id > 0) { //edit
@@ -132,7 +132,7 @@ final class AktualityPresenter extends BasePresenter
   public function deleteFormSubmitted(Form $form)
   {
     if ($form['delete']->isSubmittedBy()) {
-      $row = $this->aktuality->get($this->getParam('id'));
+      $row = $this->aktuality->get($this->getParameter('id'));
         if($row) {
           $row->delete();
           $this->flashMessage('Příspěvek byl úspěšně smazán.', 'success');
@@ -151,7 +151,7 @@ final class AktualityPresenter extends BasePresenter
 
   protected function createComponentAktualityForm(): Form
   {
-    $id = $this->getParam('id');
+    $id = $this->getParameter('id');
     $form = new Form;
     $form->getElementPrototype()->class('form-horizontal');
 

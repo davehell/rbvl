@@ -79,7 +79,7 @@ final class DiskuzePresenter extends BasePresenter
   public function diskuzeFormSubmitted(Form $form)
   {
     if ($form['save']->isSubmittedBy()) {
-      $id = (int) $this->getParam('id');
+      $id = (int) $this->getParameter('id');
       $values = $form->getValues();
 
       if ($id > 0) { //edit
@@ -134,7 +134,7 @@ final class DiskuzePresenter extends BasePresenter
   public function deleteFormSubmitted(Form $form)
   {
     if ($form['delete']->isSubmittedBy()) {
-      $row = $this->diskuze->get($this->getParam('id'));
+      $row = $this->diskuze->get($this->getParameter('id'));
       if($row) {
         $row->delete();
         $this->flashMessage('Příspěvek byl úspěšně smazán.', 'success');
@@ -155,7 +155,7 @@ final class DiskuzePresenter extends BasePresenter
 
   protected function createComponentDiskuzeForm(): Form
   {
-    $id = $this->getParam('id');
+    $id = $this->getParameter('id');
     $form = new Form;
     $form->getElementPrototype()->class('form-horizontal');
 

@@ -4,7 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $configurator = new Nette\Configurator;
 
-// if (strpos(getenv("DOCUMENT_ROOT"), "D:/wamp64/www") !== false) {
+// if (strpos(getenv("DOCUMENT_ROOT"), "C:/wamp64/www") !== false) {
 //     $configurator->setDebugMode(TRUE);
 // }
 // else {

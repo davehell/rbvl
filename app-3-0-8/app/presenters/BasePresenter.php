@@ -52,24 +52,17 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
     protected function startup()
     {
-        parent::startup();
+      parent::startup();
 
-        //TODO: nejdřív musí existovat všechny presentery
-        // if (!$this->getUser()->isAllowed($this->name, $this->view)) {
-        //     $this->flashMessage('Pro tuto akci nemáte dostatečné oprávnění.', 'danger');
-        //     $this->redirect('Auth:login', ['backlink' => $this->storeRequest()]);
-        // }
-
-      // if (!$this->user->isAllowed($this->name, $this->view))
-      // {
-      //  if ($this->user->isLoggedIn()) {
-      //     $this->flashMessage('Pro tuto akci nemáte dostatečné oprávnění.', 'danger');
-      //   }
-      //   else {
-      //     $this->flashMessage('Vstup do této sekce je možný jen po přihlášení.', 'danger');
-      //   }
-      //   $this->redirect('Auth:login', ['backlink' => $this->storeRequest()]);
-      // }
+      if (!$this->getUser()->isAllowed($this->name, $this->view)) {
+        if ($this->getUser()->isLoggedIn()) {
+          $this->flashMessage('Pro tuto akci nemáte dostatečné oprávnění.', 'danger');
+        }
+        else {
+          $this->flashMessage('Vstup do této sekce je možný jen po přihlášení.', 'danger');
+        }
+        $this->redirect('Auth:login', ['backlink' => $this->storeRequest()]);
+      }
 
       // \Nette\Forms\Form::extensionMethod('Nette\Forms\Form::addDatePicker', 'Form_addDatePicker'); // v PHP 5.2
       \Nette\Forms\Container::extensionMethod('addDatePicker', function ($form, $name, $label = null, $cols = NULL, $maxLength = NULL) {

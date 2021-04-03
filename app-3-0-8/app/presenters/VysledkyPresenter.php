@@ -108,7 +108,7 @@ final class VysledkyPresenter extends BasePresenter
   public function vysledkyFormSubmitted(Nette\Application\UI\Form $form)
   {
     if ($form['save']->isSubmittedBy() || $form['saveAndNext']->isSubmittedBy()) {
-      $id = (int) $this->getParam('id');
+      $id = (int) $this->getParameter('id');
       $vysledky = new vysledky;
       $rozlosovani = new Rozlosovani;
 
@@ -190,7 +190,7 @@ final class VysledkyPresenter extends BasePresenter
 
   protected function createComponentVysledkyForm(): Form
   {
-    $id = $this->getParam('id');
+    $id = $this->getParameter('id');
     $form = new Form;
     $form->getElementPrototype()->class('form-inline');
 

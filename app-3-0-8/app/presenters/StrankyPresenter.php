@@ -40,7 +40,7 @@ final class StrankyPresenter extends BasePresenter
   public function strankyFormSubmitted($form)
   {
     if ($form['save']->isSubmittedBy()) {
-      $id = (int) $this->getParam('id');
+      $id = (int) $this->getParameter('id');
       $values = $form->getValues();
 
       $row = $this->stranky->get($id);
@@ -56,14 +56,12 @@ final class StrankyPresenter extends BasePresenter
   }
 
 
-
-
     /********************* facilities *********************/
 
 
   protected function createComponentStrankyForm(): Form
   {
-    $id = $this->getParam('id');
+    $id = $this->getParameter('id');
     $form = new Form;
 
     $renderer = $form->getRenderer();

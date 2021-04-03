@@ -5,8 +5,7 @@ use Nette;
 
 class AuthorizatorFactory
 {
-    /** @return Nette\Security\Permission */
-    public static function create()
+    public static function create(): Nette\Security\Permission
     {
         $acl = new Nette\Security\Permission;
         $acl->addRole('guest');
