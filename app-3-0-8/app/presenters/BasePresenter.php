@@ -11,6 +11,8 @@ use Nette;
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
     public $R = "r2021";
+    public $itemsPerPage = 10;
+    public $radius = 5;
 
     protected function beforeRender()
     {
@@ -68,6 +70,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
       \Nette\Forms\Container::extensionMethod('addDatePicker', function ($form, $name, $label = null, $cols = NULL, $maxLength = NULL) {
         return $form[$name] = new \App\Components\DatePicker($label, $cols, $maxLength);
       });
+    }
+
+    public function setItemsPerPage($itemsPerPage) {
+        $this->itemsPerPage = $itemsPerPage;
+    }
+
+    public function setRadius($radius) {
+        $this->radius = $radius;
     }
 }
 

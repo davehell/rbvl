@@ -16,7 +16,7 @@ class PaginationControl extends Control {
     const TEMPLATE = __DIR__ . '/pagination.latte';
 
 
-    private $radius = 5;
+    private $radius;
 
 
     private $paginator;
@@ -25,10 +25,10 @@ class PaginationControl extends Control {
     private $url;
 
 
-    public function __construct(Request $request) {
-        // parent::__construct();
+    public function __construct(Request $request, int $radius = 5) {
         $this->paginator = new Paginator();
         $this->url = $request->getUrl();
+        $this->setRadius($radius);
     }
 
     public function setRadius($radius) {
@@ -59,6 +59,5 @@ class PaginationControl extends Control {
 
 
 interface IPaginationControlFactory {
-    /** @return PaginationControl */
-    public function create();
+    public function create(Request $request, int $radius): PaginationControl;
 }

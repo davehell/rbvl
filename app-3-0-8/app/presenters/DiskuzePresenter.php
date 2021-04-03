@@ -33,7 +33,7 @@ final class DiskuzePresenter extends BasePresenter
 
       $paginator = $this->getComponent('pagination')->getPaginator();
       $paginator->setItemCount(count($rows));
-      $paginator->setItemsPerPage(30);
+      $paginator->setItemsPerPage($this->itemsPerPage);
       $paginator->setPage($this->getParameter('page', 1));
 
       $rows->limit($paginator->getLength(), $paginator->getOffset());
@@ -148,11 +148,6 @@ final class DiskuzePresenter extends BasePresenter
     $this->redirect('default');
   }
 
-  protected function createComponentPagination()
-  {
-    return new PaginationControl( $this->getHttpRequest() );
-  }
-
   protected function createComponentDiskuzeForm(): Form
   {
     $id = $this->getParameter('id');
@@ -200,5 +195,10 @@ final class DiskuzePresenter extends BasePresenter
 
     $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
     return $form;
+  }
+
+  protected function createComponentPagination()
+  {
+    return new PaginationControl( $this->getHttpRequest(), $this->radius );
   }
 }

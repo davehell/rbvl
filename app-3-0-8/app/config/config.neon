@@ -5,23 +5,29 @@ application:
 session:
 	expiration: 14 days
 
+parameters:
+	pageRadius: 5
+	itemsPerPage: 5
+
+search:
+	modely:
+		in: %appDir%/model
+	komponenty:
+		in: %appDir%/components
+
 services:
-	- App\Model\Akce
-	- App\Model\Aktuality
-	- App\Model\Diskuze
-	- App\Model\Druzstva
-	- App\Model\Hraci
-	- App\Model\Soupisky
-	- App\Model\Stranky
-	- App\Model\UserManager
-	- App\Model\Uzivatele
-	- App\Model\Vysledky
-	- App\Model\Terminy
 	- App\Model\AuthorizatorFactory::create
-	- App\Components\DatePicker
 	router: App\RouterFactory::createRouter
 	nette.latteFactory:
 		setup:
 			- addFilter("texy", [\Texy(), process])
-	paginationControlFactory:
-		implement: App\Components\IPaginationControlFactory
+	-
+		class: App\Presenters\AktualityPresenter
+		setup:
+			- setItemsPerPage(%itemsPerPage%)
+			- setRadius(%pageRadius%)
+	-
+		class: App\Presenters\DiskuzePresenter
+		setup:
+			- setItemsPerPage(10)
+			- setRadius(%pageRadius%)

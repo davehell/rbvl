@@ -33,7 +33,7 @@ final class AktualityPresenter extends BasePresenter
 
     $paginator = $this->getComponent('pagination')->getPaginator();
     $paginator->setItemCount(count($rows));
-    $paginator->setItemsPerPage(5);
+    $paginator->setItemsPerPage($this->itemsPerPage);
     $paginator->setPage($this->getParameter('page', 1));
 
     $rows->limit($paginator->getLength(), $paginator->getOffset());
@@ -187,6 +187,6 @@ final class AktualityPresenter extends BasePresenter
 
   protected function createComponentPagination()
   {
-    return new PaginationControl( $this->getHttpRequest() );
+    return new PaginationControl( $this->getHttpRequest(), $this->radius );
   }
 }
