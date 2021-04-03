@@ -45,7 +45,7 @@ final class Terminy extends BaseModel
         AND datum <= NOW()
         ORDER BY datum DESC
         LIMIT 1
-    ', $rocnikID)->fetchAll();
+    ', $rocnikID)->fetch();
   }
 
   public function pristiKolo($rocnikID)
@@ -58,6 +58,6 @@ final class Terminy extends BaseModel
         AND datum > NOW()
         ORDER BY datum ASC
         LIMIT 1
-    ', $rocnikID)->fetchAll();
+    ', $rocnikID)->fetch();
   }
 }

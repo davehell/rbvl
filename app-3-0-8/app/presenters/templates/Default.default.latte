@@ -1,5 +1,5 @@
 {block content}
-
+{*
 <div class="row">
   <div class="col-md-12">
     <div class="panel-box">
@@ -16,8 +16,8 @@
     </div> <!-- .panel-box -->
   </div> <!-- .col-md-12 -->
 </div> <!-- .row -->
+*}
 
-{*
 <div class="row">
   <div class="col-md-9">
     <div class="panel-box">
@@ -102,7 +102,7 @@
         {/if}
         <tr><td>{$poradi}.</td><td>{$row->druzstvo_nazev}</td><td>{$row->body}</td></tr>
         {var $skupinaA = $row->skupina_popis}
-        <?php $poradi++?>
+        {var $poradi = $poradi + 1 }
         {if $iterator->isLast()}</tbody></table>{/if}
       {/foreach}
     </div>
@@ -124,11 +124,11 @@
         {/if}
         <tr><td>{$poradi}.</td><td>{$row->druzstvo_nazev}</td><td>{$row->body}</td></tr>
         {var $skupinaB = $row->skupina_popis}
-        <?php $poradi++?>
+        {var $poradi = $poradi + 1 }
         {if $iterator->isLast()}</tbody></table>{/if}
       {/foreach}
     </div>
   </div> <!-- .col-md-3 -->
 </div> <!-- .row -->
-*}
+
 {/block}
