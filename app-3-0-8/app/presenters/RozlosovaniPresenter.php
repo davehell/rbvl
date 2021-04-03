@@ -18,7 +18,7 @@ final class RozlosovaniPresenter extends BasePresenter
   /** @var App\Model\Druzstva */
   private $druzstva;
 
-  public function __construct(App\Model\Terminy $rozlosovani, App\Model\Terminy $terminy, App\Model\Terminy $druzstva)
+  public function __construct(App\Model\Rozlosovani $rozlosovani, App\Model\Terminy $terminy, App\Model\Druzstva $druzstva)
   {
     parent::__construct();
     $this->rozlosovani = $rozlosovani;
@@ -33,13 +33,12 @@ final class RozlosovaniPresenter extends BasePresenter
       $this->template->pageDesc = 'Rozlosování zápasů „Region Beskydy“ volejbalové ligy';
       $this->template->scripts = array('vysledky');
 
-      $this->template->druzstva = $this->druzstva->findAllUnique($this->R, array('nazev' => 'asc'));
-      $this->template->terminy = $this->terminy->findAll($this->R);
+      $this->template->rozlosovani = [];
+
+      $this->template->druzstva = $this->druzstva->findAllUnique($this->R, array("nazev" => true));
+      $this->template->terminy = $this->terminy->findAllInRocnik($this->R);
       if($id) {
         $this->template->rozlosovani = $this->rozlosovani->findAllInTermin($id);
-      }
-      else {
-        $this->template->rozlosovani = null;
       }
 
       $this->template->rocnikPopis = '';
@@ -47,6 +46,4 @@ final class RozlosovaniPresenter extends BasePresenter
       $this->template->cas = '';
       $this->template->barva = 1;
   }
-
-
 }

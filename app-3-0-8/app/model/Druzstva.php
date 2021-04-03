@@ -12,8 +12,7 @@ final class Druzstva extends BaseModel
     {
       return $this->database->query('
         SELECT d.*, s.popis as skupina_popis
-        FROM
-        rocniky as r
+        FROM rocniky as r
         LEFT JOIN skupiny as s on (s.rocnik=r.id)
         LEFT JOIN tabulky as t on (t.skupina=s.id)
         RIGHT JOIN druzstva as d on (t.druzstvo=d.id)
@@ -27,20 +26,19 @@ final class Druzstva extends BaseModel
 
     //pouziti pro seznam druzstev v selectboxu u rozlosovani a vysledku
     //kazde druzstvo se zobrazi pouze jednou - i kdyz bude zarazeno do vice skupin
-    // public function findAllUnique($rocnik, $order = array('t.skupina' => 'asc', 't.cislo' => 'asc'))
-    // {
-    //       return $this->connection->dataSource('
-    //         SELECT d.*
-    //         FROM
-    //         rocniky as r
-    //         LEFT JOIN skupiny as s on (s.rocnik=r.id)
-    //         LEFT JOIN tabulky as t on (t.skupina=s.id)
-    //         RIGHT JOIN druzstva as d on (t.druzstvo=d.id)
-    //         WHERE r.rocnik=%s AND r.aktualni=1 AND d.nazev <> "foo"
-    //         GROUP BY d.nazev
-    //         ORDER BY %by
-    //       ', $rocnik, $order);
-    // }
+    public function findAllUnique($rocnik, $order = array("t.skupina" => true, "t.cislo" => true))
+    {
+        return $this->database->query('
+            SELECT d.*
+            FROM rocniky as r
+            LEFT JOIN skupiny as s on (s.rocnik=r.id)
+            LEFT JOIN tabulky as t on (t.skupina=s.id)
+            RIGHT JOIN druzstva as d on (t.druzstvo=d.id)
+            WHERE r.rocnik=? AND r.aktualni=1 AND d.nazev <> "foo"
+            GROUP BY d.nazev
+            ORDER BY ?
+        ', $rocnik, $order);
+    }
 
     // public function findAllInSkupina($skupina, $rocnik)
     // {

@@ -48,7 +48,7 @@ final class VysledkyPresenter extends BasePresenter
       $druzstva = new Druzstva;
       $vysledky= new Vysledky;
 
-      $this->template->druzstva = $druzstva->findAllUnique($this->R, array('nazev' => 'asc'));
+      $this->template->druzstva = $druzstva->findAllUnique($this->R, array("nazev" => true));
 
       $this->template->zapasy = $vysledky->findAllInTermin($id)->fetchAll();
       // Debugger::dump($this->template->zapasy);

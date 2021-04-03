@@ -1,0 +1,80 @@
+{block content}
+{if count($rozlosovani)}
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel-box">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="zvyrazneniDruzstva">
+            <span class="glyphicon glyphicon-search"></span>
+            <select id="druzstva" onchange="zvyrazneniTymu()">
+              <option value=" "> - - zvýraznit družstvo - - </option>
+              {foreach $druzstva as $druzstvo}
+              <option value="{$druzstvo->nazev}">{$druzstvo->nazev}</option>
+              {/foreach}
+            </select>
+          </div>
+
+          {foreach $rozlosovani as $zapas}
+            {if $terminPopis != $zapas->termin}
+              {if $terminPopis !=  ""}
+                </table>
+              {/if}
+              {var $barva = 1}
+              <h2>{$zapas->datum|czechDate} - {$zapas->termin}</h2>
+              <h3>{$zapas->rocnik}</h3>
+
+              <table class="table table-hover table-condensed rozl">
+                <thead>
+                <tr>
+                  <th class="col-md-2">začátek</th>
+                  <th class="col-md-3">domácí</th>
+                  <th>hosté</th>
+                </tr>
+                </thead>
+                <tbody>
+            {/if}
+            {if $cas != $zapas->cas->format('%H:%I')}
+              {var $barva = !$barva}
+            {/if}
+                <tr{if $barva} class="success"{/if}>
+                  <td>{$zapas->cas|czechTime}&nbsp;&nbsp;&nbsp;{!$zapas->poznamka}</td>
+                  <td>{if $zapas->domaci!=''}{$zapas->domaci}{else}{$zapas->skupina_popis}{$zapas->cislo_domaci}{/if}</td>
+                  <td>{if $zapas->hoste!=''}{$zapas->hoste}{else}{$zapas->skupina_popis}{$zapas->cislo_hoste}{/if}</td>
+                </tr>
+            {var $terminPopis = $zapas->termin}
+            {var $cas = $zapas->cas->format('%H:%I')}
+            {if $iterator->isLast()}</tbody></table>{/if}
+          {/foreach}
+
+        </div> <!-- .col-md-12 -->
+      </div> <!-- .row -->
+    </div> <!-- .panel-box -->
+  </div> <!-- .col-md-9 -->
+  <div class="col-md-3 sidebar">
+    <div class="panel-box">
+      <div class="titles">
+        <h4>Hrací dny</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          {include rozlosovani-menu.latte}
+        </div> <!-- .col-md-12 -->
+      </div> <!-- .row -->
+    </div> <!-- .panel-box -->
+  </div> <!-- .col-md-3 -->
+</div> <!-- .row -->
+{else}
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel-box">
+      <div class="row">
+        <div class="col-md-12">
+          {include rozlosovani-menu.latte}
+        </div> <!-- .col-md-12 -->
+      </div> <!-- .row -->
+    </div> <!-- .panel-box -->
+  </div> <!-- .col-md-12 -->
+</div> <!-- .row -->
+{/if}
+{/block}
