@@ -12,19 +12,34 @@ final class VysledkyPresenter extends BasePresenter
   /** @var App\Model\Terminy */
   private $terminy;
 
-  public function __construct(App\Model\Terminy $terminy)
+  /** @var App\Model\Druzstva */
+  private $druzstva;
+
+  /** @var App\Model\Tabulky */
+  private $tabulky;
+
+  /** @var App\Model\Vysledky */
+  private $vysledky;
+
+  /** @var App\Model\Rozlosovani */
+  private $rozlosovani;
+
+  public function __construct(App\Model\Terminy $terminy, App\Model\Druzstva $druzstva, App\Model\Tabulky $tabulky, App\Model\Vysledky $vysledky, App\Model\Rozlosovani $rozlosovani)
   {
     parent::__construct();
     $this->terminy = $terminy;
+    $this->druzstva = $druzstva;
+    $this->tabulky = $tabulky;
+    $this->vysledky = $vysledky;
+    $this->rozlosovani = $rozlosovani;
   }
 
-  // protected function startup()
-  // {
-  //     $terminy = new Terminy;
-  //     $this->template->terminy = $terminy->findAllVysledky($this->R)->fetchAll();
-  //     $this->template->menuRocnikPopis = '';
-  //     parent::startup();
-  // }
+  protected function startup()
+  {
+      $this->template->terminy = $this->terminy->findAllVysledky($this->R);
+      $this->template->menuRocnikPopis = '';
+      parent::startup();
+  }
 
   public function renderDefault()
   {
@@ -32,9 +47,7 @@ final class VysledkyPresenter extends BasePresenter
       $this->template->pageHeading = 'Výsledky';
       $this->template->pageDesc = 'Výsledky zápasů „Region Beskydy“ volejbalové ligy';
 
-      // $this->template->terminy = $terminy->findAllVysledky($this->R)->fetchAll();
-      $rows = $this->terminy->findAllVysledky($this->R);
-      $this->template->rows = $rows;
+      $this->template->terminy = $this->terminy->findAllVysledky($this->R);
       $this->template->rocnikPopis = '';
   }
 
@@ -45,13 +58,10 @@ final class VysledkyPresenter extends BasePresenter
       $this->template->pageDesc = 'Výsledky zápasů „Region Beskydy“ volejbalové ligy';
       $this->template->scripts = array('vysledky');
 
-      $druzstva = new Druzstva;
-      $vysledky= new Vysledky;
+      $this->template->druzstva = $this->druzstva->findAllUnique($this->R, array("nazev" => true));
 
-      $this->template->druzstva = $druzstva->findAllUnique($this->R, array("nazev" => true));
+      $this->template->zapasy = $this->vysledky->findAllInTermin($id);
 
-      $this->template->zapasy = $vysledky->findAllInTermin($id)->fetchAll();
-      // Debugger::dump($this->template->zapasy);
       if (!$this->template->zapasy) {
         $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
       }
@@ -69,8 +79,7 @@ final class VysledkyPresenter extends BasePresenter
       $this->template->pageDesc = 'Pořadí týmů „Region Beskydy“ volejbalové ligy';
 
 
-      $tabulky = new Tabulky;
-      $this->template->tabulky = $tabulky->getTabulky($id)->fetchAll();
+      $this->template->tabulky = $this->tabulky->getTabulky($id);
       $this->template->skupina = '';
       $this->template->poradi = 0;
       $this->template->rocnikPopis = '';
@@ -91,10 +100,11 @@ final class VysledkyPresenter extends BasePresenter
     $form = $this->getComponent('vysledkyForm');
     $this->template->form = $form;
 
-    if (!$form->isSubmitted()) {
-      $vysledky = new Vysledky;
-      $row = $vysledky->find($id)->fetch();
+      $row = $this->vysledky->getVysledek($id);
       $this->template->vysledek = $row;
+
+    if (!$form->isSubmitted()) {
+
 
       if (!$row) {
         //throw new BadRequestException('Požadovaný záznam nenalezen.');
@@ -105,12 +115,10 @@ final class VysledkyPresenter extends BasePresenter
     }
   }
 
-  public function vysledkyFormSubmitted(Nette\Application\UI\Form $form)
+  public function vysledkyFormSubmitted(Form $form)
   {
     if ($form['save']->isSubmittedBy() || $form['saveAndNext']->isSubmittedBy()) {
       $id = (int) $this->getParameter('id');
-      $vysledky = new vysledky;
-      $rozlosovani = new Rozlosovani;
 
       if ($id > 0) { //edit
         try {
@@ -122,13 +130,14 @@ final class VysledkyPresenter extends BasePresenter
             if($v == '') $values[$k] = null;
           }
 
-          $vysledky->update($id, $values);
+          $this->vysledky->updateVysledek($id, $values);
           $this->flashMessage('Výsledek byl úspěšně upraven.', 'success');
 
+
           try{
-            $skupina = $vysledky->find($id)->fetch();
-            $vysledky->spocitejTabulku($skupina->id_skupina, $this->R);
-          } catch (DibiException $e) {
+            $skupina = $this->vysledky->getVysledek($id);
+            $this->vysledky->spocitejTabulku($skupina->id_skupina, $this->R, $this->druzstva, $this->vysledky, $this->tabulky);
+          } catch (\Nette\Database\DriverException $e) {
             $this->flashMessage('Nepodařilo se přepočítat tabulku.', 'danger');
             $this->flashMessage($e->getMessage());
           }
@@ -138,7 +147,7 @@ final class VysledkyPresenter extends BasePresenter
           } else {
             $this->redirect('edit', array((int)$values['id']+1));
           }
-         } catch (DibiException $e) {
+        } catch (\Nette\Database\DriverException $e) {
           $this->flashMessage('Nastala chyba. Výsledek nebyl upraven.', 'danger');
           $form->addError($e->getMessage());
         }
@@ -155,28 +164,24 @@ final class VysledkyPresenter extends BasePresenter
       $this->template->pageDesc = '';
       $this->template->robots = 'noindex,noarchive';
 
-      $vysledky = new Vysledky;
-      $rozlosovani = new Rozlosovani;
-      $tabulky = new Tabulky;
-
-      $zapasy = $rozlosovani->findAll($this->R);
+      $zapasy = $this->rozlosovani->findAllInRocnik($this->R);
 
       $this->template->vlozeno = 0;
       $this->template->nevlozeno = 0;
 
       foreach ($zapasy as $zapas)
       {
-        $domaci = $tabulky->getDruzstvoId($zapas->skupina_id, $zapas->cislo_domaci)->fetch();
-        $hoste  = $tabulky->getDruzstvoId($zapas->skupina_id,  $zapas->cislo_hoste)->fetch();
+        $domaci = $this->tabulky->getDruzstvoId($zapas->skupina_id, $zapas->cislo_domaci);
+        $hoste  = $this->tabulky->getDruzstvoId($zapas->skupina_id,  $zapas->cislo_hoste);
         $values = array();
         $values['id_zapasu'] = $zapas->id;
         $values['domaci'] = $domaci->druzstvo;
         $values['hoste'] = $hoste->druzstvo;
 
         try {
-          $vysledky->insert($values);
+          $this->vysledky->insert($values);
           $this->template->vlozeno++;
-        } catch (DibiException $e) {
+        } catch (\Nette\Database\DriverException $e) {
           $this->template->nevlozeno++;
         }
       }//foreach
@@ -195,10 +200,10 @@ final class VysledkyPresenter extends BasePresenter
     $form->getElementPrototype()->class('form-inline');
 
     $renderer = $form->getRenderer();
-    $renderer->wrappers['pair']['container'] = Nette\Utils\Html::el('div')->class('form-group');
+    $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
     $renderer->wrappers['controls']['container'] = NULL;
-    $renderer->wrappers['control']['container'] = Nette\Utils\Html::el('div')->class('col-sm-9');
-    $renderer->wrappers['label']['container'] = Nette\Utils\Html::el('div')->class('col-sm-3 control-label');
+    $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+    $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
     $renderer->wrappers['label']['requiredsuffix'] = " *";
 
     $form->addText('sety_domaci', 'Sety', 2);

@@ -23,7 +23,6 @@ final class Druzstva extends BaseModel
       ', $rocnik)->fetchAll();
     }
 
-
     //pouziti pro seznam druzstev v selectboxu u rozlosovani a vysledku
     //kazde druzstvo se zobrazi pouze jednou - i kdyz bude zarazeno do vice skupin
     public function findAllUnique($rocnik, $order = array("t.skupina" => true, "t.cislo" => true))
@@ -38,6 +37,20 @@ final class Druzstva extends BaseModel
             GROUP BY d.nazev
             ORDER BY ?
         ', $rocnik, $order)->fetchAll();
+    }
+
+    public function findAllInSkupina($skupina, $rocnik)
+    {
+        return $this->database->query('
+          SELECT d.id, d.nazev
+          FROM tabulky as t
+          LEFT JOIN druzstva AS d ON (t.druzstvo=d.id)
+          LEFT JOIN skupiny AS s ON (s.id=t.skupina)
+          LEFT JOIN rocniky AS r ON (s.rocnik=r.id)
+          WHERE s.id = ?
+          AND r.rocnik = ?
+          ORDER BY t.id ASC
+        ', $skupina, $rocnik)->fetchAll();
     }
 
     public function soupiskaDruzstva($id)

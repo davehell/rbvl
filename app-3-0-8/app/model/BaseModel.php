@@ -67,7 +67,6 @@ abstract class BaseModel
 	}
 	
 	
-	
 	/** 
 	 * Vloží nový záznam do tabulky
 	 * 

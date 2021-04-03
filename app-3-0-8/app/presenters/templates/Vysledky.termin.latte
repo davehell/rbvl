@@ -1,0 +1,86 @@
+{block content}
+<div class="row">
+<div class="col-md-9">
+<div class="panel-box">
+<div class="row">
+<div class="col-md-12">
+<div class="zvyrazneniDruzstva">
+<span class="glyphicon glyphicon-search"></span>
+<select id="druzstva" onchange="zvyrazneniTymu()">
+<option value=" "> - - zvýraznit družstvo - - </option>
+{foreach $druzstva as $druzstvo}
+<option value="{$druzstvo->nazev}">{$druzstvo->nazev}</option>
+{/foreach}
+</select>
+</div>
+
+{foreach $zapasy as $zapas}
+{if $datum != $zapas->datum && $skupina != $zapas->skupina}
+{if $datum != ""}
+</tbody></table>
+{/if}
+<h2>{$zapas->datum|czechDate} - {$zapas->termin}</h2>
+<h3>{$zapas->skupina}</h3>
+<table class="table table-striped table-hover table-condensed rozl">
+<thead>
+<tr>
+<th class="col-md-4">domácí</th>
+<th class="col-md-4">hosté</th>
+<th>výsledek</th>
+</tr>
+</thead>
+<tbody>
+{elseif $skupina != $zapas->skupina}
+{if $skupina != ""}
+</tbody></table>
+{/if}
+<h3>{$zapas->skupina}</h3>
+<table class="table table-striped table-hover table-condensed rozl">
+<thead>
+<tr>
+<th class="col-md-4">domácí</th>
+<th class="col-md-4">hosté</th>
+<th>výsledek</th>
+</tr>
+</thead>
+<tbody>
+{/if}
+<tr>
+<td>{$zapas->domaci_nazev}</td>
+<td>{$zapas->hoste_nazev}</td>
+<td>
+{if $zapas->sety_domaci == 0 && $zapas->sety_hoste == 0}
+&nbsp;
+{else}
+{if $zapas->kontumace_domaci}X{else}{$zapas->sety_domaci}{/if}:{if $zapas->kontumace_hoste}X{else}{$zapas->sety_hoste}{/if}
+({$zapas->mice1_domaci}:{$zapas->mice1_hoste}, {$zapas->mice2_domaci}:{$zapas->mice2_hoste}{if $zapas->mice3_domaci != 0 && $zapas->mice3_hoste != 0}, {$zapas->mice3_domaci}:{$zapas->mice3_hoste}{/if})
+{/if}
+{if isset($user)}
+<div class="pull-right">
+<a class="btn btn-default btn-xs" href="{plink edit, $zapas->id}" title="upravit výsledek"><span class="glyphicon glyphicon-pencil"></span></a>
+</div>
+{/if}
+</td>
+</tr>
+{var $datum = $zapas->datum}
+{var $skupina = $zapas->skupina}
+{/foreach}
+</tbody></table>
+</div> <!-- .col-md-12 -->
+</div> <!-- .row -->
+</div> <!-- .panel-box -->
+</div> <!-- .col-md-9 -->
+<div class="col-md-3 sidebar">
+<div class="panel-box">
+<div class="titles">
+<h4>Hrací dny</h4>
+</div>
+<div class="row">
+<div class="col-md-12">
+{include vysledky-menu.latte}
+</div> <!-- .col-md-12 -->
+</div> <!-- .row -->
+</div> <!-- .panel-box -->
+</div> <!-- .col-md-3 -->
+</div> <!-- .row -->
+{/block content}

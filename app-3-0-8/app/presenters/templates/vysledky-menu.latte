@@ -1,0 +1,27 @@
+{block content}
+<!--
+<h4>Liga A - play off</h4>
+<ul>
+<li><a href="http://www.rbvl.cz/download/playoff-2018-a-vysl.pdf">Hrací den č. 6</a> - 25. 3. 2018</li>
+</ul>
+
+<h4>Liga B - play off</h4>
+<ul>
+<li><a href="http://www.rbvl.cz/download/playoff-2018-b-vysl.pdf">Hrací den č. 6</a> - 4. 3. 2018</li>
+</ul>
+-->
+
+{foreach $terminy as $termin}
+{if $rocnikPopis != $termin->rocnik}
+{if $rocnikPopis != ""}
+</ul>
+{/if}
+<h4>{$termin->rocnik}</h4>
+<ul>
+<li><a href="{plink Vysledky:tabulky, $termin->id_rocnik}" title="Zobrazit celkové tabulky soutěže {$termin->rocnik}">Celkové tabulky</a></li>
+{/if}
+<li><a href="{plink Vysledky:termin, $termin->id}" title="Zobrazit výsledky zápasů ze dne {$termin->datum|czechDate}">{$termin->termin}</a> - {$termin->datum|czechDate}</li>
+{var $rocnikPopis = $termin->rocnik}
+{if $iterator->isLast()}</ul>{/if}
+{/foreach}
+{/block content}
