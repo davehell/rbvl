@@ -3,24 +3,20 @@
 namespace App\Presenters;
 
 use App,
+    Nette\Database,
     Nette\Application\UI\Form,
     Nette\Utils\Html,
-    App\Components\PaginationControl,
-    App\Components\IPaginationControlFactory;
+    App\Components\PaginationControl;
 
 final class DiskuzePresenter extends BasePresenter
 {
   /** @var App\Model\Diskuze */
   private $diskuze;
 
-  /** @var App\Components\PaginationControl */
-  private $paginationControlFactory;
-
-  public function __construct(App\Model\Diskuze $diskuze, IPaginationControlFactory $paginationControlFactory)
+  public function __construct(App\Model\Diskuze $diskuze)
   {
     parent::__construct();
     $this->diskuze = $diskuze;
-    $this->paginationControlFactory = $paginationControlFactory;
   }
 
   public function renderDefault(int $page = 1): void
@@ -96,10 +92,11 @@ final class DiskuzePresenter extends BasePresenter
       else { //add
        try {
           $values['vlozeno'] = time();
+          $values['id'] = 70;
           $this->diskuze->insert($values);
           $this->flashMessage('Příspěvek byl úspěšně přidán.', 'success');
           $this->redirect('default');
-        } catch (\Nette\Database\DriverException $e) {
+        } catch (Database\DriverException $e) {
           $this->flashMessage('Nastala chyba. Příspěvek nebyl vložen.', 'danger');
           //$form->addError('');
         }
@@ -161,20 +158,19 @@ final class DiskuzePresenter extends BasePresenter
     $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
     $renderer->wrappers['label']['requiredsuffix'] = " *";
 
-
-    $form->addText('jmeno', 'Jméno:', 30)
-      ->addRule(Form::FILLED, 'Zadejte Vaše jméno')
+    $form->addText('jmeno', 'Jméno:')
+      ->setRequired('Zadejte Vaše jméno')
       ->getControlPrototype()->class('form-control');
 
     $form->addTextArea('text', 'Text:', 0, 20)
-      ->addRule(Form::FILLED, 'Zadejte text příspěvku.')
+      ->addRule($form::FILLED, 'Zadejte text příspěvku.')
       ->getControlPrototype()->class('form-control');
 
     $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)', 10)
       ->setOmitted()
-      ->addRule(Form::FILLED, 'Vyplňte ochranu proti spamu')
-      ->addRule(Form::NUMERIC, 'Špatně vyplněná ochrana proti spamu')
-      ->addRule(Form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6))
+      ->addRule($form::FILLED, 'Vyplňte ochranu proti spamu')
+      ->addRule($form::NUMERIC, 'Špatně vyplněná ochrana proti spamu')
+      ->addRule($form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6))
       ->getControlPrototype()->class('antispam');
     $form['antiSpam']->getLabelPrototype()->class('antispam');
 

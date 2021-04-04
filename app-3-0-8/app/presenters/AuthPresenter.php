@@ -2,8 +2,9 @@
 
 namespace App\Presenters;
 
-use Nette\Application\UI,
-    Nette\Security as NS;
+use Nette\Security,
+    Nette\Application\UI\Form,
+    Nette\Utils\Html;
 
 final class AuthPresenter extends BasePresenter
 {
@@ -21,22 +22,22 @@ final class AuthPresenter extends BasePresenter
         $this->template->pageHeading = 'Přihlášení';
         $this->template->pageDesc = '';
 
-        $form = new \Nette\Application\UI\Form($this, 'form');
+        $form = new Form($this, 'form');
         $form->getElementPrototype()->class('form-horizontal');
 
         $renderer = $form->getRenderer();
-        $renderer->wrappers['pair']['container'] = \Nette\Utils\Html::el('div')->class('form-group');
+        $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
         $renderer->wrappers['controls']['container'] = NULL;
-        $renderer->wrappers['control']['container'] = \Nette\Utils\Html::el('div')->class('col-sm-9');
-        $renderer->wrappers['label']['container'] = \Nette\Utils\Html::el('div')->class('col-sm-3 control-label');
+        $renderer->wrappers['control']['container'] = Html::el('div')->class('col-sm-9');
+        $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
         $renderer->wrappers['label']['requiredsuffix'] = " *";
 
         $form->addText('username', 'Uživatelské jméno:')
-            ->addRule(\Nette\Forms\Form::FILLED, 'Zadejte uživatelské jméno.')
+            ->addRule($form::FILLED, 'Zadejte %label')
             ->getControlPrototype()->class('form-control');
 
         $form->addPassword('password', 'Heslo:')
-            ->addRule(\Nette\Forms\Form::FILLED, 'Zadejte heslo.')
+            ->addRule($form::FILLED, 'Zadejte %label')
           ->getControlPrototype()->class('form-control');
 
         $form->addSubmit('login', 'Přihlásit se')->getControlPrototype()->class('btn btn-primary');
@@ -62,8 +63,13 @@ final class AuthPresenter extends BasePresenter
             $this->user->login($values->username, $values->password);
             $this->restoreRequest($this->backlink);
             $this->redirect('Default:');
-        } catch (NS\AuthenticationException $e) {
-            $this->flashMessage($e->getMessage(), 'danger');
+        } catch (Security\AuthenticationException $e) {
+            if ($e->getCode() === Security\IAuthenticator::INVALID_CREDENTIAL) {
+                $form->addError($e->getMessage());
+            }
+            else {
+                $this->flashMessage($e->getMessage(), 'danger');
+            }
         }
     }
 }

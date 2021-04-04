@@ -2,6 +2,7 @@
 namespace App\Presenters;
 
 use App,
+    Nette\Database,
     Nette\Application\UI\Form,
     Nette\Utils\Html;
 
@@ -105,7 +106,7 @@ final class DruzstvaPresenter extends BasePresenter
             $row->update($values);
             $this->flashMessage('Družstvo bylo úspěšně upraveno.', 'success');
             $this->redirect('edit', $id);
-          } catch (\Nette\Database\DriverException $e) {
+          } catch (Database\DriverException $e) {
             $this->flashMessage('Nastala chyba. Družstvo nebylo vloženo.', 'danger');
           }
         }
@@ -118,7 +119,7 @@ final class DruzstvaPresenter extends BasePresenter
           $this->druzstva->insert($values);
           $this->flashMessage('Družstvo bylo úspěšně přidáno.', 'success');
           $this->redirect('edit', $id);
-        } catch (\Nette\Database\DriverException $e) {
+        } catch (Database\DriverException $e) {
           $this->flashMessage('Nastala chyba. Družstvo nebylo vloženo.', 'danger');
         }
       }
@@ -150,10 +151,10 @@ final class DruzstvaPresenter extends BasePresenter
           $row = $this->hraci->insert($values);
           $idHrac = $row->id;
           $this->flashMessage('Nový hráč byl úspěšně vytvořen.', 'success');
-        } catch (\Nette\Database\UniqueConstraintViolationException $e) {
+        } catch (Database\UniqueConstraintViolationException $e) {
           $this->flashMessage('Tento hráč už v databázi existuje.', 'danger');
           return;
-        } catch (\Nette\Database\DriverException $e) {
+        } catch (Database\DriverException $e) {
           $this->flashMessage('Nastala chyba. Hráč nebyl vytvořen.', 'danger');
           return;
         }
@@ -165,10 +166,10 @@ final class DruzstvaPresenter extends BasePresenter
          try {
             unset($values["hrac"]);
             $row->update($values);
-          } catch (\Nette\Database\UniqueConstraintViolationException $e) {
+          } catch (Database\UniqueConstraintViolationException $e) {
             $this->flashMessage('Tento hráč už v databázi existuje.', 'danger');
             return;
-          } catch (\Nette\Database\DriverException $e) {
+          } catch (Database\DriverException $e) {
             $this->flashMessage('Nastala chyba. Hráč nebyl upraven.', 'danger');
             return;
           }
@@ -183,11 +184,11 @@ final class DruzstvaPresenter extends BasePresenter
         $this->soupisky->insert(array("hrac" => $idHrac, "druzstvo" => $idDruzstvo));
         $this->flashMessage('Hráč byl přidán na soupisku.', 'success');
         $this->redirect('edit', $idDruzstvo);
-      } catch (\Nette\Database\UniqueConstraintViolationException $e) {
+      } catch (Database\UniqueConstraintViolationException $e) {
         $dupl = $this->soupisky->findPlayer($idHrac);
         $this->flashMessage('Hráč už je zapsán na soupisce družstva ' . $dupl["druzstvo"], 'danger');
         return;
-      } catch (\Nette\Database\DriverException $e) {
+      } catch (Database\DriverException $e) {
         $this->flashMessage('Nastala chyba. Hráč nebyl přidán na soupisku.', 'danger');
         return;
       }
@@ -208,29 +209,23 @@ final class DruzstvaPresenter extends BasePresenter
     $renderer->wrappers['label']['requiredsuffix'] = " *";
 
     $form->addText('nazev', 'Název:', 40)
-      ->setRequired(TRUE)
-      ->addRule(Form::MAX_LENGTH, 'Maximální délka názvu družstva může být %d znaků', 100)
-      ->addRule(Form::FILLED, 'Zadejte název družstva.')
+      ->setRequired()
+      ->addRule($form::MAX_LENGTH, 'Maximální délka názvu družstva může být %d znaků', 100)
+      ->addRule($form::FILLED, 'Zadejte název družstva.')
       ->getControlPrototype()->class('form-control');
 
     $form->addText('vedouci', 'Vedoucí:', 40)
-      ->setRequired(FALSE)
-      ->addRule(Form::MAX_LENGTH, 'Maximální délka jména vedoucího může být %d znaků', 100)
+      ->addRule($form::MAX_LENGTH, 'Maximální délka jména vedoucího může být %d znaků', 100)
       ->getControlPrototype()->class('form-control');
 
     $form->addText('telefon', 'Telefon:', 20)
-      ->setRequired(FALSE)
-      ->addRule(Form::MAX_LENGTH, 'Maximální délka telefonního čísla může být %d znaků', 15)
+      ->addRule($form::MAX_LENGTH, 'Maximální délka telefonního čísla může být %d znaků', 15)
       ->getControlPrototype()->class('form-control');
 
-    $form->addText('email', 'E-mail:', 40)
-      ->setRequired(FALSE)
-      ->addRule(Form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 100)
-      ->getControlPrototype()->class('form-control')
+    $form->addEmail('email', 'Email:')
       ->setEmptyValue('@')
-      //->addRule(Form::FILLED, 'Zadejte kontaktní e-mail.')
-      ->addCondition(Form::FILLED)
-          ->addRule(Form::EMAIL, 'E-mailová adresa není platná');
+      ->addRule($form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 5)
+      ->getControlPrototype()->class('form-control');
 
     $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
     $form->onSuccess[] = array($this, 'akceFormSubmitted');
@@ -255,24 +250,22 @@ final class DruzstvaPresenter extends BasePresenter
     $druzstvo = $this->getParameter('id');
 
     $form->addText('hrac', 'ID')
-      ->setRequired(FALSE)
       ->getControlPrototype()->class('form-control')
       ->setHtmlId('#frm-hracForm-hrac');
 
     $form->addText('prijmeni', 'Příjmení:', 50)
       ->setRequired(TRUE)
-      ->addRule(Form::MAX_LENGTH, 'Maximální délka příjmení může být %d znaků', 100)
-      ->addRule(Form::FILLED, 'Zadejte příjmení hráče.')
+      ->addRule($form::MAX_LENGTH, 'Maximální délka příjmení může být %d znaků', 100)
+      ->addRule($form::FILLED, 'Zadejte příjmení hráče.')
       ->getControlPrototype()->class('form-control');
 
     $form->addText('jmeno', 'Jméno:', 30)
       ->setRequired(TRUE)
-      ->addRule(Form::MAX_LENGTH, 'Maximální délka jména může být %d znaků', 100)
-      ->addRule(Form::FILLED, 'Zadejte jméno hráče.')
+      ->addRule($form::MAX_LENGTH, 'Maximální délka jména může být %d znaků', 100)
+      ->addRule($form::FILLED, 'Zadejte jméno hráče.')
       ->getControlPrototype()->class('form-control');
 
     $form->addText('narozen', 'Datum narození:', 10)
-      ->setRequired(FALSE)
       ->getControlPrototype()->class('form-control');
 
     $form->addSubmit('save', 'Přidat hráče')->getControlPrototype()->class('btn btn-primary');

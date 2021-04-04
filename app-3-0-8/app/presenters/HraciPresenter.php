@@ -2,6 +2,7 @@
 namespace App\Presenters;
 
 use App,
+    Nette\Database,
     Nette\Application\UI\Form,
     Nette\Utils\Html;
 
@@ -105,9 +106,9 @@ final class HraciPresenter extends BasePresenter
           try {
             $row->update($values);
             $this->flashMessage('Nový hráč byl úspěšně upraven.', 'success');
-          } catch (\Nette\Database\UniqueConstraintViolationException $e) {
+          } catch (Database\UniqueConstraintViolationException $e) {
             $this->flashMessage('Tento hráč už v databázi existuje.', 'danger');
-          } catch (\Nette\Database\DriverException $e) {
+          } catch (Database\DriverException $e) {
             $this->flashMessage('Nastala chyba. Hráč nebyl upraven.', 'danger');
           }
         }
@@ -119,10 +120,10 @@ final class HraciPresenter extends BasePresenter
         try {
           $this->hraci->insert($values);
           $this->flashMessage('Nový hráč byl úspěšně vytvořen.', 'success');
-        } catch (\Nette\Database\UniqueConstraintViolationException $e) {
+        } catch (Database\UniqueConstraintViolationException $e) {
           $this->flashMessage('Tento hráč už v databázi existuje.', 'danger');
           return;
-        } catch (\Nette\Database\DriverException $e) {
+        } catch (Database\DriverException $e) {
           $this->flashMessage('Nastala chyba. Hráč nebyl vytvořen.', 'danger');
           return;
         }
@@ -187,13 +188,13 @@ final class HraciPresenter extends BasePresenter
     $druzstvo = $this->getParameter('id');
 
     $form->addText('prijmeni', 'Příjmení:', 50)
-      ->addRule(Form::MAX_LENGTH, 'Maximální délka příjmení může být %d znaků', 100)
-      ->addRule(Form::FILLED, 'Zadejte příjmení hráče.')
+      ->addRule($form::MAX_LENGTH, 'Maximální délka příjmení může být %d znaků', 100)
+      ->addRule($form::FILLED, 'Zadejte příjmení hráče.')
       ->getControlPrototype()->class('form-control');
 
     $form->addText('jmeno', 'Jméno:', 30)
-      ->addRule(Form::MAX_LENGTH, 'Maximální délka jména může být %d znaků', 100)
-      ->addRule(Form::FILLED, 'Zadejte jméno hráče.')
+      ->addRule($form::MAX_LENGTH, 'Maximální délka jména může být %d znaků', 100)
+      ->addRule($form::FILLED, 'Zadejte jméno hráče.')
       ->getControlPrototype()->class('form-control');
 
     $form->addDatePicker('narozen', 'Datum narození:', 10)

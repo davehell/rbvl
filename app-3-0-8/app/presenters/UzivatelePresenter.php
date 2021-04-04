@@ -2,6 +2,7 @@
 namespace App\Presenters;
 
 use App,
+    Nette\Database,
     Nette\Application\UI\Form,
     Nette\Utils\Html;
 
@@ -85,9 +86,9 @@ final class UzivatelePresenter extends BasePresenter
             $row->update($values);
             $this->flashMessage('Změny byly úspěšně uloženy.', 'success');
             $this->redirect('default');
-          } catch (\Nette\Database\UniqueConstraintViolationException $e) {
+          } catch (Database\UniqueConstraintViolationException $e) {
             $this->flashMessage('Uživatel se stejným jménem už existuje. Zadejte jiné uživatelské jméno.', 'danger');
-          } catch (\Nette\Database\DriverException $e) {
+          } catch (Database\DriverException $e) {
             $this->flashMessage('Nastala chyba. Uživatel nebyl upraven.', 'danger');
           }
         }
@@ -99,9 +100,9 @@ final class UzivatelePresenter extends BasePresenter
             $this->uzivatele->insert($values);
             $this->flashMessage('Uživatel byl úspěšně přidán.', 'success');
             $this->redirect('default');
-          } catch (\Nette\Database\UniqueConstraintViolationException $e) {
+          } catch (Database\UniqueConstraintViolationException $e) {
             $this->flashMessage('Uživatel se stejným jménem už existuje. Zadejte jiné uživatelské jméno.', 'danger');
-          } catch (\Nette\Database\DriverException $e) {
+          } catch (Database\DriverException $e) {
             $this->flashMessage('Nastala chyba. Uživatel nebyl přidán.', 'danger');
           }
       }
@@ -153,9 +154,9 @@ final class UzivatelePresenter extends BasePresenter
           $row->update($values);
           $this->flashMessage('Změny byly úspěšně uloženy.', 'success');
           $this->redirect('default');
-        } catch (\Nette\Database\UniqueConstraintViolationException $e) {
+        } catch (Database\UniqueConstraintViolationException $e) {
           $this->flashMessage('Uživatel se stejným jménem už existuje. Zadejte jiné uživatelské jméno.', 'danger');
-        } catch (\Nette\Database\DriverException $e) {
+        } catch (Database\DriverException $e) {
           $this->flashMessage('Nastala chyba. Uživatel nebyl upraven.', 'danger');
         }
       }
@@ -224,23 +225,23 @@ final class UzivatelePresenter extends BasePresenter
     $renderer->wrappers['label']['requiredsuffix'] = " *";
 
     $form->addText('username', 'Uživatelské jméno:', 30)
-      ->addRule(Form::FILLED, 'Zadejte uživatelské jméno')
+      ->addRule($form::FILLED, 'Zadejte uživatelské jméno')
       ->getControlPrototype()->class('form-control');
 
     $form->addPassword('password', 'Heslo:', 30)
-      ->addRule(Form::FILLED, 'Zvolte si heslo')
-      ->addRule(Form::MIN_LENGTH, 'Zadané heslo je příliš krátké, zvolte si heslo alespoň o %d znacích', 3)
+      ->addRule($form::FILLED, 'Zvolte si heslo')
+      ->addRule($form::MIN_LENGTH, 'Zadané heslo je příliš krátké, zvolte si heslo alespoň o %d znacích', 3)
       ->getControlPrototype()->class('form-control');
 
     $form->addPassword('password2', 'Heslo pro kontrolu:', 30)
       ->setOmitted()
-      ->addRule(Form::FILLED, 'Zadejte heslo ještě jednou pro kontrolu')
-      ->addRule(Form::EQUAL, 'Zadané hesla se neshodují', $form['password'])
+      ->addRule($form::FILLED, 'Zadejte heslo ještě jednou pro kontrolu')
+      ->addRule($form::EQUAL, 'Zadané hesla se neshodují', $form['password'])
       ->getControlPrototype()->class('form-control');
 
     $roles = array('--- Vyberte oprávnění ---', 'admin'=>'Administrátor', 'member'=>'Uživatel');
     $form->addSelect('role', 'Oprávnění:', $roles)->getControlPrototype()->class('form-control');
-    $form['role']->addRule(Form::FILLED, 'Vyberte oprávnění');
+    $form['role']->addRule($form::FILLED, 'Vyberte oprávnění');
 
     $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
     $form->addSubmit('cancel', 'Storno')->setValidationScope(NULL)->getControlPrototype()->class('btn btn-default');
@@ -263,17 +264,17 @@ final class UzivatelePresenter extends BasePresenter
     $renderer->wrappers['label']['requiredsuffix'] = " *";
 
     $form->addText('username', 'Uživatelské jméno:', 30)
-        ->addRule(Form::FILLED, 'Zadejte uživatelské jméno')
+        ->addRule($form::FILLED, 'Zadejte uživatelské jméno')
         ->getControlPrototype()->class('form-control');
 
     $form->addPassword('password', 'Heslo:', 30)
-        ->addRule(Form::FILLED, 'Zvolte si heslo')
-        ->addRule(Form::MIN_LENGTH, 'Zadané heslo je příliš krátké, zvolte si heslo alespoň o %d znacích', 3)
+        ->addRule($form::FILLED, 'Zvolte si heslo')
+        ->addRule($form::MIN_LENGTH, 'Zadané heslo je příliš krátké, zvolte si heslo alespoň o %d znacích', 3)
         ->getControlPrototype()->class('form-control');
 
     $form->addPassword('password2', 'Heslo pro kontrolu:', 30)
-        ->addRule(Form::FILLED, 'Zadejte heslo ještě jednou pro kontrolu')
-        ->addRule(Form::EQUAL, 'Zadané hesla se neshodují', $form['password'])
+        ->addRule($form::FILLED, 'Zadejte heslo ještě jednou pro kontrolu')
+        ->addRule($form::EQUAL, 'Zadané hesla se neshodují', $form['password'])
         ->getControlPrototype()->class('form-control');
 
     $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');

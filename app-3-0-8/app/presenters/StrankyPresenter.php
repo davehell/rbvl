@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App,
+    Nette\Utils\Html,
     Nette\Application\UI\Form,
     Nette\Application\UI;
 
@@ -65,15 +66,15 @@ final class StrankyPresenter extends BasePresenter
     $form = new Form;
 
     $renderer = $form->getRenderer();
-    $renderer->wrappers['pair']['container'] = \Nette\Utils\Html::el('div')->class('form-group');
+    $renderer->wrappers['pair']['container'] = Html::el('div')->class('form-group');
     $renderer->wrappers['controls']['container'] = NULL;
-    $renderer->wrappers['label']['container'] = \Nette\Utils\Html::el('div')->class('control-label');
+    $renderer->wrappers['label']['container'] = Html::el('div')->class('control-label');
     $renderer->wrappers['label']['requiredsuffix'] = " *";
 
     $form->addHidden('nazev');
 
     $form->addTextArea('text', 'Text:', 60, 20)
-      ->addRule(\Nette\Forms\Form::FILLED, 'Zadejte text příspěvku.')
+      ->addRule($form::FILLED, 'Zadejte text příspěvku.')
       ->getControlPrototype()->class('form-control');
 
     $form->addSubmit('save', 'Odeslat')->getControlPrototype()->class('btn btn-primary');

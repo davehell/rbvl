@@ -5,22 +5,18 @@ namespace App\Presenters;
 use App,
     Nette\Application\UI\Form,
     Nette\Utils\Html,
-    App\Components\PaginationControl,
-    App\Components\IPaginationControlFactory;
+    Nette\Database,
+    App\Components\PaginationControl;
 
 final class AktualityPresenter extends BasePresenter
 {
   /** @var App\Model\Aktuality */
   private $aktuality;
 
-  /** @var App\Components\PaginationControl */
-  private $paginationControlFactory;
-
-  public function __construct(App\Model\Aktuality $aktuality, IPaginationControlFactory $paginationControlFactory)
+  public function __construct(App\Model\Aktuality $aktuality)
   {
     parent::__construct();
     $this->aktuality = $aktuality;
-    $this->paginationControlFactory = $paginationControlFactory;
   }
 
   public function renderDefault(int $page = 1): void
@@ -99,7 +95,7 @@ final class AktualityPresenter extends BasePresenter
           $this->aktuality->insert($values);
           $this->flashMessage('Aktualita byla úspěšně přidána.', 'success');
           $this->redirect('default');
-        } catch (\Nette\Database\DriverException $e) {
+        } catch (Database\DriverException $e) {
           $this->flashMessage('Nastala chyba. Příspěvek nebyl vložen.', 'danger');
         }
       }
@@ -164,7 +160,7 @@ final class AktualityPresenter extends BasePresenter
     $renderer->wrappers['label']['requiredsuffix'] = " *";
 
     $form->addTextArea('text', 'Text:', 0, 20)
-      ->addRule(Form::FILLED, 'Zadejte text příspěvku.')
+      ->addRule($form::FILLED, 'Zadejte text příspěvku.')
       ->getControlPrototype()->class('form-control');
 
 

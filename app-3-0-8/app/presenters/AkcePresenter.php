@@ -5,9 +5,8 @@ namespace App\Presenters;
 use App,
     Nette\Application\UI\Form,
     Nette\Utils\Html,
-    Nette\Utils\Paginator,
-    App\Components\PaginationControl,
-    App\Components\IPaginationControlFactory;
+    Nette\Database,
+    App\Components\PaginationControl;
 
 
 final class AkcePresenter extends BasePresenter
@@ -104,7 +103,7 @@ final class AkcePresenter extends BasePresenter
           $this->akce->insert($values);
           $this->flashMessage('Akce byla úspěšně přidána.', 'success');
           $this->redirect('default');
-        } catch (\Nette\Database\DriverException $e) {
+        } catch (Database\DriverException $e) {
           $this->flashMessage('Nastala chyba. Příspěvek nebyl vložen.', 'danger');
         }
       }
@@ -170,48 +169,48 @@ final class AkcePresenter extends BasePresenter
 
 
       $form->addText('nazev', 'Název:', 40)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka názvu akce může být %d znaků', 200)
-        ->addRule(Form::FILLED, 'Zadejte název akce.')
+        ->addRule($form::MAX_LENGTH, 'Maximální délka názvu akce může být %d znaků', 200)
+        ->addRule($form::FILLED, 'Zadejte název akce.')
         ->getControlPrototype()->class('form-control');
 
       $form->addDatePicker('datum_od', 'Datum začátku:', 10)
-        ->addRule(Form::FILLED, 'Zadejte datum začátku akce.')
+        ->addRule($form::FILLED, 'Zadejte datum začátku akce.')
         ->getControlPrototype()->class('form-control');
 
       $form->addDatePicker('datum_do', 'Datum konce:', 10)
         ->getControlPrototype()->class('form-control');
 
       $form->addTextArea('popis', 'Popis:', 0, 20)
-        ->addRule(Form::FILLED, 'Zadejte popis akce')
+        ->addRule($form::FILLED, 'Zadejte popis akce')
         ->getControlPrototype()->class('form-control');
 
       $form->addText('startovne', 'Startovné:', 20)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka popisu startovného může být %d znaků', 100)
-        ->addRule(Form::FILLED, 'Zadejte startovné na akci')
+        ->addRule($form::MAX_LENGTH, 'Maximální délka popisu startovného může být %d znaků', 100)
+        ->addRule($form::FILLED, 'Zadejte startovné na akci')
         ->getControlPrototype()->class('form-control');
 
       $form->addText('jmeno', 'Kontakní osoba:', 20)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka jména kontaktní osoby může být %d znaků', 50)
-        ->addRule(Form::FILLED, 'Zadejte jméno kontaktní osoby');
+        ->addRule($form::MAX_LENGTH, 'Maximální délka jména kontaktní osoby může být %d znaků', 50)
+        ->addRule($form::FILLED, 'Zadejte jméno kontaktní osoby');
       $form['jmeno']->getControlPrototype()->class('form-control');
 
       $form->addText('telefon', 'Telefon:', 20)
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka telefonního čísla může být %d znaků', 15)
-        ->addRule(Form::FILLED, 'Zadejte kontaktní telefon')
+        ->addRule($form::MAX_LENGTH, 'Maximální délka telefonního čísla může být %d znaků', 15)
+        ->addRule($form::FILLED, 'Zadejte kontaktní telefon')
         ->getControlPrototype()->class('form-control');
 
       $form->addText('email', 'E-mail:', 20)
         ->getControlPrototype()->class('form-control')
-        ->addRule(Form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 100)
+        ->addRule($form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 100)
         ->setEmptyValue('@')
-        ->addCondition(Form::FILLED)
-          ->addRule(Form::EMAIL, 'E-mailová adresa není platná');
+        ->addCondition($form::FILLED)
+          ->addRule($form::EMAIL, 'E-mailová adresa není platná');
 
       $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)', 10)
         ->setOmitted()
-        ->addRule(Form::FILLED, 'Vyplňte ochranu proti spamu')
-        ->addRule(Form::NUMERIC, 'Špatně vyplněná ochrana proti spamu')
-        ->addRule(Form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6))
+        ->addRule($form::FILLED, 'Vyplňte ochranu proti spamu')
+        ->addRule($form::NUMERIC, 'Špatně vyplněná ochrana proti spamu')
+        ->addRule($form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6))
         ->getControlPrototype()->class('antispam');
       $form['antiSpam']->getLabelPrototype()->class('antispam');
 

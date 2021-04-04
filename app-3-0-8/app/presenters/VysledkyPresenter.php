@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App,
+    Nette\Database,
     Nette\Application\UI\Form,
     Nette\Utils\Html;
 
@@ -137,7 +138,7 @@ final class VysledkyPresenter extends BasePresenter
           try{
             $skupina = $this->vysledky->getVysledek($id);
             $this->vysledky->spocitejTabulku($skupina->id_skupina, $this->R, $this->druzstva, $this->vysledky, $this->tabulky);
-          } catch (\Nette\Database\DriverException $e) {
+          } catch (Database\DriverException $e) {
             $this->flashMessage('Nepodařilo se přepočítat tabulku.', 'danger');
             $this->flashMessage($e->getMessage());
           }
@@ -147,7 +148,7 @@ final class VysledkyPresenter extends BasePresenter
           } else {
             $this->redirect('edit', array((int)$values['id']+1));
           }
-        } catch (\Nette\Database\DriverException $e) {
+        } catch (Database\DriverException $e) {
           $this->flashMessage('Nastala chyba. Výsledek nebyl upraven.', 'danger');
           $form->addError($e->getMessage());
         }
@@ -181,7 +182,7 @@ final class VysledkyPresenter extends BasePresenter
         try {
           $this->vysledky->insert($values);
           $this->template->vlozeno++;
-        } catch (\Nette\Database\DriverException $e) {
+        } catch (Database\DriverException $e) {
           $this->template->nevlozeno++;
         }
       }//foreach
