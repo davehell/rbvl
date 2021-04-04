@@ -60,8 +60,7 @@ final class HraciPresenter extends BasePresenter
     if (!$form->isSubmitted()) {
       $row = $this->hraci->get($id);
       if (!$row) {
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-        $this->redirect('default');
+        $this->error();
       }
 
       $form->setDefaults($row);
@@ -147,8 +146,7 @@ final class HraciPresenter extends BasePresenter
     $row = $this->hraci->get($id);
     $this->template->hrac = $row;
     if (!$row) {
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-      $this->redirect('default');
+      $this->error();
     }
   }
 

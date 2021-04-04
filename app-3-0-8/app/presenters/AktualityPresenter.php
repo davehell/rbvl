@@ -63,9 +63,7 @@ final class AktualityPresenter extends BasePresenter
     if (!$form->isSubmitted()) {
       $row = $this->aktuality->get($id);
       if (!$row) {
-        //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-        $this->redirect('default');
+        $this->error();
       }
       $form->setDefaults($row);
     }
@@ -118,9 +116,7 @@ final class AktualityPresenter extends BasePresenter
     $row = $this->aktuality->get($id);
     $this->template->prispevek = $row;
     if (!$row) {
-      //throw new BadRequestException('Požadovaný záznam nenalezen.');
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-      $this->redirect('default');
+      $this->error();
     }
   }
 

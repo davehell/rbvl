@@ -26,6 +26,7 @@ class AuthorizatorFactory
         $acl->addResource('Dary');
         $acl->addResource('Rozlosovani');
         $acl->addResource('Error');
+        $acl->addResource('Error4xx');
         $acl->addResource('Vysledky');
         $acl->addResource('Foto');
         $acl->addResource('Alba');

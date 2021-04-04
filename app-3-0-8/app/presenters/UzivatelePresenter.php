@@ -59,9 +59,7 @@ final class UzivatelePresenter extends BasePresenter
     if (!$form->isSubmitted()) {
       $row = $this->uzivatele->get($id);
       if (!$row) {
-        //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-        $this->redirect('default');
+        $this->error();
       }
       $form->setDefaults($row);
     }
@@ -130,8 +128,7 @@ final class UzivatelePresenter extends BasePresenter
       $id = $this->user->getIdentity()->id;
       $row = $this->uzivatele->get($id);
       if (!$row) {
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-        $this->redirect('default');
+        $this->error();
       }
       $form->setDefaults($row);
     }
@@ -184,9 +181,7 @@ final class UzivatelePresenter extends BasePresenter
     $this->template->uzivatel = $row;
 
     if (!$row) {
-      //throw new BadRequestException('Požadovaný záznam nenalezen.');
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-      $this->redirect('default');
+      $this->error();
     }
   }
 

@@ -30,9 +30,7 @@ final class StrankyPresenter extends BasePresenter
     if (!$form->isSubmitted()) {
       $row = $this->stranky->get($id);
       if (!$row) {
-        //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-        $this->redirect('Default:default');
+        $this->error();
       }
       $form->setDefaults($row);
     }

@@ -37,9 +37,13 @@ final class RozlosovaniPresenter extends BasePresenter
 
       $this->template->druzstva = $this->druzstva->findAllUnique($this->R, array("nazev" => true));
       $this->template->terminy = $this->terminy->findAllInRocnik($this->R);
-      if($id) {
-        $this->template->rozlosovani = $this->rozlosovani->findAllInTermin($id);
+
+      $this->template->rozlosovani = $this->rozlosovani->findAllInTermin($id);
+      if (!$this->template->rozlosovani) {
+        $this->error();
       }
+
+
 
       $this->template->rocnikPopis = '';
       $this->template->terminPopis = '';

@@ -64,7 +64,7 @@ final class VysledkyPresenter extends BasePresenter
       $this->template->zapasy = $this->vysledky->findAllInTermin($id);
 
       if (!$this->template->zapasy) {
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
+        $this->error();
       }
 
       $this->template->datum = '';
@@ -86,8 +86,7 @@ final class VysledkyPresenter extends BasePresenter
       $this->template->rocnikPopis = '';
 
       if (!$this->template->tabulky) {
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-        $this->redirect('default');
+        $this->error();
       }
   }
 
@@ -105,12 +104,8 @@ final class VysledkyPresenter extends BasePresenter
       $this->template->vysledek = $row;
 
     if (!$form->isSubmitted()) {
-
-
       if (!$row) {
-        //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-        $this->redirect('default');
+        $this->error();
       }
       $form->setDefaults($row);
     }

@@ -60,8 +60,7 @@ final class DruzstvaPresenter extends BasePresenter
     if (!$form->isSubmitted()) {
       $row = $this->druzstva->get($id);
       if (!$row) {
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-        $this->redirect('default');
+        $this->error();
       }
       $form->setDefaults($row);
 
@@ -83,8 +82,7 @@ final class DruzstvaPresenter extends BasePresenter
     $row = $this->druzstva->get($id);
     $this->template->druzstvo = $row;
     if (!$row) {
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-      $this->redirect('default');
+      $this->error();
     }
 
     $this->template->soupiska = $this->soupisky->findAllPlayersInTeam($id);

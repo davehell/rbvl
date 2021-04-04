@@ -64,9 +64,7 @@ final class DiskuzePresenter extends BasePresenter
     if (!$form->isSubmitted()) {
       $row = $this->diskuze->get($id);
       if (!$row) {
-        //throw new BadRequestException('Požadovaný záznam nenalezen.');
-        $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-        $this->redirect('default');
+        $this->error();
       }
       $form->setDefaults($row);
     }
@@ -120,9 +118,7 @@ final class DiskuzePresenter extends BasePresenter
     $row = $this->diskuze->get($id);
     $this->template->prispevek = $row;
     if (!$row) {
-      //throw new BadRequestException('Požadovaný záznam nenalezen.');
-      $this->flashMessage('Požadovaný záznam neexistuje.', 'danger');
-      $this->redirect('default');
+      $this->error();
     }
   }
 
