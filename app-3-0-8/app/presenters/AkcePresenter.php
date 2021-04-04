@@ -168,7 +168,7 @@ final class AkcePresenter extends BasePresenter
       $renderer->wrappers['label']['requiredsuffix'] = " *";
 
 
-      $form->addText('nazev', 'Název:', 40)
+      $form->addText('nazev', 'Název:')
         ->addRule($form::MAX_LENGTH, 'Maximální délka názvu akce může být %d znaků', 200)
         ->addRule($form::FILLED, 'Zadejte název akce.')
         ->getControlPrototype()->class('form-control');
@@ -184,29 +184,29 @@ final class AkcePresenter extends BasePresenter
         ->addRule($form::FILLED, 'Zadejte popis akce')
         ->getControlPrototype()->class('form-control');
 
-      $form->addText('startovne', 'Startovné:', 20)
+      $form->addText('startovne', 'Startovné:')
         ->addRule($form::MAX_LENGTH, 'Maximální délka popisu startovného může být %d znaků', 100)
         ->addRule($form::FILLED, 'Zadejte startovné na akci')
         ->getControlPrototype()->class('form-control');
 
-      $form->addText('jmeno', 'Kontakní osoba:', 20)
+      $form->addText('jmeno', 'Kontakní osoba:')
         ->addRule($form::MAX_LENGTH, 'Maximální délka jména kontaktní osoby může být %d znaků', 50)
         ->addRule($form::FILLED, 'Zadejte jméno kontaktní osoby');
       $form['jmeno']->getControlPrototype()->class('form-control');
 
-      $form->addText('telefon', 'Telefon:', 20)
+      $form->addText('telefon', 'Telefon:')
         ->addRule($form::MAX_LENGTH, 'Maximální délka telefonního čísla může být %d znaků', 15)
         ->addRule($form::FILLED, 'Zadejte kontaktní telefon')
         ->getControlPrototype()->class('form-control');
 
-      $form->addText('email', 'E-mail:', 20)
+      $form->addText('email', 'E-mail:')
         ->getControlPrototype()->class('form-control')
         ->addRule($form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 100)
         ->setEmptyValue('@')
         ->addCondition($form::FILLED)
           ->addRule($form::EMAIL, 'E-mailová adresa není platná');
 
-      $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)', 10)
+      $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)')
         ->setOmitted()
         ->addRule($form::FILLED, 'Vyplňte ochranu proti spamu')
         ->addRule($form::NUMERIC, 'Špatně vyplněná ochrana proti spamu')

@@ -187,12 +187,12 @@ final class HraciPresenter extends BasePresenter
 
     $druzstvo = $this->getParameter('id');
 
-    $form->addText('prijmeni', 'Příjmení:', 50)
+    $form->addText('prijmeni', 'Příjmení:')
       ->addRule($form::MAX_LENGTH, 'Maximální délka příjmení může být %d znaků', 100)
       ->addRule($form::FILLED, 'Zadejte příjmení hráče.')
       ->getControlPrototype()->class('form-control');
 
-    $form->addText('jmeno', 'Jméno:', 30)
+    $form->addText('jmeno', 'Jméno:')
       ->addRule($form::MAX_LENGTH, 'Maximální délka jména může být %d znaků', 100)
       ->addRule($form::FILLED, 'Zadejte jméno hráče.')
       ->getControlPrototype()->class('form-control');

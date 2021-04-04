@@ -166,7 +166,7 @@ final class DiskuzePresenter extends BasePresenter
       ->addRule($form::FILLED, 'Zadejte text příspěvku.')
       ->getControlPrototype()->class('form-control');
 
-    $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)', 10)
+    $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)')
       ->setOmitted()
       ->addRule($form::FILLED, 'Vyplňte ochranu proti spamu')
       ->addRule($form::NUMERIC, 'Špatně vyplněná ochrana proti spamu')

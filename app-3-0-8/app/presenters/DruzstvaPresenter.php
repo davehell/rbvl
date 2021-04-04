@@ -208,17 +208,16 @@ final class DruzstvaPresenter extends BasePresenter
     $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
     $renderer->wrappers['label']['requiredsuffix'] = " *";
 
-    $form->addText('nazev', 'Název:', 40)
-      ->setRequired()
+    $form->addText('nazev', 'Název:')
+      ->setRequired('Zadejte název družstva.')
       ->addRule($form::MAX_LENGTH, 'Maximální délka názvu družstva může být %d znaků', 100)
-      ->addRule($form::FILLED, 'Zadejte název družstva.')
       ->getControlPrototype()->class('form-control');
 
-    $form->addText('vedouci', 'Vedoucí:', 40)
+    $form->addText('vedouci', 'Vedoucí:')
       ->addRule($form::MAX_LENGTH, 'Maximální délka jména vedoucího může být %d znaků', 100)
       ->getControlPrototype()->class('form-control');
 
-    $form->addText('telefon', 'Telefon:', 20)
+    $form->addText('telefon', 'Telefon:')
       ->addRule($form::MAX_LENGTH, 'Maximální délka telefonního čísla může být %d znaků', 15)
       ->getControlPrototype()->class('form-control');
 
@@ -253,19 +252,17 @@ final class DruzstvaPresenter extends BasePresenter
       ->getControlPrototype()->class('form-control')
       ->setHtmlId('#frm-hracForm-hrac');
 
-    $form->addText('prijmeni', 'Příjmení:', 50)
-      ->setRequired(TRUE)
+    $form->addText('prijmeni', 'Příjmení:')
+      ->setRequired('Zadejte příjmení hráče.')
       ->addRule($form::MAX_LENGTH, 'Maximální délka příjmení může být %d znaků', 100)
-      ->addRule($form::FILLED, 'Zadejte příjmení hráče.')
       ->getControlPrototype()->class('form-control');
 
-    $form->addText('jmeno', 'Jméno:', 30)
-      ->setRequired(TRUE)
+    $form->addText('jmeno', 'Jméno:')
+      ->setRequired('Zadejte jméno hráče.')
       ->addRule($form::MAX_LENGTH, 'Maximální délka jména může být %d znaků', 100)
-      ->addRule($form::FILLED, 'Zadejte jméno hráče.')
       ->getControlPrototype()->class('form-control');
 
-    $form->addText('narozen', 'Datum narození:', 10)
+    $form->addText('narozen', 'Datum narození:')
       ->getControlPrototype()->class('form-control');
 
     $form->addSubmit('save', 'Přidat hráče')->getControlPrototype()->class('btn btn-primary');

@@ -224,7 +224,7 @@ final class UzivatelePresenter extends BasePresenter
     $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
     $renderer->wrappers['label']['requiredsuffix'] = " *";
 
-    $form->addText('username', 'Uživatelské jméno:', 30)
+    $form->addText('username', 'Uživatelské jméno:')
       ->addRule($form::FILLED, 'Zadejte uživatelské jméno')
       ->getControlPrototype()->class('form-control');
 
@@ -263,7 +263,7 @@ final class UzivatelePresenter extends BasePresenter
     $renderer->wrappers['label']['container'] = Html::el('div')->class('col-sm-3 control-label');
     $renderer->wrappers['label']['requiredsuffix'] = " *";
 
-    $form->addText('username', 'Uživatelské jméno:', 30)
+    $form->addText('username', 'Uživatelské jméno:')
         ->addRule($form::FILLED, 'Zadejte uživatelské jméno')
         ->getControlPrototype()->class('form-control');
 
