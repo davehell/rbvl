@@ -1,0 +1,34 @@
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\Presenters\*Presenter
+
+session:
+	expiration: 14 days
+
+parameters:
+	pageRadius: 5
+	itemsPerPage: 5
+
+search:
+	modely:
+		in: %appDir%/model
+	komponenty:
+		in: %appDir%/components
+
+services:
+	- App\Model\AuthorizatorFactory::create
+	router: App\RouterFactory::createRouter
+	nette.latteFactory:
+		setup:
+			- addFilter("texy", [\Texy(), process])
+	-
+		class: App\Presenters\AktualityPresenter
+		setup:
+			- setItemsPerPage(%itemsPerPage%)
+			- setRadius(%pageRadius%)
+	-
+		class: App\Presenters\DiskuzePresenter
+		setup:
+			- setItemsPerPage(10)
+			- setRadius(%pageRadius%)

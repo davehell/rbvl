@@ -1,0 +1,29 @@
+{foreach $terminy as $termin}
+  {if $rocnikPopis != $termin->rocnik}
+    {if $rocnikPopis !=  ""}
+      </ul>
+    {/if}
+    <h4>{$termin->rocnik}</h4>
+    <ul>
+  {/if}
+  <li><a href="{plink Rozlosovani:default, $termin->id}" title="Zobrazit rozlosování zápasů dne {$termin->datum|czechDate}">{$termin->termin}</a> - {$termin->datum|czechDate}</li>
+  {var $rocnikPopis = $termin->rocnik}
+  {if $iterator->isLast()}</ul>{/if}
+{/foreach}
+
+<h4>Finále</h4>
+<ul>
+  <li>14.3.2021: playoff 17-24 + skupina 25-28</li>
+  <li>28.3.2021: playoff 1-8 + playoff 9-16</li>
+</ul>
+
+<!--
+<h4>Liga A - playoff</h4>
+<ul>
+  <li>Hrací den č. 6 - 24.3.2019</li>
+  <ul>
+   <li><a href="/download/rozl-playoff-2019-a.pdf">pořadí zápasů</a></li>
+   <li><a href="/download/playoff-2019-a.pdf">pavouk playoff</a></li>
+  </ul>
+</ul>
+-->

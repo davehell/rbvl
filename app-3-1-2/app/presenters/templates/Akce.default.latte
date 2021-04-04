@@ -1,0 +1,53 @@
+{block content}
+<div class="panel-box">
+<div class="row">
+<div class="col-md-12">
+<p class="text-center noPrint">
+<a class="btn btn-primary btn-lg" href="{link add}" title="Přidat novou akci"><span class="glyphicon glyphicon-plus"></span> Přidat akci</a>
+</p>
+
+{if !$rowsCount}
+<p>
+Nejsou uloženy žádné turnaje a akce.
+</p>
+{else}
+
+{control pagination}
+
+{foreach $rows as $row}
+<div class="post-item">
+<div class="row">
+<div class="col-md-12">
+<h4>
+{$row->nazev}
+{if isset($user)}
+<div class="btn-group pull-right">
+<a class="btn btn-default" href="{link edit, $row->id}" title="upravit příspěvek"><span class="glyphicon glyphicon-pencil"></span></a>
+<a class="btn btn-default" href="{link delete, $row->id}" title="smazat příspěvek"><span class="glyphicon glyphicon-remove"></span></a>
+</div>
+{/if}
+</h4>
+<p>
+<span class="glyphicon glyphicon-calendar"></span>
+{if $row->int_datum_do}
+{$row->int_datum_od|date:'%d.%m.'} - {$row->int_datum_do|date:'%d.%m.%Y'}
+{else}
+{$row->int_datum_od|date:'%d.%m.%Y'}
+{/if}
+</p>
+
+{$row->popis|vlna|texy|noescape}
+<ul>
+<li>Startovné: {$row->startovne}</li>
+<li>Kontakt: {$row->jmeno} ({$row->telefon}{if $row->email}, <a href="mailto:{$row->email}">{$row->email}</a>{/if})</li>
+</ul>
+</div>
+</div>
+</div>
+{/foreach}
+{/if}
+
+</div>
+</div>
+</div>
+{/block content}

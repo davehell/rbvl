@@ -1,0 +1,54 @@
+{block content}
+<div class="row">
+<div class="col-md-9">
+<div class="panel-box">
+<div class="titles">
+<h4>Celkové tabulky</h4>
+</div>
+<div class="row">
+<div class="col-md-12">
+{foreach $tabulky as $row}
+{if $skupina != $row->skupina_popis}
+{if $skupina != ""}
+</tbody></table>
+{/if}
+<h3>{$row->skupina_popis}</h3>
+{var $poradi = 1}
+<table class="table table-striped table-hover table-condensed">
+<thead>
+<tr><th>pořadí</th><th>družstvo</th><th>c</th><th>v</th><th>vt</th><th>pt</th><th>p</th><th>pk</th><th colspan="2">sety</th><th colspan="2">míče</th><th>body</th></tr>
+</thead>
+<tbody>
+{/if}
+<tr><td>{$poradi}.</td><td>{$row->druzstvo_nazev}</td><td>{$row->c}</td><td>{$row->v}</td><td>{$row->vt}</td><td>{$row->pt}</td><td>{$row->p}</td><td>{$row->pk}</td><td>{$row->sety_dal}:{$row->sety_dostal}</td><td>({$row->sety|round3})</td><td>{$row->mice_dal}:{$row->mice_dostal}</td><td>({$row->mice|round3})</td><td>{$row->body}</td></tr>
+{var $skupina = $row->skupina_popis}
+<?php $poradi++?>
+{if $iterator->isLast()}</tbody></table>{/if}
+{/foreach}
+
+<ul>
+<li><strong>c</strong> - počet zápasů</li>
+<li><strong>v</strong> - výhry 2:0 (3 body)</li>
+<li><strong>vt</strong> - výhry 2:1 (2 body)</li>
+<li><strong>pt</strong> - prohry 1:2 (1 bod)</li>
+<li><strong>p</strong> - prohry 0:2 (0 bodů)</li>
+<li><strong>pk</strong> - kontumace (-1 bod)</li>
+</ul>
+</div> <!-- .col-md-12 -->
+</div> <!-- .row -->
+</div> <!-- .panel-box -->
+</div> <!-- .col-md-9 -->
+<div class="col-md-3 sidebar">
+<div class="panel-box">
+<div class="titles">
+<h4>Hrací dny</h4>
+</div>
+<div class="row">
+<div class="col-md-12">
+{include vysledky-menu.latte}
+</div> <!-- .col-md-12 -->
+</div> <!-- .row -->
+</div> <!-- .panel-box -->
+</div> <!-- .col-md-3 -->
+</div> <!-- .row -->
+{/block content}

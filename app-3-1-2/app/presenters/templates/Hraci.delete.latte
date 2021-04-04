@@ -1,0 +1,14 @@
+{block content}
+<div class="panel-box">
+<div class="row">
+<div class="col-md-12">
+{if $hrac}
+<p class="alert alert-warning">Opravdu chcete smazat hráče ‘{$hrac->prijmeni} {$hrac->jmeno}’?</p>
+{$form|noescape}
+
+{else}
+<p>Požadovaný hráč neexistuje.</p>
+{/if}
+</div>
+</div>
+</div>
