@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eaf70a2a033c79e37c6b9994cbc2b557",
+    "content-hash": "5c42f12c4b7e4f52f99858bdc178ec42",
     "packages": [
         {
             "name": "latte/latte",
@@ -1313,42 +1313,46 @@
         },
         {
             "name": "texy/texy",
-            "version": "v2.9.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dg/texy.git",
-                "reference": "e35cd3e8c51aff8e2f08fd0e0113d9a0e07e5de9"
+                "reference": "5f84b1f629eb0442431e86a5846d47a72177de32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dg/texy/zipball/e35cd3e8c51aff8e2f08fd0e0113d9a0e07e5de9",
-                "reference": "e35cd3e8c51aff8e2f08fd0e0113d9a0e07e5de9",
+                "url": "https://api.github.com/repos/dg/texy/zipball/5f84b1f629eb0442431e86a5846d47a72177de32",
+                "reference": "5f84b1f629eb0442431e86a5846d47a72177de32",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.4"
+                "php": ">=7.1"
             },
             "replace": {
                 "dg/texy": "*"
             },
             "require-dev": {
-                "nette/tester": "^1.7 || ^2.0",
+                "latte/latte": "^2.6",
+                "nette/tester": "^2.0",
+                "phpstan/phpstan": "^0.12",
                 "tracy/tracy": "^2.4"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "src/"
-                ],
-                "files": [
-                    "src/texy.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause",
-                "GPL-2.0",
-                "GPL-3.0"
+                "GPL-2.0-only",
+                "GPL-3.0-only"
             ],
             "authors": [
                 {
@@ -1366,13 +1370,12 @@
                 "text",
                 "textile",
                 "texy",
-                "wiki",
-                "xhtml"
+                "wiki"
             ],
             "support": {
-                "source": "https://github.com/dg/texy/tree/v2.9.3"
+                "source": "https://github.com/dg/texy/tree/v3.1.4"
             },
-            "time": "2019-11-19T19:25:16+00:00"
+            "time": "2021-01-13T16:36:38+00:00"
         },
         {
             "name": "tracy/tracy",
