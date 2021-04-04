@@ -5,6 +5,7 @@ namespace App\Presenters;
 use App,
     Nette\Application\UI\Form,
     Nette\Utils\Html,
+    Nette\Utils\Paginator,
     App\Components\PaginationControl,
     App\Components\IPaginationControlFactory;
 
@@ -20,23 +21,26 @@ final class AkcePresenter extends BasePresenter
     $this->akce = $akce;
   }
 
-  public function actionDefault()
+  public function renderDefault(int $page = 1): void
   {
       $this->template->pageTitle = '„RB“VL - Turnaje a akce';
       $this->template->pageHeading = 'Volejbalové turnaje a akce v regionu';
       $this->template->pageDesc = 'Volejbalové turnaje a akce v Regionu Beskydy';
 
-
-      $rows = $this->akce->findAllDateSorted(date('Y-m-d'));
+      // Zjistíme si celkový počet aktuálních akcí
+      $rowsCount = $this->akce->getActualActionsCount();
 
       $paginator = $this->getComponent('pagination')->getPaginator();
-      $paginator->setItemCount(count($rows));
+      $paginator->setItemCount($rowsCount);
       $paginator->setItemsPerPage($this->itemsPerPage);
-      $paginator->setPage($this->getParameter('page', 1));
+      $paginator->setPage($page);
 
-      // $rows->limit($paginator->getLength(), $paginator->getOffset());
+      // Z databáze si vytáhneme omezenou množinu akcí podle výpočtu Paginatoru
+      $rows = $this->akce->findActualActions($paginator->getLength(), $paginator->getOffset());
 
+      // kterou předáme do šablony
       $this->template->rows = $rows;
+      $this->template->rowsCount = $rowsCount;
   }
 
 
@@ -82,7 +86,6 @@ final class AkcePresenter extends BasePresenter
     if ($form['save']->isSubmittedBy()) {
       $id = (int) $this->getParameter('id');
       $values = $form->getValues();
-      unset($values['antiSpam']);
 
       if ($id > 0) { //edit
         $row = $this->akce->get($id);
@@ -205,6 +208,7 @@ final class AkcePresenter extends BasePresenter
           ->addRule(Form::EMAIL, 'E-mailová adresa není platná');
 
       $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)', 10)
+        ->setOmitted()
         ->addRule(Form::FILLED, 'Vyplňte ochranu proti spamu')
         ->addRule(Form::NUMERIC, 'Špatně vyplněná ochrana proti spamu')
         ->addRule(Form::RANGE, 'Špatně vyplněná ochrana proti spamu', array(6, 6))

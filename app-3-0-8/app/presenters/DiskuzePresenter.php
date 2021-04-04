@@ -23,7 +23,7 @@ final class DiskuzePresenter extends BasePresenter
     $this->paginationControlFactory = $paginationControlFactory;
   }
 
-  public function renderDefault($id)
+  public function renderDefault(int $page = 1): void
   {
       $this->template->pageTitle = '„RB“VL - Diskuze';
       $this->template->pageHeading = 'Diskuze';
@@ -34,7 +34,7 @@ final class DiskuzePresenter extends BasePresenter
       $paginator = $this->getComponent('pagination')->getPaginator();
       $paginator->setItemCount(count($rows));
       $paginator->setItemsPerPage($this->itemsPerPage);
-      $paginator->setPage($this->getParameter('page', 1));
+      $paginator->setPage($page);
 
       $rows->limit($paginator->getLength(), $paginator->getOffset());
 
@@ -163,7 +163,7 @@ final class DiskuzePresenter extends BasePresenter
 
 
     $form->addText('jmeno', 'Jméno:', 30)
-      ->addRule(Form::FILLED, 'Zadejte uživatelské jméno')
+      ->addRule(Form::FILLED, 'Zadejte Vaše jméno')
       ->getControlPrototype()->class('form-control');
 
     $form->addTextArea('text', 'Text:', 0, 20)

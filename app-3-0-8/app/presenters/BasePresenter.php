@@ -12,7 +12,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
     public $R = "r2021";
     public $itemsPerPage = 10;
-    public $radius = 5;
+    public $radius = 3;
 
     protected function beforeRender()
     {

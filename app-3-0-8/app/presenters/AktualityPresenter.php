@@ -23,7 +23,7 @@ final class AktualityPresenter extends BasePresenter
     $this->paginationControlFactory = $paginationControlFactory;
   }
 
-  public function renderDefault($id)
+  public function renderDefault(int $page = 1): void
   {
     $this->template->pageTitle = '„RB“VL - Novinky';
     $this->template->pageHeading = 'Novinky';
@@ -34,11 +34,12 @@ final class AktualityPresenter extends BasePresenter
     $paginator = $this->getComponent('pagination')->getPaginator();
     $paginator->setItemCount(count($rows));
     $paginator->setItemsPerPage($this->itemsPerPage);
-    $paginator->setPage($this->getParameter('page', 1));
+    $paginator->setPage($page);
 
     $rows->limit($paginator->getLength(), $paginator->getOffset());
 
     $this->template->rows = $rows;
+    // $this->template->rows = $rows->page($page, $this->itemsPerPage);
   }
 
   public function renderAdd()
