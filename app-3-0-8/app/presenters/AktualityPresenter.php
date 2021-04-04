@@ -93,7 +93,7 @@ final class AktualityPresenter extends BasePresenter
         }
       }
       else { //add
-       try {
+        try {
           $values['vlozeno'] = time();
           $this->aktuality->insert($values);
           $this->flashMessage('Aktualita byla úspěšně přidána.', 'success');
