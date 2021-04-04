@@ -32,3 +32,8 @@ services:
 		setup:
 			- setItemsPerPage(10)
 			- setRadius(%pageRadius%)
+
+forms:
+	messages:
+		MAX_LENGTH: 'Maximální délka pole %label může být %d znaků'
+		EMAIL: 'Zadejte platnou e-mailovou adresu.'

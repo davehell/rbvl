@@ -195,12 +195,10 @@ final class AkcePresenter extends BasePresenter
         ->addRule($form::FILLED, 'Zadejte kontaktní telefon')
         ->getControlPrototype()->class('form-control');
 
-      $form->addText('email', 'E-mail:')
-        ->getControlPrototype()->class('form-control')
-        ->addRule($form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 100)
+      $form->addEmail('email', 'Email:')
         ->setEmptyValue('@')
-        ->addCondition($form::FILLED)
-          ->addRule($form::EMAIL, 'E-mailová adresa není platná');
+        ->addRule($form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 100)
+        ->getControlPrototype()->class('form-control');
 
       $form->addText('antiSpam', 'Ochrana proti spamu:  Kolik je dvakrát tři? (výsledek napište číslem)')
         ->setOmitted()

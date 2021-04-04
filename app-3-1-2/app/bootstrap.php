@@ -4,13 +4,12 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $configurator = new Nette\Configurator;
 
-// if (strpos(getenv("DOCUMENT_ROOT"), "C:/wamp64/www") !== false) {
-//     $configurator->setDebugMode(TRUE);
-// }
-// else {
-//     $configurator->setDebugMode(FALSE); 
-// }
-$configurator->setDebugMode(TRUE);
+if (strpos(getenv("DOCUMENT_ROOT"), "C:/wamp64/www") !== false) {
+    $configurator->setDebugMode(TRUE);
+}
+else {
+    $configurator->setDebugMode(FALSE);
+}
 
 $configurator->enableTracy(__DIR__ . '/../log');
 

@@ -104,7 +104,7 @@ final class HraciPresenter extends BasePresenter
         if($row) {
           try {
             $row->update($values);
-            $this->flashMessage('Nový hráč byl úspěšně upraven.', 'success');
+            $this->flashMessage('Hráč byl úspěšně upraven.', 'success');
           } catch (Database\UniqueConstraintViolationException $e) {
             $this->flashMessage('Tento hráč už v databázi existuje.', 'danger');
           } catch (Database\DriverException $e) {

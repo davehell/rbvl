@@ -239,7 +239,7 @@ final class UzivatelePresenter extends BasePresenter
     $form['role']->addRule($form::FILLED, 'Vyberte oprávnění');
 
     $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
-    $form->addSubmit('cancel', 'Storno')->setValidationScope(NULL)->getControlPrototype()->class('btn btn-default');
+    $form->addSubmit('cancel', 'Storno')->setValidationScope([])->getControlPrototype()->class('btn btn-default');
     $form->onSuccess[] = array($this, 'userFormSubmitted');
 
     $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');
@@ -273,7 +273,7 @@ final class UzivatelePresenter extends BasePresenter
         ->getControlPrototype()->class('form-control');
 
     $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');
-    $form->addSubmit('cancel', 'Storno')->setValidationScope(NULL)->getControlPrototype()->class('btn btn-default');
+    $form->addSubmit('cancel', 'Storno')->setValidationScope([])->getControlPrototype()->class('btn btn-default');
     $form->onSuccess[] = array($this, 'changeFormSubmitted');
 
     $form->addProtection('Vypršel ochranný časový limit, odešlete prosím formulář ještě jednou');

@@ -221,7 +221,7 @@ final class DruzstvaPresenter extends BasePresenter
 
     $form->addEmail('email', 'Email:')
       ->setEmptyValue('@')
-      ->addRule($form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 5)
+      ->addRule($form::MAX_LENGTH, 'Maximální délka e-mailu může být %d znaků', 100)
       ->getControlPrototype()->class('form-control');
 
     $form->addSubmit('save', 'Uložit')->getControlPrototype()->class('btn btn-primary');

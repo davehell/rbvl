@@ -17,6 +17,11 @@ final class StrankyPresenter extends BasePresenter
     $this->stranky = $stranky;
   }
 
+  public function renderDefault()
+  {
+    $this->error();
+  }
+
   public function renderEdit($id = 0)
   {
     $this->template->pageTitle = '„RB“VL - Stránky - Úprava příspěvku';

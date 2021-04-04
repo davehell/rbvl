@@ -90,7 +90,6 @@ final class DiskuzePresenter extends BasePresenter
       else { //add
        try {
           $values['vlozeno'] = time();
-          $values['id'] = 70;
           $this->diskuze->insert($values);
           $this->flashMessage('Příspěvek byl úspěšně přidán.', 'success');
           $this->redirect('default');

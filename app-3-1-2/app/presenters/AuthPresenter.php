@@ -51,7 +51,7 @@ final class AuthPresenter extends BasePresenter
     public function actionLogout()
     {
         $this->user->logout();
-        $this->flashMessage('Jste úspěšně odhlášeni.', 'info');
+        $this->flashMessage('Byli jste úspěšně odhlášeni z Vašeho účtu.', 'info');
         $this->redirect('Auth:login');
     }
 

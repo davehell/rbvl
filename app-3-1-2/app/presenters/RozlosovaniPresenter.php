@@ -39,7 +39,7 @@ final class RozlosovaniPresenter extends BasePresenter
       $this->template->terminy = $this->terminy->findAllInRocnik($this->R);
 
       $this->template->rozlosovani = $this->rozlosovani->findAllInTermin($id);
-      if (!$this->template->rozlosovani) {
+      if ($id && !$this->template->rozlosovani) {
         $this->error();
       }
 
