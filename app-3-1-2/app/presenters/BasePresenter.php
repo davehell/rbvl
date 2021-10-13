@@ -10,7 +10,7 @@ use Nette;
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
-    public $R = "r2021";
+    public $R = "r2122";
     public $itemsPerPage = 10;
     public $radius = 3;
 

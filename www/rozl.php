@@ -10,14 +10,14 @@ rozl.txt
 $casy = array('08:30:00', '09:20:00', '10:10:00', '11:00:00', '12:00:00', '12:50:00', '13:40:00', '14:30:00', '15:20:00', '16:10:00');
 
 $radek = "";
-@$f = fopen("rozl2021.txt","r");
+@$f = fopen("rozl2122.txt","r");
 while (!feof ($f)) {
   $radek = fgets($f, 4096);
 
-  if($radek{0} == "#") {
+  if($radek[0] == "#") {
     $skupina = trim(substr($radek, 1));
   }
-  else if($radek{0} == "/") {
+  else if($radek[0] == "/") {
     $datum = trim(substr($radek, 1));
     $cas = 0;
   }
