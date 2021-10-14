@@ -96,6 +96,7 @@ final class VysledkyPresenter extends BasePresenter
     $this->template->pageHeading = 'Editace výsledků';
     $this->template->pageDesc = '';
     $this->template->robots = 'noindex,noarchive';
+    $this->template->scripts = array('zapis-vysledku');
 
     $form = $this->getComponent('vysledkyForm');
     $this->template->form = $form;

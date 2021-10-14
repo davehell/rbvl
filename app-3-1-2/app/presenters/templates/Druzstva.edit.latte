@@ -7,7 +7,10 @@
 </p>
 {$form|noescape}
 
-<h2>soupiska</h2>
+<h2>Soupiska</h2>
+{foreach $flashes as $flash}
+<p class="alert alert-{$flash->type}">{$flash->message}</p>
+{/foreach}
 <p id="infoNovy">Bude vytvořen nový hráč.</p>
 <p id="infoEdit" style="display: none;">Bude editován existující hráč. <button type="button" class="btn btn-default" id="frm-hracForm-reset">Storno</button></p>
 
