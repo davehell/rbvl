@@ -37,7 +37,7 @@ final class Soupisky extends BaseModel
 
     public function deleteAll()
     {
-        // return $this->database->table($this->table)->delete();
-        return $this->database->query('TRUNCATE TABLE ' . $this->table);
+        return $this->database->table($this->table)->delete();
+        //return $this->database->query('TRUNCATE TABLE ' . $this->table);
     }
 }
