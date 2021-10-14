@@ -134,7 +134,13 @@ final class Vysledky extends BaseModel
       $values['mice_dal'] = 0;
       $values['mice_dostal'] = 0;
       $values['body'] = 0;
-      $values['c'] = 0; $values['v'] = 0; $values['vt'] = 0; $values['pt'] = 0; $values['p'] = 0; $values['pk'] = 0;
+      $values['c'] = 0; 
+      $values['v'] = 0; 
+      $values['vt'] = 0; 
+      $values['r'] = 0;
+      $values['pt'] = 0; 
+      $values['p'] = 0; 
+      $values['pk'] = 0;
 
       $zapasy = $vysledky->findDruzstvo($skupina, $druzstvo->id);
 
@@ -149,6 +155,8 @@ final class Vysledky extends BaseModel
           $values['mice_dostal'] += $zapas->mice1_hoste;
           $values['mice_dostal'] += $zapas->mice2_hoste;
           $values['mice_dostal'] += $zapas->mice3_hoste;
+/*
+na dva vítězné sety
           if($zapas->sety_domaci == 2 && $zapas->sety_hoste == 0) { //vyhra 2:0
             $values['v']++;
             $values['body'] += 3;
@@ -165,6 +173,19 @@ final class Vysledky extends BaseModel
             $values['p']++;
             $values['body'] += 0;
           }
+ */
+          if($zapas->sety_domaci == 2 && $zapas->sety_hoste == 0) { //vyhra 2:0
+            $values['v']++;
+            $values['body'] += 2;
+          }
+          else if($zapas->sety_domaci == 1 && $zapas->sety_hoste == 1) { //remiza 1:1
+            $values['r']++;
+            $values['body'] += 1;
+          }
+          else if($zapas->sety_domaci == 0 && $zapas->sety_hoste == 2) { //prohra 0:2
+            $values['p']++;
+            $values['body'] += 0;
+          }
           if($zapas->kontumace_domaci) { //kontumacni prohra
             $values['pk']++;
             $values['body']--;
@@ -175,6 +196,8 @@ final class Vysledky extends BaseModel
           $values['sety_dostal'] += $zapas->sety_domaci;
           $values['mice_dal'] += ($zapas->mice1_hoste + $zapas->mice2_hoste + $zapas->mice3_hoste);
           $values['mice_dostal'] += ($zapas->mice1_domaci + $zapas->mice2_domaci + $zapas->mice3_domaci);
+/*
+na dva vítězné sety
           if($zapas->sety_domaci == 0 && $zapas->sety_hoste == 2) { //vyhra 2:0
             $values['v']++;
             $values['body'] += 3;
@@ -185,6 +208,19 @@ final class Vysledky extends BaseModel
           }
           else if($zapas->sety_domaci == 2 && $zapas->sety_hoste == 1) { //prohra 1:2
             $values['pt']++;
+            $values['body'] += 1;
+          }
+          else if($zapas->sety_domaci == 2 && $zapas->sety_hoste == 0) { //prohra 0:2
+            $values['p']++;
+            $values['body'] += 0;
+          }
+*/
+          if($zapas->sety_domaci == 0 && $zapas->sety_hoste == 2) { //vyhra 2:0
+            $values['v']++;
+            $values['body'] += 2;
+          }
+          else if($zapas->sety_domaci == 1 && $zapas->sety_hoste == 1) { //remiza 1:1
+            $values['r']++;
             $values['body'] += 1;
           }
           else if($zapas->sety_domaci == 2 && $zapas->sety_hoste == 0) { //prohra 0:2

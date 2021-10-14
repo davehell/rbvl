@@ -16,16 +16,18 @@
 {var $poradi = 1}
 <table class="table table-striped table-hover table-condensed">
 <thead>
-<tr><th>pořadí</th><th>družstvo</th><th>c</th><th>v</th><th>vt</th><th>pt</th><th>p</th><th>pk</th><th colspan="2">sety</th><th colspan="2">míče</th><th>body</th></tr>
+{*<tr><th>pořadí</th><th>družstvo</th><th>c</th><th>v</th><th>vt</th><th>pt</th><th>p</th><th>pk</th><th colspan="2">sety</th><th colspan="2">míče</th><th>body</th></tr>*}
+<tr><th>pořadí</th><th>družstvo</th><th>c</th><th>v</th><th>r</th><th>p</th><th>pk</th><th colspan="2">sety</th><th colspan="2">míče</th><th>body</th></tr>
 </thead>
 <tbody>
 {/if}
-<tr><td>{$poradi}.</td><td>{$row->druzstvo_nazev}</td><td>{$row->c}</td><td>{$row->v}</td><td>{$row->vt}</td><td>{$row->pt}</td><td>{$row->p}</td><td>{$row->pk}</td><td>{$row->sety_dal}:{$row->sety_dostal}</td><td>({$row->sety|round3})</td><td>{$row->mice_dal}:{$row->mice_dostal}</td><td>({$row->mice|round3})</td><td>{$row->body}</td></tr>
+{*<tr><td>{$poradi}.</td><td>{$row->druzstvo_nazev}</td><td>{$row->c}</td><td>{$row->v}</td><td>{$row->vt}</td><td>{$row->pt}</td><td>{$row->p}</td><td>{$row->pk}</td><td>{$row->sety_dal}:{$row->sety_dostal}</td><td>({$row->sety|round3})</td><td>{$row->mice_dal}:{$row->mice_dostal}</td><td>({$row->mice|round3})</td><td>{$row->body}</td></tr>*}
+<tr><td>{$poradi}.</td><td>{$row->druzstvo_nazev}</td><td>{$row->c}</td><td>{$row->v}</td><td>{$row->r}</td><td>{$row->p}</td><td>{$row->pk}</td><td>{$row->sety_dal}:{$row->sety_dostal}</td><td>({$row->sety|round3})</td><td>{$row->mice_dal}:{$row->mice_dostal}</td><td>({$row->mice|round3})</td><td>{$row->body}</td></tr>
 {var $skupina = $row->skupina_popis}
 {var $poradi = $poradi + 1 }
 {if $iterator->isLast()}</tbody></table>{/if}
 {/foreach}
-
+{*
 <ul>
 <li><strong>c</strong> - počet zápasů</li>
 <li><strong>v</strong> - výhry 2:0 (3 body)</li>
@@ -34,6 +36,15 @@
 <li><strong>p</strong> - prohry 0:2 (0 bodů)</li>
 <li><strong>pk</strong> - kontumace (-1 bod)</li>
 </ul>
+*}
+<ul>
+<li><strong>c</strong> - počet zápasů</li>
+<li><strong>v</strong> - výhry 2:0 (2 body)</li>
+<li><strong>r</strong> - remízy 1:1 (1 bod)</li>
+<li><strong>p</strong> - prohry 0:2 (0 bodů)</li>
+<li><strong>pk</strong> - kontumace (-1 bod)</li>
+</ul>
+
 </div> <!-- .col-md-12 -->
 </div> <!-- .row -->
 </div> <!-- .panel-box -->
