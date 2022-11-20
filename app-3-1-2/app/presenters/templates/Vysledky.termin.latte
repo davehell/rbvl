@@ -55,7 +55,7 @@
 {if $zapas->kontumace_domaci}X{else}{$zapas->sety_domaci}{/if}:{if $zapas->kontumace_hoste}X{else}{$zapas->sety_hoste}{/if}
 ({$zapas->mice1_domaci}:{$zapas->mice1_hoste}, {$zapas->mice2_domaci}:{$zapas->mice2_hoste}{if $zapas->mice3_domaci != 0 && $zapas->mice3_hoste != 0}, {$zapas->mice3_domaci}:{$zapas->mice3_hoste}{/if})
 {/if}
-{if isset($user)}
+{if $user->isLoggedIn()}
 <div class="pull-right">
 <a class="btn btn-default btn-xs" href="{plink edit, $zapas->id}" title="upravit výsledek"><span class="glyphicon glyphicon-pencil"></span></a>
 </div>

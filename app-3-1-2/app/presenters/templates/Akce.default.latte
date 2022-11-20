@@ -20,7 +20,7 @@ Nejsou uloženy žádné turnaje a akce.
 <div class="col-md-12">
 <h4>
 {$row->nazev}
-{if isset($user)}
+{if $user->isLoggedIn()}
 <div class="btn-group pull-right">
 <a class="btn btn-default" href="{link edit, $row->id}" title="upravit příspěvek"><span class="glyphicon glyphicon-pencil"></span></a>
 <a class="btn btn-default" href="{link delete, $row->id}" title="smazat příspěvek"><span class="glyphicon glyphicon-remove"></span></a>
