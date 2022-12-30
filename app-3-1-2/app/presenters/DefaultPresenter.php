@@ -42,8 +42,8 @@ final class DefaultPresenter extends BasePresenter
         $stranka = $this->stranky->getByNazev("uvod");
         if($stranka) $this->template->text = $stranka->text;
 
-        $idLigaA = 48;
-        $idLigaB = 49;
+        $idLigaA = 50;
+        $idLigaB = 51;
 
         $this->template->tabulkyA = $this->tabulky->getTabulky($idLigaA);
         $this->template->skupinaA = '';
