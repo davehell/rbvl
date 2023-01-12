@@ -45,10 +45,15 @@ Allow from all
 	RewriteEngine On
 	# RewriteBase /
 
+	#varianta s www
+	RewriteCond %{HTTP_HOST} !^www\.
+	RewriteRule ^(.*)$ https://www.%{SERVER_NAME}/$1 [R=301,L]
+	
 	# use HTTPS
-	# RewriteCond %{HTTPS} !on
-	# RewriteRule .? https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
+	RewriteCond %{HTTPS} off
+	RewriteRule (.*) https://%{SERVER_NAME}/$1 [R=301,L]
+	Header set Content-Security-Policy "upgrade-insecure-requests;"
+	
 	# prevents files starting with dot to be viewed by browser
 	RewriteRule /\.|^\.(?!well-known/) - [F]
 
