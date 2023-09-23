@@ -45,16 +45,16 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aktuální ročník <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="{plink Propozice:}" title="Propozice pro přihlášení družstva">Propozice</a></li>
-                {*<li><a href="{plink Pravidla:}" title="Pravidla soutěže">Pravidla</a></li>*}
-{*
+                <li><a href="{plink Pravidla:}" title="Pravidla soutěže">Pravidla</a></li>
+
                 <li><a href="{plink Vysledky:}" title="Výsledky aktuálního ročníku">Výsledky</a></li>
                 <li><a href="{plink Rozlosovani:}" title="Rozlosování aktuálního ročníku">Rozlosování</a></li>
                 <li><a href="{plink Druzstva:}" title="Družstva hrající „Region Beskydy“ volejbalovou ligu">Družstva</a></li>
-*}
+
                 {if $user->isLoggedIn()}
-
+{*
                     <li><a href="{plink Druzstva:}" title="Družstva hrající „Region Beskydy“ volejbalovou ligu">Družstva</a></li>
-
+*}
                     <li><a href="{plink Hraci:}" title="Evidence hráčů">Hráči</a></li>
                 {/if}
               </ul>
