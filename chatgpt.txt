@@ -1,0 +1,25 @@
+1) Vytvoření nových skupin v druhé polovině soutěže.
+Postupně spustit tyto dotazy.
+
+Máš tuto tabulku:
+-- doplnit výsledek sql dotazu nad starými skupinami --
+SELECT d.id, d.nazev 
+FROM tabulky as t 
+LEFT JOIN druzstva as d
+ON t.druzstvo = d.id
+WHERE t.skupina = 72 or t.skupina = 73
+
+
+
+Vyhledej v ní Id pro tyto názvy:
+-- zkopírovat názvy družstev v nové skupině--
+
+
+
+Pro každé nalezené id připrav sql dotaz: INSERT INTO `tabulky` (`skupina`, `druzstvo`, `cislo`, `c`, `v`, `vt`, `r`, `pt`, `p`, `pk`, `sety_dal`, `sety_dostal`, `mice_dal`, `mice_dostal`, `body`) 
+VALUES ('', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+-- doplnit číslo nové skupiny */
+Do sloupce skupina vlož 74.
+Do sloupce druzstvo vlož nalezené id.
+Ve sloupci cislo vkládej postupně čísla od 1 nahoru.
+
